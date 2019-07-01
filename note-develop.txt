@@ -1,0 +1,6 @@
+-- 2019-05-17 --
+1. penambahan fitur insert pada data nasabah nap reksus.
+-- 2019-05-21 --
+1. penambahan fitur form validation pada data nasabah nap reksus - clear.
+
+// TODO : lanjut ke step selanjutnya
