@@ -45,7 +45,7 @@ class Auth extends CI_Controller
                         'time_log' => date('Y-m-d H:i:s'),
                         'activity' => 'Berhasil login'
                     );
-                    $this->db->insert('tbl_log', $dt_log);
+                    // $this->db->insert('tbl_log', $dt_log);
 
                     // direct ke view sesuai dengan role user
                     if ($data['role_id'] < 3) redirect(ucfirst('admin/index'));
@@ -115,7 +115,7 @@ class Auth extends CI_Controller
                         'time_log' => date('Y-m-d H:i:s'),
                         'activity' => 'Berhasil login'
                     );
-                    $this->db->insert('tbl_log', $dt_log);
+                    // $this->db->insert('tbl_log', $dt_log);
 
                     // direct ke view sesuai dengan role user
                     if ($data['role_id'] < 3) redirect(ucfirst('admin/index'));
