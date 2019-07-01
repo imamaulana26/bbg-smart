@@ -1,20 +1,22 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2019 at 04:18 AM
--- Server version: 5.6.16
--- PHP Version: 5.5.11
+-- Generation Time: Jul 01, 2019 at 12:25 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `db_smart_bbg`
@@ -26,8 +28,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `tbl_badan_usaha`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_badan_usaha` (
-  `no_app` int(100) NOT NULL,
+CREATE TABLE `tbl_badan_usaha` (
+  `no_app` varchar(100) NOT NULL,
   `nm_pemohon` varchar(50) NOT NULL,
   `no_akta_pendiri` varchar(50) NOT NULL,
   `tgl_akta_pendiri` date NOT NULL,
@@ -37,9 +39,15 @@ CREATE TABLE IF NOT EXISTS `tbl_badan_usaha` (
   `contact_person` varchar(50) NOT NULL,
   `jabatan` varchar(20) NOT NULL,
   `almt_akta` text NOT NULL,
-  `almt_kantor` text NOT NULL,
-  PRIMARY KEY (`no_app`)
+  `almt_kantor` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_badan_usaha`
+--
+
+INSERT INTO `tbl_badan_usaha` (`no_app`, `nm_pemohon`, `no_akta_pendiri`, `tgl_akta_pendiri`, `no_akta_akhir`, `tgl_akta_akhir`, `npwp_nsbh`, `contact_person`, `jabatan`, `almt_akta`, `almt_kantor`) VALUES
+('1905271321825217', 'PT Bumi Rahayu Gasindo', '3', '2009-04-03', '3', '2009-04-03', 2147483647, 'Ir Sri Budhadjo', 'Direktur Utama', 'Kab Cirebon', 'Jl Sunan Gunung Jati Blok II RT01RW08 Desa Kertasura Kec Kapetakan Kab Cirebon');
 
 -- --------------------------------------------------------
 
@@ -47,12 +55,11 @@ CREATE TABLE IF NOT EXISTS `tbl_badan_usaha` (
 -- Table structure for table `tbl_cabang`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_cabang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_cabang` (
+  `id` int(11) NOT NULL,
   `kd_cabang` varchar(15) NOT NULL,
-  `nm_cabang` varchar(225) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=667 ;
+  `nm_cabang` varchar(225) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_cabang`
@@ -724,7 +731,8 @@ INSERT INTO `tbl_cabang` (`id`, `kd_cabang`, `nm_cabang`) VALUES
 (663, 'ID0010258', 'KC SORONG'),
 (664, 'ID0010344', 'KCP JAYAPURA ABEPURA'),
 (665, 'ID0010395', 'KCP JAYAPURA SENTANI'),
-(666, 'ID0010905', 'KFO POS JAYAPURA');
+(666, 'ID0010905', 'KFO POS JAYAPURA'),
+(669, 'ID0010001a', 'KANTOR PUSAT');
 
 -- --------------------------------------------------------
 
@@ -732,12 +740,12 @@ INSERT INTO `tbl_cabang` (`id`, `kd_cabang`, `nm_cabang`) VALUES
 -- Table structure for table `tbl_info_usaha`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_info_usaha` (
-  `no_app` int(100) NOT NULL,
+CREATE TABLE `tbl_info_usaha` (
+  `no_app` varchar(100) NOT NULL,
   `entitas` varchar(10) NOT NULL,
   `nm_usaha_nsbh` varchar(50) NOT NULL,
   `jns_usaha_nsbh` varchar(50) NOT NULL,
-  `bpjs` int(1) NOT NULL,
+  `bpjs` varchar(1) NOT NULL,
   `no_skdp` varchar(50) NOT NULL,
   `tgl_skdp` date NOT NULL,
   `no_tdp` varchar(50) NOT NULL,
@@ -756,9 +764,15 @@ CREATE TABLE IF NOT EXISTS `tbl_info_usaha` (
   `tgl_akta_terakhir` date NOT NULL,
   `no_pengesahan` varchar(50) NOT NULL,
   `no_penerimaan` varchar(50) NOT NULL,
-  `nm_notaris` varchar(50) NOT NULL,
-  PRIMARY KEY (`no_app`)
+  `nm_notaris` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_info_usaha`
+--
+
+INSERT INTO `tbl_info_usaha` (`no_app`, `entitas`, `nm_usaha_nsbh`, `jns_usaha_nsbh`, `bpjs`, `no_skdp`, `tgl_skdp`, `no_tdp`, `tgl_tdp`, `no_siup`, `tgl_siup`, `almt_usaha`, `almt_kantor`, `lama_usaha`, `lama_jns_usaha`, `sektor_lsmk`, `bid_lsmk`, `akta_pendirian`, `tgl_akta_pendirian`, `akta_terakhir`, `tgl_akta_terakhir`, `no_pengesahan`, `no_penerimaan`, `nm_notaris`) VALUES
+('1905271321825217', 'PT', 'PT Bumi Rahayu Gasindo', 'Perdagangan Gas LPG', 'N', '503/0671.05-DU/DPMPTSP', '2020-08-23', '102214701136', '2021-08-27', '0493/10-23/PK/V/2016', '2021-05-09', 'Jl Sunan Gunung Jati Blok II RT01RW08 Desa Kertasura Kec Kapetakan Kab Cirebon', 'Jl Sunan Gunung Jati Blok II RT01RW08 Desa Kertasura Kec Kapetakan Kab Cirebon', 10, 14, '514100', '514100', '3', '2009-04-03', '3', '2009-04-03', 'AHU-21630.AH.01.01.Tahun 2009', 'AHU-21630.AH.01.01.Tahun 2009', 'Ratna Widiyanti SH');
 
 -- --------------------------------------------------------
 
@@ -766,19 +780,629 @@ CREATE TABLE IF NOT EXISTS `tbl_info_usaha` (
 -- Table structure for table `tbl_jaringan`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_jaringan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_jaringan` (
+  `id` int(11) NOT NULL,
   `id_user` varchar(50) NOT NULL,
-  `id_cabang` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+  `id_cabang` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_jaringan`
 --
 
 INSERT INTO `tbl_jaringan` (`id`, `id_user`, `id_cabang`) VALUES
-(6, '078273241', 'ID0010002a::ID0010002');
+(7, '078273241', 'ID0010003::ID0010005');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_log`
+--
+
+CREATE TABLE `tbl_log` (
+  `id_log` int(11) NOT NULL,
+  `no_app` char(50) DEFAULT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `ip_address` varchar(50) NOT NULL,
+  `time_log` datetime NOT NULL,
+  `activity` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_log`
+--
+
+INSERT INTO `tbl_log` (`id_log`, `no_app`, `user_name`, `ip_address`, `time_log`, `activity`) VALUES
+(17, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 11:27:26', 'Berhasil login'),
+(18, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 11:28:45', 'Berhasil login'),
+(19, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 11:29:27', 'Berhasil login'),
+(20, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 11:32:06', 'Berhasil login'),
+(21, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 13:07:46', 'Berhasil login'),
+(22, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 13:46:58', 'Berhasil logout'),
+(23, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 13:47:16', 'Berhasil login'),
+(24, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:09:18', 'Berhasil logout'),
+(25, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:09:21', 'Berhasil login'),
+(26, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:10:11', 'Berhasil logout'),
+(27, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:10:15', 'Berhasil login'),
+(28, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:10:29', 'Berhasil logout'),
+(29, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:11:18', 'Berhasil login'),
+(30, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:16:07', 'Berhasil logout'),
+(31, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:16:10', 'Berhasil login'),
+(32, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:31:15', 'Berhasil logout'),
+(33, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:31:19', 'Berhasil login'),
+(34, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:32:02', 'Berhasil logout'),
+(35, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:32:05', 'Berhasil login'),
+(36, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:39:22', 'Berhasil logout'),
+(37, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:39:26', 'Berhasil login'),
+(38, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:40:11', 'Berhasil logout'),
+(39, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:40:15', 'Berhasil login'),
+(40, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:42:53', 'Berhasil logout'),
+(41, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 14:42:56', 'Berhasil login'),
+(42, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 15:14:42', 'Berhasil logout'),
+(43, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 15:14:57', 'Berhasil login'),
+(44, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-12 16:59:03', 'Berhasil logout'),
+(45, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-17 07:42:13', 'Berhasil login'),
+(46, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-17 08:12:26', 'Berhasil logout'),
+(47, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-17 08:14:15', 'Berhasil login'),
+(48, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-17 08:19:14', 'Berhasil logout'),
+(49, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-17 08:19:45', 'Berhasil login'),
+(50, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-20 15:07:14', 'Berhasil login'),
+(51, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-20 15:07:50', 'Berhasil logout'),
+(52, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-20 15:07:54', 'Berhasil login'),
+(53, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-20 15:08:05', 'Berhasil logout'),
+(54, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-26 10:34:15', 'Berhasil login'),
+(55, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 09:55:16', 'Berhasil login'),
+(56, NULL, 'Help Desk SMART', '::1', '2019-06-28 11:07:35', 'Berhasil login'),
+(57, NULL, 'Help Desk SMART', '::1', '2019-06-28 11:08:18', 'Berhasil logout'),
+(58, NULL, 'Help Desk SMART', '::1', '2019-06-28 11:08:26', 'Berhasil login'),
+(59, NULL, 'Help Desk SMART', '::1', '2019-06-28 11:29:54', 'Berhasil logout'),
+(60, NULL, 'Imam BBG', '::1', '2019-06-28 11:30:05', 'Berhasil login'),
+(61, NULL, 'Imam BBG', '::1', '2019-06-28 11:31:16', 'Berhasil logout'),
+(62, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 11:31:19', 'Berhasil login'),
+(63, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 11:31:36', 'Berhasil logout'),
+(64, NULL, 'Imam BBG', '::1', '2019-06-28 11:31:45', 'Berhasil login'),
+(65, NULL, 'Imam BBG', '::1', '2019-06-28 11:32:05', 'Berhasil logout'),
+(66, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 11:32:08', 'Berhasil login'),
+(67, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 13:48:17', 'Berhasil login'),
+(68, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 13:48:20', 'Berhasil logout'),
+(69, NULL, 'Imam BBG', '::1', '2019-06-28 13:48:26', 'Berhasil login'),
+(70, NULL, 'Imam BBG', '::1', '2019-06-28 14:17:10', 'Berhasil logout'),
+(71, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 14:17:13', 'Berhasil login'),
+(72, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 14:29:36', 'Berhasil logout'),
+(73, NULL, 'Imam', '::1', '2019-06-28 14:29:42', 'Berhasil login'),
+(74, NULL, 'Imam', '::1', '2019-06-28 14:57:00', 'Berhasil logout'),
+(75, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:04:15', 'Berhasil login'),
+(76, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:04:54', 'Berhasil logout'),
+(77, NULL, 'Imam', '::1', '2019-06-28 15:05:00', 'Berhasil login'),
+(78, NULL, 'Imam', '::1', '2019-06-28 15:05:07', 'Berhasil logout'),
+(79, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:05:10', 'Berhasil login'),
+(80, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:06:41', 'Berhasil logout'),
+(81, NULL, 'Imam', '::1', '2019-06-28 15:06:45', 'Berhasil login'),
+(82, NULL, 'Imam', '::1', '2019-06-28 15:14:39', 'Berhasil logout'),
+(83, NULL, 'Imam', '::1', '2019-06-28 15:14:43', 'Berhasil login'),
+(84, NULL, 'Imam', '::1', '2019-06-28 15:16:12', 'Berhasil logout'),
+(85, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:16:15', 'Berhasil login'),
+(86, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:16:22', 'Berhasil logout'),
+(87, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-28 15:18:08', 'Berhasil login'),
+(88, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-28 15:18:12', 'Berhasil logout'),
+(89, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:18:16', 'Berhasil login'),
+(90, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:18:20', 'Berhasil logout'),
+(91, NULL, 'Imam', '::1', '2019-06-28 15:18:28', 'Berhasil login'),
+(92, NULL, 'Imam', '::1', '2019-06-28 15:18:30', 'Berhasil logout'),
+(93, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-28 15:18:35', 'Berhasil login'),
+(94, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-28 15:18:43', 'Berhasil logout'),
+(95, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-28 15:18:51', 'Berhasil login'),
+(96, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-28 15:18:55', 'Berhasil logout'),
+(97, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:18:58', 'Berhasil login'),
+(98, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:20:19', 'Berhasil logout'),
+(99, NULL, 'Imam', '::1', '2019-06-28 15:20:24', 'Berhasil login'),
+(100, NULL, 'Imam', '::1', '2019-06-28 15:24:46', 'Berhasil logout'),
+(101, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:24:49', 'Berhasil login'),
+(102, NULL, 'Imam Maulana Ibrahim', '::1', '2019-06-28 15:57:34', 'Berhasil logout'),
+(103, NULL, 'Imam', '::1', '2019-06-28 15:57:46', 'Berhasil login'),
+(104, NULL, 'Imam', '::1', '2019-06-28 16:07:28', 'Berhasil logout'),
+(105, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-28 16:11:10', 'Berhasil login'),
+(106, NULL, 'FATMA SRI SANTRINI', '::1', '2019-06-28 16:11:13', 'Berhasil logout'),
+(107, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 08:33:18', 'Berhasil login'),
+(108, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 10:25:25', 'Berhasil logout'),
+(109, NULL, 'Imam', '::1', '2019-07-01 10:25:39', 'Berhasil login'),
+(110, NULL, 'Imam', '::1', '2019-07-01 11:26:33', 'Berhasil login'),
+(111, NULL, 'Imam', '::1', '2019-07-01 11:30:44', 'Berhasil logout'),
+(112, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 11:30:46', 'Berhasil login'),
+(113, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 14:25:58', 'Berhasil login'),
+(114, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 15:32:02', 'Berhasil login'),
+(115, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 16:19:32', 'Berhasil logout'),
+(116, NULL, 'Imam', '::1', '2019-07-01 16:19:39', 'Berhasil login'),
+(117, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 16:57:09', 'Berhasil login'),
+(118, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 16:57:11', 'Berhasil logout'),
+(119, NULL, 'Imam', '::1', '2019-07-01 16:57:16', 'Berhasil login'),
+(120, NULL, 'Imam', '::1', '2019-07-01 16:57:18', 'Berhasil logout'),
+(121, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 16:57:22', 'Berhasil login'),
+(122, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 17:24:30', 'Berhasil logout'),
+(123, NULL, 'Imam Maulana Ibrahim', '::1', '2019-07-01 17:24:56', 'Berhasil login');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_lsmk`
+--
+
+CREATE TABLE `tbl_lsmk` (
+  `id_kode` char(25) NOT NULL,
+  `sekon_lsmk` varchar(255) NOT NULL,
+  `format_lsmk` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_lsmk`
+--
+
+INSERT INTO `tbl_lsmk` (`id_kode`, `sekon_lsmk`, `format_lsmk`) VALUES
+('000001', 'Kegiatan yang Belum Jelas Batasannya Perorangan (Produktif)', 'Kegiatan yang Belum Jelas Batasannya.'),
+('000002', 'Kegiatan yang Belum Jelas Batasannya Badan Usaha (Produktif)', 'Kegiatan yang Belum Jelas Batasannya.'),
+('001110', 'Rumah Tangga untuk Pemilikan Rumah Tinggal s.d. Tipe 21 (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('001120', 'Rumah Tangga untuk Pemilikan Rumah Tinggal Tipe 22 s.d. 70 (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('001130', 'Rumah Tangga untuk Pemilikan Rumah Tinggal Tipe Diatas 70 (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('001210', 'Rumah Tangga untuk Pemilikan Flat atau Apartemen s.d. Tipe 21 (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('001220', 'Rumah Tangga untuk Pemilikan Flat atau Apartemen Tipe 22 s.d. 70 (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('001230', 'Rumah Tangga untuk Pemilikan Flat atau Apartemen Tipe Diatas 70 (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('001300', 'Rumah Tangga untuk Pemilikan Rumah Toko (Ruko) atau Rumah Kantor (Rukan) (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('002100', 'Rumah Tangga untuk Pemilikan Mobil Roda Empat (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('002200', 'Rumah Tangga untuk Pemilikan Sepeda Bermotor (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('002300', 'Rumah Tangga untuk Pemilikan Truk dan Kendaraan Bermotor Roda Enam atau Lebih (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('002900', 'Rumah Tangga untuk Pemilikan Kendaraan Bermotor Lainnya (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('003100', 'Rumah Tangga untuk Pemilikan Furnitur dan Peralatan Rumah Tangga (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('003200', 'Rumah Tangga untuk Pemilikan Televisi, Radio, dan Alat Elektronik (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('003300', 'Rumah Tangga untuk Pemilikan Komputer dan Alat Komunikasi (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('003900', 'Rumah Tangga untuk Pemilikan Peralatan Lainnya (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('004100', 'Rumah Tangga untuk Keperluan Multiguna (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('004900', 'Rumah Tangga untuk Keperluan yang Tidak Diklasifikasikan di Tempat Lain (Konsumtif)', 'Bukan Lapangan Usaha Lainnya'),
+('009000', 'Bukan Lapangan Usaha Lainnya (Konsumtif)', '#N/A'),
+('011110', 'Pertanian Padi (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011121', 'Pertanian Palawija Jagung (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011122', 'Pertanian Palawija Ketela pohon (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011123', 'Pertanian Palawija Ubi jalar (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011124', 'Pertanian Palawija Umbiumbian lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011125', 'Pertanian Palawija Kacang tanah (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011126', 'Pertanian Palawija Kedele (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011129', 'Pertanian Palawija Kacangkacangan lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011130', 'Perkebunan Tebu dan Tanaman Pemanis Lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011140', 'Perkebunan Tembakau (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011150', 'Perkebunan Karet dan Penghasil Getah Lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011160', 'Perkebunan Tanaman Bahan Baku Tekstil dan Sejenisnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011170', 'Perkebunan Tanaman Obat / Bahan Farmasi (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011180', 'Perkebunan Tanaman Minyak Atsiri (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011190', 'Perkebunan Tanaman Lainnya yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011211', 'Pertanian Hortikultura Sayuran yang dipanen Sekali Bawang Merah (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011219', 'Pertanian Hortikultura Sayuran yang dipanen Sekali Lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011220', 'Pertanian Hortikultura Sayuran yang dipanen Lebih dari Sekali (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011231', 'Pertanian Hortikultura Bunga-bungaan Anggrek (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011239', 'Pertanian Hortikultura Bunga-bungaan Lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011240', 'Pertanian Tanaman Hias Lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011250', 'Pembibitan dan Pembenihan Hortikultura Sayuran dan Bunga-bungaan (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011311', 'Pertanian Buah-buahan Musiman Jeruk (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011319', 'Pertanian Buah-buahan Musiman Lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011321', 'Pertanian Buah-buahan Sepanjang Tahun Pisang (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011329', 'Pertanian Buah-buahan Sepanjang Tahun Lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011330', 'Perkebunan Kelapa (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011340', 'Perkebunan Kelapa Sawit (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011351', 'Perkebunan Tanaman Kopi (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011352', 'Perkebunan Tanaman Teh (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011353', 'Perkebunan Tanaman Coklat (Kakao) (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011360', 'Perkebunan Jambu Mete (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011370', 'Perkebunan Lada (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011380', 'Perkebunan Cengkeh (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011391', 'Perkebunan Tanaman Rempah Panili (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011392', 'Perkebunan Tanaman Rempah Pala (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('011399', 'Perkebunan Tanaman Rempah yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('012110', 'Pembibitan dan Budidaya Sapi Potong (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('012191', 'Pembibitan dan Budidaya Domba dan Kambing Potong (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('012192', 'Pembibitan dan Budidaya Ternak Perah (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('012210', 'Pembibitan dan Budidaya Babi (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('012291', 'Pembibitan dan Budidaya Unggas (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('013000', 'Kombinasi Pertanian Atau Perkebunan Dengan Peternakan (Mixed Farming) (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('014000', 'Jasa Pertanian, Perkebunan dan Peternakan (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('015000', 'Perburuan Penangkapan dan Penangkaran Satwa Liar (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('020100', 'Pengusahaan Hutan Tanaman (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('020200', 'Pengusahaan Hutan Alam (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('020300', 'Pengusahaan Hasil Hutan Selain Kayu (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('020400', 'Jasa Kehutanan (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('020500', 'Usaha Kehutanan Lainnya (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('050111', 'Penangkapan Ikan Tuna (Produktif)', 'Perikanan'),
+('050119', 'Penangkapan Ikan Lainnya (Produktif)', 'Perikanan'),
+('050121', 'Penangkapan Udang Laut (Produktif)', 'Perikanan'),
+('050122', 'Penangkapan Crustacea Lainnya di Laut (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('050190', 'Perikanan Lainnya (Produktif)', 'Perikanan'),
+('050211', 'Budidaya Biota Laut Udang (Produktif)', 'Perikanan'),
+('050212', 'Budidaya Biota Laut Tuna (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('050213', 'Budidaya Biota Laut Rumput Laut (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('050219', 'Budidaya Biota Laut Lainnya (Produktif)', 'Perikanan'),
+('050220', 'Pembenihan Biota Laut (Produktif)', 'Perikanan'),
+('050310', 'Penangkapan Ikan di Perairan Umum (Produktif)', 'Perikanan'),
+('050320', 'Penangkapan Crustacea, Mollusca, dan Biota Lainnya di Perairan Umum (Produktif)', 'Perikanan'),
+('050411', 'Budidaya Biota Air Tawar Udang (Produktif)', 'Perikanan'),
+('050419', 'Budidaya Biota Air Tawar Lainnya (Produktif)', 'Perikanan'),
+('050421', 'Budidaya Biota Air Payau Udang (Produktif)', 'Pertanian, Perburuan, dan Kehutanan'),
+('050429', 'Budidaya Biota Air Payau Lainnya (Produktif)', 'Perikanan'),
+('050490', 'Pembenihan Biota Air Tawar dan Air Payau (Produktif)', 'Perikanan'),
+('050510', 'Jasa Sarana Produksi Perikanan Laut (Produktif)', 'Perikanan'),
+('050580', 'Jasa Sarana Produksi Perikanan Darat (Produktif)', 'Perikanan'),
+('050590', 'Jasa Perikanan Lainnya (Produktif)', 'Perikanan'),
+('101000', 'Pertambangan Batubara, Penggalian Gambut, dan Gasifikasi Batubara (Produktif)', 'Pertambangan dan Penggalian'),
+('102000', 'Pembuatan Briket Batubara (Produktif)', 'Pertambangan dan Penggalian'),
+('111010', 'Pertambangan Minyak dan Gas Bumi (Produktif)', 'Pertambangan dan Penggalian'),
+('111020', 'Pengusahaan Tenaga Panas Bumi (Produktif)', 'Pertambangan dan Penggalian'),
+('112000', 'Jasa Pertambangan Minyak dan Gas Bumi (Produktif)', 'Pertambangan dan Penggalian'),
+('120000', 'Pertambangan Bijih Uranium dan Thorium (Produktif)', 'Pertambangan dan Penggalian'),
+('131000', 'Pertambangan Pasir Besi dan Bijih Besi (Produktif)', 'Pertambangan dan Penggalian'),
+('132010', 'Pertambangan Bijih Timah (Produktif)', 'Pertambangan dan Penggalian'),
+('132020', 'Pertambangan Bijih Bauksit (Produktif)', 'Pertambangan dan Penggalian'),
+('132030', 'Pertambangan Bijih Tembaga (Produktif)', 'Pertambangan dan Penggalian'),
+('132040', 'Pertambangan Bijih Nikel (Produktif)', 'Pertambangan dan Penggalian'),
+('132061', 'Pertambangan Emas (Produktif)', 'Pertambangan dan Penggalian'),
+('132062', 'Pertambangan Perak (Produktif)', 'Pertambangan dan Penggalian'),
+('132090', 'Bahan Galian Lainnya yang Tidak Mengandung Bijih Besi (Produktif)', 'Pertambangan dan Penggalian'),
+('141000', 'Penggalian Batubatuan, Tanah Liat dan Pasir (Produktif)', 'Pertambangan dan Penggalian'),
+('142100', 'Pertambangan Mineral, Bahan Kimia dan Bahan Pupuk (Produktif)', 'Pertambangan dan Penggalian'),
+('142200', 'Ekstraksi Garam (Produktif)', 'Pertambangan dan Penggalian'),
+('142900', 'Pertambangan dan Penggalian Lainnya (Produktif)', 'Pertambangan dan Penggalian'),
+('151110', 'Industri Pemotongan Hewan (Produktif)', 'Industri Pengolahan'),
+('151120', 'Industri Pengolahan dan Pengawetan Daging (Produktif)', 'Industri Pengolahan'),
+('151200', 'Industri Pengolahan dan Pengawetan Ikan dan Biota Perairan Lainnya (Produktif)', 'Industri Pengolahan'),
+('151300', 'Industri Pengolahan, Pengawetan Buah-buahan dan Sayuran (Produktif)', 'Industri Pengolahan'),
+('151410', 'Industri Minyak Mentah (Minyak Makan) dari Nabati dan Hewani (Produktif)', 'Industri Pengolahan'),
+('151430', 'lndustri Minyak Goreng dari Kelapa (Produktif)', 'Industri Pengolahan'),
+('151440', 'Industri Minyak Goreng dari Kelapa Sawit Mentah (Produktif)', 'Industri Pengolahan'),
+('151450', 'Industri Minyak Lainnya dari Nabati dan Hewani (Produktif)', 'Industri Pengolahan'),
+('152000', 'Industri Susu dan Makanan dari Susu (Produktif)', 'Industri Pengolahan'),
+('153110', 'Industri Penggilingan Padi dan Penyosohan Beras (Produktif)', 'Industri Pengolahan'),
+('153180', 'lndustri Kopra (Produktif)', 'Industri Pengolahan'),
+('153190', 'Industri Penggilingan Lainnya (Produktif)', 'Industri Pengolahan'),
+('153200', 'Industri Tepung dan Pati (Produktif)', 'Industri Pengolahan'),
+('153300', 'Industri Pakan Ternak (Produktif)', 'Industri Pengolahan'),
+('154100', 'Industri Roti dan Sejenisnya (Produktif)', 'Industri Pengolahan'),
+('154200', 'Industri Gula dan Pengolahan Gula (Produktif)', 'Industri Pengolahan'),
+('154300', 'Industri Coklat dan Kernbang Gula (Produktif)', 'Industri Pengolahan'),
+('154400', 'Industri Makaroni, Mie, Spagheti, Bihun, So`un dan Sejenisnya (Produktif)', 'Industri Pengolahan'),
+('154911', 'Industri Pengolahan Teh (Produktif)', 'Industri Pengolahan'),
+('154912', 'Industri Pengolahan Kopi (Produktif)', 'Industri Pengolahan'),
+('154930', 'lndustri Kecap (Produktif)', 'Industri Pengolahan'),
+('154940', 'lndustri Tempe dan Tahu (Produktif)', 'Industri Pengolahan'),
+('154990', 'lndustri Makanan yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Industri Pengolahan'),
+('155000', 'Industri Minuman (Produktif)', 'Industri Pengolahan'),
+('160010', 'lndustri Pengeringan dan Pengolahan Tembakau (Produktif)', 'Industri Pengolahan'),
+('160050', 'Industri Rokok (Produktif)', 'Industri Pengolahan'),
+('160090', 'Industri Bumbu Rokok Serta Kelengkapan Rokok Lainnya (Produktif)', 'Industri Pengolahan'),
+('171000', 'Industri Pemintalan, Pertenunan, Pengolahan Akhir Tekstil (Produktif)', 'Industri Pengolahan'),
+('172000', 'Industri Barang Jadi Tekstil dan Permadani (Produktif)', 'Industri Pengolahan'),
+('173000', 'Industri Perajutan Industri Perajutan (Produktif)', 'Industri Pengolahan'),
+('174000', 'Industri Kapuk (Produktif)', 'Industri Pengolahan'),
+('181000', 'Industri Pakaian Jadi dan perlengkapannya, Kecuali Pakaian Jadi Berbulu (Produktif)', 'Industri Pengolahan'),
+('182000', 'Industri Pakaian Jadi Barang Jadi dari Kulit Berbulu dan Pencelupan Bulu (Produktif)', 'Industri Pengolahan'),
+('191000', 'Industri Kulit dan Barang dari Kulit (Termasuk Kulit Buatan) (Produktif)', 'Industri Pengolahan'),
+('192000', 'Industri Alas Kaki (Produktif)', 'Industri Pengolahan'),
+('201000', 'Industri Penggergajian dan Pengawetan Kayu, Rotan, Bambu, dan Sejenisnya (Produktif)', 'Industri Pengolahan'),
+('202100', 'Industri Kayu Lapis, Veneer, dan Sejenisnya (Produktif)', 'Industri Pengolahan'),
+('202900', 'Industri Anyamanyaman, Kerajinan, Ukiran dari Kayu, dan Industri Barang Lain dari Kayu (Produktif)', 'Industri Pengolahan'),
+('210100', 'Industri Bubur Kertas (Pulp), Kertas dan Karton / Paper Board (Produktif)', 'Industri Pengolahan'),
+('210200', 'Industri Kemasan dan Kotak dari Kertas dan Karton (Produktif)', 'Industri Pengolahan'),
+('210900', 'Industri Barang dari Kertas dan Kartan yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Industri Pengolahan'),
+('221000', 'Industri Penerbitan (Produktif)', 'Industri Pengolahan'),
+('222000', 'Industri Percetakan & Kegiatan yang Berkaitan dgn Pencetakan Trmasuk Reproduksi / Cetak Ulang(Produktif)', 'Industri Pengolahan'),
+('223000', 'Reproduksi Media Rekaman, Film, dan Video (Produktif)', 'Industri Pengolahan'),
+('231000', 'Industri Barang-barang dari Batubara (Produktif)', 'Industri Pengolahan'),
+('232000', 'Industri Pengilangan/Industri Barang2 Hasil Pengilangan Minyak Bumi, dan Pengolahan Gas Bumi(Produktif)', 'Industri Pengolahan'),
+('233000', 'Pengolahan Bahan Bakar Nuklir (Nuclear Fuel) (Produktif)', '#N/A'),
+('241100', 'Industri Kimia Dasar, Kecuali Pupuk (Produktif)', 'Industri Pengolahan'),
+('241200', 'Industri Pupuk (Produktif)', 'Industri Pengolahan'),
+('241300', 'Industri Plastik dan Karet Buatan (Produktif)', 'Industri Pengolahan'),
+('242100', 'Industri Bahan Baku Pemberantas Hama dan Pemberantas Hama Termasuk Zat Pengatur Tumbuh (Produktif)', 'Industri Pengolahan'),
+('242200', 'Industri Cat, Pernis dan Lak (Produktif)', 'Industri Pengolahan'),
+('242300', 'Industri Farmasi dan Jamu (Produktif)', 'Industri Pengolahan'),
+('242400', 'Industri Sabun dan Bahan Pembersih Keperluan Rumah Tangga, Kosmetik dan Sejenisnya (Produktif)', 'Industri Pengolahan'),
+('242940', 'Industri Minyak Atsiri (Produktif)', 'Industri Pengolahan'),
+('242990', 'Industri Bahan Kimia dan Barang Kimia Lainnya (Produktif)', 'Industri Pengolahan'),
+('243000', 'Industri Serat Buatan (Produktif)', 'Industri Pengolahan'),
+('251210', 'Industri Pengasapan Karet (Produktif)', 'Industri Pengolahan'),
+('251220', 'Industri Remilling Karet (Produktif)', 'Industri Pengolahan'),
+('251230', 'Industri Karet Remah (Crumb Rubber) (Produktif)', 'Industri Pengolahan'),
+('251900', 'Industri Barang-barang lain dari Karet (Produktif)', 'Industri Pengolahan'),
+('252000', 'Industri Barang dari Plastik (Produktif)', 'Industri Pengolahan'),
+('261000', 'Industri Gelas dan Barang dari Gelas (Produktif)', 'Industri Pengolahan'),
+('262000', 'Industri Barang-barang dari Porselin (Produktif)', 'Industri Pengolahan'),
+('263000', 'Industri Pengolahan Tanah Liat / Keramik (Produktif)', 'Industri Pengolahan'),
+('264000', 'Industri Semen, Kapur dan Gips, Serta Barang-barang dari Semen, dan Kapur (Produktif)', 'Industri Pengolahan'),
+('265000', 'Industri Barang-barang dari Batu (Produktif)', 'Industri Pengolahan'),
+('266000', 'Industri Barang-barang dari Asbes (Produktif)', 'Industri Pengolahan'),
+('269000', 'Industri Barang-barang Galian Bukan Logam Lainnya (Produktif)', 'Industri Pengolahan'),
+('271000', 'Industri Logam Dasar Besi dan Baja (Produktif)', 'Industri Pengolahan'),
+('272000', 'Industri Logam Dasar Bukan Besi (Produktif)', 'Industri Pengolahan'),
+('273100', 'Industri Pengecoran Besi dan Baja (Produktif)', 'Industri Pengolahan'),
+('273200', 'Industri pengecoran Logam Bukan Besi dan Baja (Produktif)', 'Industri Pengolahan'),
+('281000', 'Industri Barang-barang Logam Siap Pasang Untuk Bangunan, Pembuatan Tangki, dan Generator Uap (Produktif)', 'Industri Pengolahan'),
+('289300', 'Industri Alatalat Pertanian, Pertukangan, Pemotong, dan Peralatan lainnya dari Logam (Produktif)', 'Industri Pengolahan'),
+('289900', 'Industri Barang Logam yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Industri Pengolahan'),
+('291000', 'Industri Mesin-mesin Umum (Produktif)', 'Industri Pengolahan'),
+('292100', 'Industri Mesin Pertanian dan Kehutanan, Serta Jasa Penunjang Pemeliharaan dan Perbaikannya (Produktif)', 'Industri Pengolahan'),
+('292400', 'Industri Mesin-mesin Untuk Pertambangan, Penggalian dan Konstruksi (Produktif)', 'Industri Pengolahan'),
+('292500', 'lndustri Mesin Untuk Pengolahan Makanan, Minuman dan Tembakau (Produktif)', 'Industri Pengolahan'),
+('292600', 'Industri Mesin-mesin Tekstil, Produk Tekstil, dan Barang-barang dari Kulit (Produktif)', 'Industri Pengolahan'),
+('292900', 'Industri Mesin-mesin Khusus Lainnya (Produktif)', 'Industri Pengolahan'),
+('293000', 'Industri Peralatan Rumah Tangga yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Industri Pengolahan'),
+('300000', 'Industri Mesin dan Peralatan Kantor, Akuntansi, dan Pengolahan Data (Produktif)', 'Industri Pengolahan'),
+('311000', 'Industri Motor Listrik, Generator, dan Transformator (Produktif)', 'Industri Pengolahan'),
+('312000', 'Industri Peralatan Pengontrol dan Pendistribusian Listrik (Produktif)', 'Industri Pengolahan'),
+('313000', 'Industri Kabel Listrik dan Telepon (Produktif)', 'Industri Pengolahan'),
+('314000', 'Industri Akumulator Listrik dan Batu Baterai (Produktif)', 'Industri Pengolahan'),
+('315000', 'Industri Bola Lampu Pijar dan Lampu Penerangan (Produktif)', 'Industri Pengolahan'),
+('319000', 'Industri Peralatan Listrik yang Tidak Diklasifikasikan di Tempat lain (Produktif)', 'Industri Pengolahan'),
+('321000', 'Industri Tabung dan Katup Elektronik Serta Komponen Elektronik lainnya (Produktif)', 'Industri Pengolahan'),
+('322000', 'Industri Alat Transmisi Komunikasi (Produktif)', 'Industri Pengolahan'),
+('323000', 'Industri Radio, Televisi, Alatalat Rekaman Suara dan Gambar, dan Sejenisnya (Produktif)', 'Industri Pengolahan'),
+('331000', 'Industri Pralatan Kedokteran & Pralatan utk Mngukur,Priksa,Uji,& Bagian Lain,Kcuali Alat Optik(Produktif)', 'Industri Pengolahan'),
+('332000', 'Industri Instrumen Optik dan Peralatan Fotografi (Produktif)', 'Industri Pengolahan'),
+('333000', 'Industri Jam, Lonceng, dan Sejenisnya (Produktif)', 'Industri Pengolahan'),
+('341000', 'Industri Kendaraan Bermotor Roda Empat Atau Lebih (Produktif)', 'Industri Pengolahan'),
+('342000', 'Industri Karoseri Kendaraan Bermotor Roda Empat Atau Lebih (Produktif)', 'Industri Pengolahan'),
+('343000', 'Industri Perlengkapan dan Komponen Kendaraan Bermotor Roda Empat Atau Lebih (Produktif)', 'Industri Pengolahan'),
+('351000', 'Industri Pembuatan dan Perbaikan Kapal dan Perahu (Produktif)', 'Industri Pengolahan'),
+('352000', 'Industri Kereta Api, Bagianbagian dan Perlengkapannya, Serta Perbaikan Kereta Api (Produktif)', 'Industri Pengolahan'),
+('353000', 'Industri Pesawat Terbang dan Perlengkapannya Serta Perbaikan Pesawat Terbang (Produktif)', 'Industri Pengolahan'),
+('359100', 'Industri Kendaraan Bermotor Roda Dua dan Tiga Serta Komponen dan Perlengkapannya (Produktif)', 'Industri Pengolahan'),
+('359900', 'Industri Alat Angkut yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Industri Pengolahan'),
+('361000', 'Industri Furnitur (Produktif)', 'Industri Pengolahan'),
+('369000', 'Industri Pengolahan Lainnya (Produktif)', 'Industri Pengolahan'),
+('371000', 'Daur Ulang Barang-barang Logam (Produktif)', 'Industri Pengolahan'),
+('372000', 'Daur Ulang Barang-barang Bukan logam (Produktif)', 'Industri Pengolahan'),
+('401001', 'Ketenagalistrikan Pedesaan (Produktif)', 'Listrik, Gas, dan Air'),
+('401002', 'Ketenagalistrikan Lainnya (Produktif)', 'Listrik, Gas, dan Air'),
+('402000', 'Gas (Produktif)', 'Listrik, Gas, dan Air'),
+('403000', 'Uap dan Air Panas (Produktif)', 'Listrik, Gas, dan Air'),
+('410000', 'Pengadaan dan Penyaluran Air Bersih (Produktif)', 'Listrik, Gas, dan Air'),
+('451001', 'Penyiapan Tanah Pemukiman Transmigrasi (PTPT) (Produktif)', 'Konstruksi'),
+('451002', 'Pencetakan Lahan Sawah (Produktif)', 'Konstruksi'),
+('451009', 'Penyiapan Lahan Lainnya (Produktif)', 'Konstruksi'),
+('452111', 'Konstruksi Perumahan Sederhana  Bank Tabungan Negara (Produktif)', 'Konstruksi'),
+('452112', 'Konstruksi Perumahan Sederhana  Perumnas (Produktif)', 'Konstruksi'),
+('452113', 'Konstruksi Perumahan Sederhana  Lainnya Tipe s.d. 21 (Produktif)', 'Konstruksi'),
+('452114', 'Konstruksi Perumahan Sederhana  Lainnya Tipe 22 s.d. 70 (Produktif)', 'Konstruksi'),
+('452115', 'Konstruksi Perumahan Menengah, Besar, Mewah (Tipe Diatas 70) (Produktif)', 'Konstruksi'),
+('452120', 'Konstruksi Gedung Perkantoran (Produktif)', 'Konstruksi'),
+('452130', 'Konstruksi Gedung Industri (Produktif)', 'Konstruksi'),
+('452141', 'Konstruksi Gedung Perbelanjaan Pasar Inpres (Produktif)', 'Konstruksi'),
+('452149', 'Konstruksi Gedung Perbelanjaan Lainnya (Produktif)', 'Konstruksi'),
+('452190', 'Konstruksi Gedung Lainnya (Produktif)', 'Konstruksi'),
+('452211', 'Bangunan Jalan Raya (Produktif)', 'Konstruksi'),
+('452212', 'Bangunan Jalan Tol (Produktif)', 'Konstruksi'),
+('452213', 'Bangunan Jalan Jembatan dan Landasan (Produktif)', 'Konstruksi'),
+('452220', 'Bangunan Jalan dan Jembatan Kereta Api (Produktif)', 'Konstruksi'),
+('452240', 'Bangunan Pengairan (Irigasi) (Produktif)', 'Konstruksi'),
+('452270', 'Bangunan Dermaga (Pelabuhan) (Produktif)', 'Konstruksi'),
+('452290', 'Bangunan Sipil Lainnya (Produktif)', 'Konstruksi'),
+('452301', 'Konstruksi Bangunan Listrik Pedesaan (Produktif)', 'Konstruksi'),
+('452309', 'Konstruksi Bangunan Elektrikal dan Komunikasi Lainnya (Produktif)', 'Konstruksi'),
+('452400', 'Konstruksi Khusus (Produktif)', 'Konstruksi'),
+('453100', 'Instalasi Gedung (Produktif)', 'Konstruksi'),
+('453200', 'Instalasi Bangunan Sipil (Produktif)', 'Konstruksi'),
+('454000', 'Penyelesaian Konstruksi Gedung (Produktif)', 'Konstruksi'),
+('455000', 'Penghancur Bangunan Dengan Operatornya (Produktif)', 'Konstruksi'),
+('501000', 'Penjualan Mobil (Produktif)', 'Perdagangan Besar dan Eceran'),
+('502000', 'Penjualan Suku Cadang dan Aksesoris Mobil (Produktif)', 'Perdagangan Besar dan Eceran'),
+('503001', 'Penjualan Sepeda Motor (Produktif)', 'Perdagangan Besar dan Eceran'),
+('503002', 'Penjualan Suku Cadang dan Aksesoris Sepeda Motor (Produktif)', 'Perdagangan Besar dan Eceran'),
+('504000', 'Perdagangan Eceran Bahan Bakar Kendaraan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('511000', 'Perdagangan Besar Berdasarkan Balas Jasa (Fee) Atau Kontrak (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512111', 'Perdagangan Jagung (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512112', 'Perdagangan Tembakau (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512113', 'Perdagangan Karet (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512114', 'Perdagangan Cengkeh (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512115', 'Perdagangan Lada (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512116', 'Perdagangan Kelapa dan Kelapa Sawit (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512117', 'Perdagangan Kapas (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512119', 'Perdagangan Besar Dalam Negeri Hasil Pertanian Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512120', 'Perdagangan Besar Dalam Negeri Binatang Hidup (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512130', 'Perdagangan Besar Dalam Negeri Hasil Perikanan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512141', 'Perdagangan Kayu (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512149', 'Perdagangan Besar Dalam Negeri Hasil Kehutanan dan Perburuan Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512201', 'Perdagangan Dalam Negeri Beras (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512202', 'Perdagangan Dalam Negeri Gula (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512203', 'Perdagangan Dalam Negeri Kopi (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512204', 'Perdagangan Dalam Negeri Teh (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512205', 'Perdagangan Dalam Negeri Garam (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512206', 'Perdagangan Dalam Negeri Minyak Kelapa Sawit (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512207', 'Perdagangan Dalam Negeri Kopra (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512208', 'Perdagangan Dalam Negeri Rokok (Produktif)', 'Perdagangan Besar dan Eceran'),
+('512209', 'Perdagangan Dalam Negeri Makanan, Minuman dan Tembakau Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('513100', 'Perdagangan Besar Tekstil, Pakaian Jadi, dan Kulit (Produktif)', 'Perdagangan Besar dan Eceran'),
+('513900', 'Perdagangan Besar Barang-barang Keperluan Rumah Tangga lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('514100', 'Perdagangan Besar Bahan Bakar Gas, Cair, dan Padat, Serta Produk Sejenis (Produktif)', 'Perdagangan Besar dan Eceran'),
+('514200', 'Perdagangan Besar Logam dan Bijih Logam (Produktif)', 'Perdagangan Besar dan Eceran'),
+('514301', 'Perdagangan Dalam Negeri Semen (Produktif)', 'Perdagangan Besar dan Eceran'),
+('514302', 'Perdagangan Dalam Negeri Besi Beton (Produktif)', 'Perdagangan Besar dan Eceran'),
+('514309', 'Perdagangan Dalam Negeri Bahanbahan Konstruksi Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('514901', 'Perdagangan Dalam Negeri Pupuk dan Obat Hama (Produktif)', 'Perdagangan Besar dan Eceran'),
+('514909', 'Perdagangan Dalam Negeri Barang Antara Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('515000', 'Perdagangan Besar Mesin-mesin, Suku Cadang dan Perlengkapannya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('519001', 'Perdagangan Dalam Negeri Kertas Koran (Produktif)', 'Perdagangan Besar dan Eceran'),
+('519009', 'Perdagangan Dalam Negeri yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Perdagangan Besar dan Eceran'),
+('521100', 'Perdagangan Eceran Berbagai Macam Barang yang Didominasi Makanan, Minuman dan Tembakau (Produktif)', 'Perdagangan Besar dan Eceran'),
+('521900', 'Perdagangan Eceran Brbagai Macam Brng yg didominasi oleh Barang bkn Makanan, Minuman & Tmbakau(Produktif)', 'Perdagangan Besar dan Eceran'),
+('522100', 'Perdagangan Eceran Komoditi Makanan dari Hasil Pertanian (Produktif)', 'Perdagangan Besar dan Eceran'),
+('522200', 'Perdagangan Eceran Komoditi Makanan, Minuman, Atau Tembakau Hasil Industri Pengolahan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('523100', 'Perdagangan Eceran Bahan Kimia, Farmasi, Kosmetik, dan Alat Laboratorium (Produktif)', 'Perdagangan Besar dan Eceran'),
+('523200', 'Perdagangan Eceran Tekstil, Pakaian Jadi, Alas Kaki, dan Barang Keperluan Pribadi (Produktif)', 'Perdagangan Besar dan Eceran'),
+('523300', 'Perdagangan Eceran Perlengkapan Rumah Tangga dan Perlengkapan Dapur (Produktif)', 'Perdagangan Besar dan Eceran'),
+('523400', 'Perdagangan Eceran Bahan Konstruksi (Produktif)', 'Perdagangan Besar dan Eceran'),
+('523500', 'Perdagangan Eceran Bahan Bakar dan Minyak Pelumas (Produktif)', 'Perdagangan Besar dan Eceran'),
+('523600', 'Perdagangan Eceran Kertas,Brng2 dr Kertas, Alat Tulis/ATK,Alat Olahraga/Musik/Ftografi,Kmputer(Produktif)', 'Perdagangan Besar dan Eceran'),
+('523700', 'Perdagangan Eceran Mesin2(Kcuali Mobil & Spd Motor)& Onderdil,trmasuk Alat2 Transportasi(Produktif)', 'Perdagangan Besar dan Eceran'),
+('523800', 'Perdagangan Eceran Barang-barang Kerajinan, Mainan Anakanak, dan Lukisan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('523900', 'Perdagangan Eceran Komoditi Lainnya (Bukan Makanan, Minuman, Atau Tembakau) (Produktif)', 'Perdagangan Besar dan Eceran'),
+('524000', 'Perdagangan Eceran Barang Bekas (Produktif)', 'Perdagangan Besar dan Eceran'),
+('525100', 'Perdagangan Eceran Kaki Lima Komoditi dari Hasil Pertanian (Produktif)', 'Perdagangan Besar dan Eceran'),
+('525200', 'Perdagangan Eceran Kaki Lima Komoditi Makanan, Minuman Hasil Industri Pengolahan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('525300', 'Perdagangan Eceran Kaki Lima Bahan Kimia, Frmasi, Kosmetik, dan Alat Laboratorium (Produktif)', 'Perdagangan Besar dan Eceran'),
+('525400', 'Perdagangan Eceran Kaki Lima Tekstil, Pakaian Jadi, Alas Kaki, dan Barang Keperluan Pribadi (Produktif)', 'Perdagangan Besar dan Eceran'),
+('525500', 'Perdagangan Eceran Kaki Lima Perlengkapan Rumah Tangga dan Perlengkapan Dapur (Produktif)', 'Perdagangan Besar dan Eceran'),
+('525600', 'Perdagangan Eceran Kaki Lima Bahan Bakar dan Pelumas (Produktif)', 'Perdagangan Besar dan Eceran'),
+('525700', 'Prdgngan Eceran Kaki 5 -Krtas,Brg2 dr Krtas,ATK,Alat Olahraga/Musik/Ftografi,& Kmputer(Produktif)', 'Perdagangan Besar dan Eceran'),
+('525800', 'Perdagangan Eceran Kaki Lima Barang-barang kerajinan, mainan anakanak, dan ILlkisan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('525900', 'Perdagangan Eceran Kaki Lima Barang-barang Bekas (Produktif)', 'Perdagangan Besar dan Eceran'),
+('526000', 'Perdagangan Eceran Kaki Lima Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('527100', 'Perdagangan Eceran Melalui Media (Produktif)', 'Perdagangan Besar dan Eceran'),
+('527200', 'Perdagangan Eceran Keliling (Produktif)', 'Perdagangan Besar dan Eceran'),
+('531000', 'Perdagangan Ekspor Berdasarkan Balas Jasa (Fee) Atau Kontrak (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532111', 'Perdagangan Ekspor Biji Kelapa Sawit (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532112', 'Perdagangan Ekspor Hasil Tanaman Pangan dan Perkebunan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532119', 'Perdagangan Ekspor Bahan Baku Hasil Pertanian Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532120', 'Perdagangan Ekspor Binatang Hidup (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532130', 'Perdagangan Ekspor Hasil Perikanan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532141', 'Perdagangan Ekspor Kayu (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532142', 'Perdagangan Ekspor Rotan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532149', 'Perdagangan Ekspor Hasil Hutan Selain Kayu dan Rotan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532201', 'Perdagangan Ekspor Udang Olahan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532202', 'Perdagangan Ekspor Teh (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532203', 'Perdagangan Ekspor Kopi Bubuk (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532204', 'Perdagangan Ekspor Tembakau (Produktif)', 'Perdagangan Besar dan Eceran'),
+('532209', 'Perdagangan Ekspor Makanan dan Minuman Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('533101', 'Perdagangan Ekspor Tekstil (Produktif)', 'Perdagangan Besar dan Eceran'),
+('533102', 'Perdagangan Ekspor Pakaian Jadi (Produktif)', 'Perdagangan Besar dan Eceran'),
+('533103', 'Perdagangan Ekspor Kulit (Produktif)', 'Perdagangan Besar dan Eceran'),
+('533900', 'Perdagangan Ekspor Barang-barang Keperluan Rumah Tangga Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('534100', 'Perdagangan Ekspor Bahan Bakar Gas, Cair, dan Padat Serta Produk Sejenis (Produktif)', 'Perdagangan Besar dan Eceran'),
+('534201', 'Perdagangan Ekspor Bijih Timah (Produktif)', 'Perdagangan Besar dan Eceran'),
+('534202', 'Perdagangan Ekspor Bijih Logam Selain Timah (Produktif)', 'Perdagangan Besar dan Eceran'),
+('534203', 'Perdagangan Ekspor Batu Bara (Produktif)', 'Perdagangan Besar dan Eceran'),
+('534209', 'Perdagangan Ekspor Logam dan Bijih Logam (hasil Pertambangan dan Penggalian) Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('534301', 'Perdagangan Ekspor Kayu Lapis (Produktif)', 'Perdagangan Besar dan Eceran'),
+('534309', 'Perdagangan Ekspor  Bahanbahan Konstruksi (kecuali Bahan Hasil Penggalian) Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('534900', 'Prdagangan Ekspor Produk Antara (Intrmdiate Products), Brng2 Bekas & Sisa2 Tak Trpakai(Scrap) (Produktif)', 'Perdagangan Besar dan Eceran'),
+('535000', 'Perdagangan Ekspor Mesin-mesin, Suku Cadang dan Perlengkapannya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539011', 'Perdagangan Ekspor Kayu Gergajian (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539012', 'Perdagangan Ekspor Kopi Bijian (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539013', 'Perdagangan Ekspor Tembakau (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539014', 'Perdagangan Ekspor Karet (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539015', 'Perdagangan Ekspor Lada (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539016', 'Perdagangan Ekspor Minyak Kelapa Sawit Mentah (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539017', 'Perdagangan Ekspor Minyak Biji Kelapa Sawit (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539018', 'Perdagangan Ekspor Bungkil Kopra (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539019', 'Perdagangan Ekspor Hasil Pertanian, Perkebunan, dan Kehutanan Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539021', 'Perdagangan Ekspor Hewan yang Sudah Diolah (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539022', 'Perdagangan Ekspor Bahan Makanan Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539023', 'Perdagangan Ekspor Hasil Tambang Setengah Jadi (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539029', 'Perdagangan Ekspor Barang Setengah Jadi Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539031', 'Perdagangan Ekspor Barang Kerajinan dari Kayu dan Rotan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539032', 'Perdagangan Ekspor Barang Kerajinan selain dari Kayu dan Rotan (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539034', 'Perdagangan Ekspor Jasa Konstruksi (Produktif)', 'Perdagangan Besar dan Eceran'),
+('539039', 'Perdagangan Ekspor yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Perdagangan Besar dan Eceran'),
+('541000', 'Perdagangan Impor Berdasarkan Balas Jasa (Fee) Atau Kontrak (Produktif)', 'Perdagangan Besar dan Eceran'),
+('542101', 'Perdagangan Impor Cengkeh (Produktif)', 'Perdagangan Besar dan Eceran'),
+('542102', 'Perdagangan Impor Biji Gandum (Produktif)', 'Perdagangan Besar dan Eceran'),
+('542103', 'Perdagangan Impor Jagung (Produktif)', 'Perdagangan Besar dan Eceran'),
+('542104', 'Perdagangan Impor Kacang Kedelai (Produktif)', 'Perdagangan Besar dan Eceran'),
+('542109', 'Perdagangan Impor Bahan Baku Hasil Pertanian, dan Binatang Hidup Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('542201', 'Perdagangan Impor Beras (Produktif)', 'Perdagangan Besar dan Eceran'),
+('542202', 'Perdagangan Impor Gula (Produktif)', 'Perdagangan Besar dan Eceran'),
+('542209', 'Perdagangan Impor Makanan, Minuman, dan Tembakau Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('543100', 'Perdagangan Impor Tekstil, Pakaian Jadi, dan Kulit (Produktif)', 'Perdagangan Besar dan Eceran'),
+('543900', 'Perdagangan Impor Barang-barang Keperluan Rumah Tangga lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('544100', 'Perdagangan Impor Bahan Bakar Gas, Cair, dan Padat Serta Produk Sejenis (Produktif)', 'Perdagangan Besar dan Eceran'),
+('544200', 'Perdagangan Impor Logam dan Bijih Logam (Produktif)', 'Perdagangan Besar dan Eceran'),
+('544301', 'Perdagangan Impor Besi Beton (Produktif)', 'Perdagangan Besar dan Eceran'),
+('544309', 'Perdagangan Impor Bahanbahan Konstruksi Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('544901', 'Perdagangan Impor Pupuk dan Obat Hama (Produktif)', 'Perdagangan Besar dan Eceran'),
+('544902', 'Perdagangan Impor Farmasi (Produktif)', 'Perdagangan Besar dan Eceran'),
+('544909', 'Perdagangan Impor Barang Antara Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('545001', 'Perdagangan Impor Suku Cadang Industri (Produktif)', 'Perdagangan Besar dan Eceran'),
+('545009', 'Perdagangan Impor Suku Cadang  Mesin-mesin, Suku Cadang dan Perlengkapannya Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('549000', 'Perdagangan Impor Lainnya (Produktif)', 'Perdagangan Besar dan Eceran'),
+('551100', 'Hotel Bintang (Produktif)', 'Penyediaan Akomodasi dan Penyediaan Makan Minum'),
+('551200', 'Hotel Melati (Produktif)', 'Penyediaan Akomodasi dan Penyediaan Makan Minum'),
+('551900', 'Jasa Akomodasi Lainnya (Produktif)', 'Penyediaan Akomodasi dan Penyediaan Makan Minum'),
+('552009', 'Penyediaan Makan Minum Lainnya (Produktif)', 'Penyediaan Akomodasi dan Penyediaan Makan Minum'),
+('552100', 'Restoran / Rumah Makan (Produktif)', 'Penyediaan Akomodasi dan Penyediaan Makan Minum'),
+('601000', 'Angkutan Jalan Rel (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('602100', 'Angkutan Jalan Dalam Trayek Untuk Penumpang (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('602200', 'Angkutan Jalan Tidak Dalam Trayek Untuk Penumpang (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('602300', 'Angkutan Jalan Untuk Barang (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('603000', 'Angkutan Dengan Saluran Pipa (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('611100', 'Angkutan Laut Domestik (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('611200', 'Angkutan Laut Internasional (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('612100', 'Angkutan Sungai dan Danau (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('612200', 'Angkutan Penyeberangan Domestik (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('621000', 'Angkutan Udara Berjadwal (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('622000', 'Angkutan Udara Tidak Berjadwal (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('623000', 'Angkutan Udara Khusus (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('631000', 'Jasa Pelayanan Bongkar Muat Barang (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('632000', 'Pergudangan, Jasa Cold Storage, dan Jasa Wilayah Berikat (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('633000', 'Jasa Penunjang Angkutan Kecuali Jasa Bongkar Muat dan Pergudangan (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('634000', 'Jasa Perjalanan Wisata (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('635000', 'Jasa Pengiriman dan Pengepakan (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('641000', 'Pos Nasional, Unit Pelayanan Pos dan Jasa Kurir (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('642000', 'Jaringan Telekomunikasi (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('643000', 'Jasa Telekomunikasi (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('644000', 'Telekomunikasi Khusus (Produktif)', 'Transportasi, Pergudangan, dan Komunikasi'),
+('651000', 'Perantara Moneter (Bank) (Produktif)', 'Perantara Keuangan'),
+('659001', 'Perantara Keuangan Lainnya (Non Bank) Leasing (Produktif)', 'Perantara Keuangan'),
+('659009', 'Perantara Keuangan Lainnya (Non Bank) Selain Leasing (Produktif)', 'Perantara Keuangan'),
+('660000', 'Asuransi dan Dana Pensiun (Produktif)', 'Perantara Keuangan'),
+('671001', 'Jasa Penukaran Mata Uang atau Pedagang Valuta Asing (Money Changer) (Produktif)', 'Perantara Keuangan'),
+('671002', 'Jasa Penunjang Perantara Keuangan Lainnya (Produktif)', 'Perantara Keuangan'),
+('672000', 'Jasa Penunjang Asuransi dan dana Pensiun (Produktif)', 'Perantara Keuangan'),
+('701001', 'Real Estate Perumahan Sederhana  Perumnas (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('701002', 'Real Estate Perumahan Sederhana  Selain Perumnas s.d. Tipe 21 (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('701003', 'Real Estate Perumahan Sederhana  Selain Perumnas s.d. Tipe 22 s.d. 70 (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('701004', 'Real Estate Perumahan Menengah, Besar Atau Mewah (Tipe Diatas 70) (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('701005', 'Real Estate Perumahan Flat / Apartemen (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('701006', 'Real Estate Gedung Perbelanjaan (Mal, Plaza) (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('701007', 'Real Estate Gedung Perkantoran (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('701008', 'Real Estate Gedung Rumah Toko (Ruko) atau Rumah Kantor (Rukan) (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('701009', 'Real Estate Lainnya (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('702000', 'Real Estate Atas Dasar Balas Jasa (Fee) Atau Kontrak (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('703000', 'Kawasan Pariwisata dan Penyediaan Sarana Wisata Tirta Kawasan Pariwisata (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('711100', 'Persewaan Alat Transportasi Darat (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('711200', 'Persewaan Alat Transportasi Air (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('711300', 'Persewaan Alat Transportasi Udara (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('712100', 'Persewaan Mesin Pertanian dan Peralatannya (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('712200', 'Persewaan Mesin Konstruksi dan Teknik Sipil dan Peralatannya (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('712300', 'Persewaan Mesin Kantor dan Peralatannya (Termasuk Komputer) (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('712900', 'Persewaan Mesin Lainnya dan Peralatannya yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('713000', 'Persewaan Barang2 Keperluan Rumah Tangga dan Pribadi yang tdk Diklasifikasikan di Tempat Lain(Produktif)', '#N/A'),
+('721000', 'Jasa Konsultasi Piranti Keras (Hardware Consulting) (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('722000', 'Jasa Konsultasi Piranti Lunak (Software Consulting) (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('723000', 'Pengolahan Data (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('724000', 'Jasa Kegiatan Data Base (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('725000', 'Perawatan dan Reparasi Mesin-mesin Kantor, Akuntansi, dan Komputer (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('729000', 'Kegiatan Lain yang Berkaitan Dengan Komputer (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('731000', 'Penelitian dan Pengembangan Ilmu Pengetahuan Alam dan Teknologi (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('732000', 'Penelitian dan Pengembangan Ilmu Pengetahuan Sosial dan Humaniora (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('741000', 'Jasa Hukum, Akuntansi & Pembukuan,Konsultasi Pajak/Bisnis/Manajemen,Penelitian Pasar(Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('742000', 'Jasa Konsultasi Arsitek, Kegiatan Teknik dan Rekayasa, Serta Analisis dan Testing (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('743000', 'Jasa Periklanan (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('749000', 'Jasa Perusahaan Lainnya yang Tidak Diklasifikasikan di Tempat Lain (Produktif)', 'Real Estate, Usaha Persewaan, dan Jasa Perusahaan'),
+('751000', 'Administrasi Pemerintahan, dan Kebijaksanaan Ekonomi dan Sosial (Produktif)', 'Perantara Keuangan'),
+('752000', 'Hubungan Luar Negeri, Pertahanan, dan Keamanan (Produktif)', '#N/A'),
+('753000', 'Jaminan Sosial Wajib (Produktif)', 'Administrasi Pemerintahan, Pertahanan dan Jaminan Sosial Wajib'),
+('801000', 'Jasa Pendidikan Dasar (Produktif)', 'Jasa Pendidikan'),
+('802000', 'Jasa Pendidikan Menengah (Produktif)', 'Jasa Pendidikan'),
+('803000', 'Jasa Pendidikan Tinggi (Produktif)', 'Jasa Pendidikan'),
+('804000', 'Jasa Pendidikan Lainnya (Produktif)', 'Jasa Pendidikan'),
+('851001', 'Jasa Kesehatan Manusia  Rumah sakit (Produktif)', 'Jasa Kesehatan dan Kegiatan Sosial'),
+('851002', 'Jasa Kesehatan Manusia  Poliklinik / Rumah Bersalin (Produktif)', 'Jasa Kesehatan dan Kegiatan Sosial'),
+('851003', 'Jasa Kesehatan Manusia  Tempat Perawatan / Pengobatan (Produktif)', 'Jasa Kesehatan dan Kegiatan Sosial'),
+('851004', 'Jasa Kesehatan Manusia  Profesi Dokter (Produktif)', 'Jasa Kesehatan dan Kegiatan Sosial'),
+('852000', 'Jasa Kesehatan Hewan (Produktif)', 'Jasa Kesehatan dan Kegiatan Sosial'),
+('853000', 'Jasa Kegiatan Sosial (Produktif)', 'Jasa Kesehatan dan Kegiatan Sosial'),
+('900000', 'Jasa Kebersihan (Produktif)', 'Jasa Kemasyarakatan, Sosial Budaya, Hiburan dan Perorangan Lainnya'),
+('910000', 'Organisasi Bisnis, Pengusaha dan Profesional (Produktif)', '#N/A'),
+('912000', 'Organisasi Buruh (Produktif)', '#N/A'),
+('919000', 'Organisasi Lainnya (Produktif)', 'Jasa Kemasyarakatan, Sosial Budaya, Hiburan dan Perorangan Lainnya'),
+('921000', 'Kegiatan Perfilman, Radio, Televisi, dan Hiburan Lainnya (Produktif)', 'Jasa Kemasyarakatan, Sosial Budaya, Hiburan dan Perorangan Lainnya'),
+('922000', 'Kegiatan Kantor Berita (Produktif)', 'Jasa Kemasyarakatan, Sosial Budaya, Hiburan dan Perorangan Lainnya'),
+('923000', 'Perpustakaan, Arsip, Museum, dan Kegiatan Kebudayaan Lainnya (Produktif)', 'Jasa Kemasyarakatan, Sosial Budaya, Hiburan dan Perorangan Lainnya'),
+('930000', 'Jasa Kegiatan Lainnya (Produktif)', 'Jasa Kemasyarakatan, Sosial Budaya, Hiburan dan Perorangan Lainnya'),
+('950000', 'Jasa Perorangan yang Melayani Rumah Tangga (Produktif)', 'Jasa Peorangan yang Melayani Rumah Tangga'),
+('990000', 'Badan Internasional dan Badan Ekstra Internasional Lainnya (Produktif)', '#N/A');
 
 -- --------------------------------------------------------
 
@@ -786,12 +1410,11 @@ INSERT INTO `tbl_jaringan` (`id`, `id_user`, `id_cabang`) VALUES
 -- Table structure for table `tbl_menu`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_menu` (
+  `id` int(11) NOT NULL,
   `menu` varchar(128) NOT NULL,
-  `icon` varchar(128) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `icon` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_menu`
@@ -802,20 +1425,18 @@ INSERT INTO `tbl_menu` (`id`, `menu`, `icon`) VALUES
 (2, 'User Management', 'fa fa-fw fa-user'),
 (3, 'Menu Management', 'fa fa-fw fa-list'),
 (4, 'Access Management', 'fa fa-fw fa-key'),
-(5, 'Log Activity', 'fa fa-fw fa-refresh'),
+(5, 'Office Management', 'fa fa-fw fa-building'),
 (6, 'Nota', 'fa fa-fw fa-folder'),
-(7, 'Office Management', 'fa fa-fw fa-building');
+(7, 'Log Activity', 'fa fa-fw fa-refresh');
 
 --
 -- Triggers `tbl_menu`
 --
-DROP TRIGGER IF EXISTS `trigger_menu`;
-DELIMITER //
-CREATE TRIGGER `trigger_menu` AFTER UPDATE ON `tbl_menu`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `trigger_menu` AFTER UPDATE ON `tbl_menu` FOR EACH ROW BEGIN
 UPDATE tbl_user_menu SET menu_id = NEW.id WHERE menu_id = OLD.id;
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -824,8 +1445,8 @@ DELIMITER ;
 -- Table structure for table `tbl_nasabah`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_nasabah` (
-  `no_app` int(100) NOT NULL,
+CREATE TABLE `tbl_nasabah` (
+  `no_app` varchar(100) NOT NULL,
   `jns_app` varchar(25) NOT NULL,
   `referensi` varchar(50) NOT NULL,
   `nm_cabang` varchar(50) NOT NULL,
@@ -836,31 +1457,38 @@ CREATE TABLE IF NOT EXISTS `tbl_nasabah` (
   `tgl_lending` date NOT NULL,
   `tmpt_visit` varchar(15) NOT NULL,
   `visitor` varchar(50) NOT NULL,
-  `no_cif` int(15) NOT NULL,
-  `nip_bbrm` int(15) NOT NULL,
-  `nip_bm` int(15) NOT NULL,
+  `no_cif` char(15) NOT NULL,
+  `nip_bbrm` char(15) NOT NULL,
+  `nip_bm` char(15) NOT NULL,
   `jns_usaha` varchar(15) NOT NULL,
-  PRIMARY KEY (`no_app`)
+  `jns_nota` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_nasabah`
+--
+
+INSERT INTO `tbl_nasabah` (`no_app`, `jns_app`, `referensi`, `nm_cabang`, `tgl_nap`, `nm_nasabah`, `tgl_visit`, `tgl_funding`, `tgl_lending`, `tmpt_visit`, `visitor`, `no_cif`, `nip_bbrm`, `nip_bm`, `jns_usaha`, `jns_nota`) VALUES
+('1905271321825217', 'Baru', 'Referal BSM', 'ID0010024', '2018-09-18', 'PT Bumi Rahayu Gasindo', '2018-09-17', '2015-01-06', '2015-01-06', 'Kantor', 'BBRM BBVS', '7119698426', '138813311', '087773453', 'Badan Usaha', 'Reksus');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_notaris`
+-- Table structure for table `tbl_pengurus`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_notaris` (
-  `no_app` int(100) NOT NULL,
-  `nm_key_person` varchar(50) NOT NULL,
-  `gender` varchar(1) NOT NULL,
-  `tgl_lahir_notaris` date NOT NULL,
-  `jbtn_notaris` varchar(50) NOT NULL,
-  `sts_notaris` varchar(15) NOT NULL,
-  `pend_notaris` varchar(5) NOT NULL,
-  `npwp_notaris` int(20) NOT NULL,
-  `nom_saham` int(50) NOT NULL,
-  `saham` int(50) NOT NULL,
-  PRIMARY KEY (`no_app`)
+CREATE TABLE `tbl_pengurus` (
+  `id_pengurus` int(11) NOT NULL,
+  `no_app` char(50) DEFAULT NULL,
+  `nm_pengurus` varchar(100) NOT NULL,
+  `gender` char(1) NOT NULL,
+  `dob_pengurus` date NOT NULL,
+  `jbtn_pengurus` varchar(50) NOT NULL,
+  `sts_pengurus` varchar(50) NOT NULL,
+  `pend_pengurus` varchar(50) NOT NULL,
+  `npwp_pengurus` char(20) NOT NULL,
+  `nom_saham` char(20) NOT NULL,
+  `saham` char(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -869,28 +1497,27 @@ CREATE TABLE IF NOT EXISTS `tbl_notaris` (
 -- Table structure for table `tbl_perorangan`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_perorangan` (
-  `no_app` int(100) NOT NULL,
-  `no_ktp` int(20) NOT NULL,
+CREATE TABLE `tbl_perorangan` (
+  `no_app` varchar(100) NOT NULL,
+  `no_ktp` char(20) NOT NULL,
   `nm_nasabah` varchar(50) NOT NULL,
   `nm_ibu` varchar(50) NOT NULL,
-  `npwp_nasabah` int(20) NOT NULL,
+  `npwp_nasabah` char(20) NOT NULL,
   `tmpt_lahir` varchar(50) NOT NULL,
   `tgl_lahir` date NOT NULL,
   `usia` int(4) NOT NULL,
   `agama` int(1) NOT NULL,
-  `tlp_nsbh` int(15) NOT NULL,
-  `hp_nsbh` int(15) NOT NULL,
+  `tlp_nsbh` char(15) NOT NULL,
+  `hp_nsbh` char(15) NOT NULL,
   `kd_pos_ktp` int(20) NOT NULL,
   `almt_ktp` text NOT NULL,
   `kd_pos_dom` int(20) NOT NULL,
   `almt_dom` text NOT NULL,
   `pend_nsbh` varchar(5) NOT NULL,
-  `sts_nsbh` varchar(10) NOT NULL,
-  `no_kk` int(11) NOT NULL,
+  `sts_nikah` varchar(20) NOT NULL,
+  `no_kk` char(11) NOT NULL,
   `tgl_kk` date NOT NULL,
-  `nsbh_bank` int(1) NOT NULL,
-  PRIMARY KEY (`no_app`)
+  `nsbh_bank` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -899,9 +1526,10 @@ CREATE TABLE IF NOT EXISTS `tbl_perorangan` (
 -- Table structure for table `tbl_spouse`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_spouse` (
-  `no_ktp` int(20) NOT NULL,
-  `no_ktp_spouse` int(20) NOT NULL,
+CREATE TABLE `tbl_spouse` (
+  `id` int(11) NOT NULL,
+  `no_ktp` char(20) NOT NULL,
+  `no_ktp_spouse` char(20) NOT NULL,
   `nm_spouse` varchar(50) NOT NULL,
   `pend_spouse` varchar(10) NOT NULL,
   `tgl_lahir_spouse` date NOT NULL,
@@ -914,7 +1542,7 @@ CREATE TABLE IF NOT EXISTS `tbl_spouse` (
 -- Table structure for table `tbl_user`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_user` (
+CREATE TABLE `tbl_user` (
   `nip_user` varchar(11) NOT NULL,
   `nama` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
@@ -925,8 +1553,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `is_active` int(1) NOT NULL,
   `date_created` datetime NOT NULL,
   `log_on` datetime NOT NULL,
-  `last_login` datetime NOT NULL,
-  PRIMARY KEY (`nip_user`)
+  `last_login` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -934,9 +1561,10 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`nip_user`, `nama`, `email`, `cabang`, `image`, `password`, `role_id`, `is_active`, `date_created`, `log_on`, `last_login`) VALUES
-('078273241', 'TOHANI', 'tohani@bsm.co.id', 'ID0010002', 'default.jpg', 'aa134d9ad2fd2f677ea05c7e63323e9e', 3, 0, '2019-05-02 10:37:13', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-('1', 'Imam Maulana Ibrahim', 'admin@bsm.co.id', 'ID0010002', 'default.jpg', '202cb962ac59075b964b07152d234b70', 1, 0, '2019-04-09 00:00:00', '2019-05-16 08:34:33', '2019-05-16 08:40:20'),
-('129012405', 'FATMA SRI SANTRINI', 'fssantrini@bsm.co.id', 'ID0010002', 'default.jpg', 'aa134d9ad2fd2f677ea05c7e63323e9e', 2, 1, '2019-05-02 10:24:09', '2019-05-16 10:25:15', '2019-05-16 08:34:29');
+('078273241', 'TOHANI', 'tohani@syariahmandiri.co.id', 'ID0010002', 'default.jpg', 'aa134d9ad2fd2f677ea05c7e63323e9e', 4, 0, '2019-05-02 10:37:13', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+('129012405', 'FATMA SRI SANTRINI', 'fssantrini@syariahmandiri.co.id', 'ID0010002', 'default.jpg', 'aa134d9ad2fd2f677ea05c7e63323e9e', 3, 0, '2019-05-02 10:24:09', '2019-06-28 16:11:10', '2019-06-28 16:11:13'),
+('199510500', 'Imam', 'helpdesk@syariahmandiri.co.id', 'ID0010002', 'default.jpg', 'aa134d9ad2fd2f677ea05c7e63323e9e', 2, 0, '2019-06-28 15:52:16', '2019-07-01 16:57:16', '2019-07-01 16:57:18'),
+('199510502', 'Imam Maulana Ibrahim', 'admin@syariahmandiri.co.id', 'ID0010002', 'default.jpg', '202cb962ac59075b964b07152d234b70', 1, 1, '2019-04-09 00:00:00', '2019-07-01 17:24:56', '2019-07-01 17:24:30');
 
 -- --------------------------------------------------------
 
@@ -944,31 +1572,36 @@ INSERT INTO `tbl_user` (`nip_user`, `nama`, `email`, `cabang`, `image`, `passwor
 -- Table structure for table `tbl_user_menu`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_user_menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_user_menu` (
+  `id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   `menu_id` int(11) NOT NULL,
   `url` varchar(128) NOT NULL,
-  `active` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+  `active` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_user_menu`
 --
 
 INSERT INTO `tbl_user_menu` (`id`, `role_id`, `menu_id`, `url`, `active`) VALUES
-(1, 1, 1, 'admin/index', '1'),
-(2, 1, 3, 'admin/menu', '1'),
-(3, 1, 2, 'admin/user', '1'),
-(4, 1, 4, 'admin/access', '1'),
-(5, 1, 5, 'admin/log', '1'),
-(8, 3, 1, 'checker/index', '1'),
-(9, 2, 1, 'maker/index', '1'),
-(10, 4, 1, 'pemutus/index', '1'),
-(11, 1, 7, 'admin/office', '1'),
-(13, 2, 6, 'maker/nota', '1'),
-(14, 5, 1, 'reviewer/index', '1');
+(1, 1, 1, 'Admin/index', '1'),
+(2, 1, 3, 'Admin/menu', '1'),
+(3, 1, 2, 'Admin/user', '1'),
+(4, 1, 4, 'Admin/access', '1'),
+(5, 1, 7, 'Admin/log', '1'),
+(8, 4, 1, 'Checker/index', '1'),
+(9, 3, 1, 'Maker/index', '1'),
+(10, 5, 1, 'Pemutus/index', '1'),
+(11, 1, 5, 'Admin/office', '1'),
+(13, 3, 6, 'Maker/nota', '1'),
+(14, 6, 1, 'Reviewer/index', '1'),
+(15, 2, 1, 'Admin/index', '1'),
+(16, 2, 3, 'Admin/menu', '0'),
+(17, 2, 2, 'Admin/user', '1'),
+(18, 2, 4, 'Admin/access', '1'),
+(19, 2, 7, 'Admin/log', '1'),
+(20, 2, 5, 'Admin/office', '1');
 
 -- --------------------------------------------------------
 
@@ -976,11 +1609,10 @@ INSERT INTO `tbl_user_menu` (`id`, `role_id`, `menu_id`, `url`, `active`) VALUES
 -- Table structure for table `tbl_user_role`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_user_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role` varchar(128) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+CREATE TABLE `tbl_user_role` (
+  `id` int(11) NOT NULL,
+  `role` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_user_role`
@@ -988,22 +1620,164 @@ CREATE TABLE IF NOT EXISTS `tbl_user_role` (
 
 INSERT INTO `tbl_user_role` (`id`, `role`) VALUES
 (1, 'Admin'),
-(2, 'Maker'),
-(3, 'Checker'),
-(4, 'Pemutus'),
-(5, 'Reviewer');
+(2, 'Help Desk'),
+(3, 'Maker'),
+(4, 'Checker'),
+(5, 'Pemutus'),
+(6, 'Reviewer');
 
 --
 -- Triggers `tbl_user_role`
 --
-DROP TRIGGER IF EXISTS `trigger_role`;
-DELIMITER //
-CREATE TRIGGER `trigger_role` AFTER UPDATE ON `tbl_user_role`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `trigger_role` AFTER UPDATE ON `tbl_user_role` FOR EACH ROW BEGIN
 UPDATE tbl_user SET role_id = NEW.id WHERE role_id = OLD.id;
 END
-//
+$$
 DELIMITER ;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_badan_usaha`
+--
+ALTER TABLE `tbl_badan_usaha`
+  ADD PRIMARY KEY (`no_app`);
+
+--
+-- Indexes for table `tbl_cabang`
+--
+ALTER TABLE `tbl_cabang`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kd_cabang` (`kd_cabang`);
+
+--
+-- Indexes for table `tbl_info_usaha`
+--
+ALTER TABLE `tbl_info_usaha`
+  ADD PRIMARY KEY (`no_app`);
+
+--
+-- Indexes for table `tbl_jaringan`
+--
+ALTER TABLE `tbl_jaringan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_log`
+--
+ALTER TABLE `tbl_log`
+  ADD PRIMARY KEY (`id_log`);
+
+--
+-- Indexes for table `tbl_lsmk`
+--
+ALTER TABLE `tbl_lsmk`
+  ADD PRIMARY KEY (`id_kode`);
+
+--
+-- Indexes for table `tbl_menu`
+--
+ALTER TABLE `tbl_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_nasabah`
+--
+ALTER TABLE `tbl_nasabah`
+  ADD PRIMARY KEY (`no_app`);
+
+--
+-- Indexes for table `tbl_pengurus`
+--
+ALTER TABLE `tbl_pengurus`
+  ADD PRIMARY KEY (`id_pengurus`);
+
+--
+-- Indexes for table `tbl_perorangan`
+--
+ALTER TABLE `tbl_perorangan`
+  ADD PRIMARY KEY (`no_app`),
+  ADD KEY `no_ktp` (`no_ktp`);
+
+--
+-- Indexes for table `tbl_spouse`
+--
+ALTER TABLE `tbl_spouse`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_user`
+--
+ALTER TABLE `tbl_user`
+  ADD PRIMARY KEY (`nip_user`);
+
+--
+-- Indexes for table `tbl_user_menu`
+--
+ALTER TABLE `tbl_user_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_user_role`
+--
+ALTER TABLE `tbl_user_role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_cabang`
+--
+ALTER TABLE `tbl_cabang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=670;
+
+--
+-- AUTO_INCREMENT for table `tbl_jaringan`
+--
+ALTER TABLE `tbl_jaringan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tbl_log`
+--
+ALTER TABLE `tbl_log`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+
+--
+-- AUTO_INCREMENT for table `tbl_menu`
+--
+ALTER TABLE `tbl_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tbl_pengurus`
+--
+ALTER TABLE `tbl_pengurus`
+  MODIFY `id_pengurus` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_spouse`
+--
+ALTER TABLE `tbl_spouse`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_user_menu`
+--
+ALTER TABLE `tbl_user_menu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `tbl_user_role`
+--
+ALTER TABLE `tbl_user_role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
