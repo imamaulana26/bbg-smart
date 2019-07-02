@@ -33,7 +33,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Nomor Aplikasi</label>
-                                                <?= tag_input('text', 'no_app', date('Ymd') . mt_rand(), 'readonly') ?>
+                                                <?= tag_input('text', 'no_app', date('ymd') . mt_rand(), 'readonly') ?>
                                             </div>
                                         </div>
                                         <div class="col-md-2 col-md-offset-2">
@@ -906,7 +906,7 @@
         get_lsmk();
         $('.selectpicker').selectpicker('refresh');
         edit();
-        $('#btn_disclaimer').attr('disabled', true);
+        $('#btn_disclaimer').hide();
 
         $('#jns_usaha').change(function() {
             if ($(this).val() == 'Badan Usaha') {
@@ -982,9 +982,9 @@
 
     function disclaimer() {
         if (document.getElementById('disclaim').checked) {
-            $('#btn_disclaimer').attr('disabled', false);
+            $('#btn_disclaimer').show();
         } else {
-            $('#btn_disclaimer').attr('disabled', true);
+            $('#btn_disclaimer').hide();
         }
     }
 

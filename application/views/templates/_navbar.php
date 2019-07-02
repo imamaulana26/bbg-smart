@@ -38,7 +38,7 @@
         <div class="sidebar-nav navbar-collapse">
             <!-- Looping Submenu -->
             <ul class="nav" id="side-menu">
-                <li><a href="<?= site_url(ucfirst($dashboard['url'])) ?>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+                <li><a href="<?= site_url(ucfirst($dashboard['url'])) ?>"><i class="fa fa-fw fa-desktop"></i> Dashboard</a></li>
                 <li>
                     <a href="#">
                         <i class="fa fa-fw fa-sitemap"></i> Main Menu<span class="fa arrow"></span>
@@ -51,6 +51,9 @@
                         <?php } ?>
                     </ul>
                     <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="<?= site_url(ucfirst('admin/approver')) ?>"><i class="fa fa-fw fa-calendar-check-o"></i> Menu Approver</a>
                 </li>
                 <li>
                     <a href="<?= site_url(ucfirst('auth/logout')) ?>"><i class="fa fa-fw fa-sign-out"></i> Logout</a>

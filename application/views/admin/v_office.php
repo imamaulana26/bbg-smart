@@ -15,7 +15,7 @@
         <?php $msg = $this->session->flashdata('msg');
         if (isset($msg)) echo $msg; ?>
 
-        <!-- Table User -->
+        <!-- Table Office -->
         <div class="row">
             <div class="col-md-12">
                 <button class="btn btn-primary" style="margin-bottom: 10px" onclick="add_office()">
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <!-- /. Table User -->
+        <!-- /. Table Office -->
     </div>
     <!-- /#page-wrapper -->
 </div>
