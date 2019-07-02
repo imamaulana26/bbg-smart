@@ -156,7 +156,7 @@ class Auth extends CI_Controller
                 'time_log' => date('Y-m-d H:i:s'),
                 'activity' => 'Berhasil logout'
             );
-            $this->db->insert('tbl_log', $dt_log);
+            // $this->db->insert('tbl_log', $dt_log);
 
             // $this->session->unset_userdata('email');
             // $this->session->unset_userdata('role_id');
