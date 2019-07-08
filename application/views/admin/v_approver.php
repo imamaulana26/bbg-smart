@@ -40,7 +40,6 @@ $generate = $code1."-".$code2;
                                         <th style="width: 13%">Code</th>
                                         <th>Pemohon</th>
                                         <th>Keterangan</th>
-                                        <th>Pengajuan</th>
                                         <th>Penyetujuan</th>
                                         <th>Status</th>
                                         <th class="text-center">Aksi</th>
@@ -52,10 +51,9 @@ $generate = $code1."-".$code2;
                                         <td>
                                             <p>Imam (Help Desk) <br><span class="text-muted">helpdesk@syariahmandiri.co.id</span></p>
                                         </td>
-                                        <td>Permohonan perubahan data cabang ID0010001 menjadi ID0010001a</td>
-                                        <td>01 Jul 19</td>
+                                        <td><span class="text-muted">Pengajuan : <?= date('d F Y') ?></span><br>Permohonan perubahan data cabang ID0010001 menjadi ID0010001a</td>
                                         <td>02 Jul 19</td>
-                                        <td>Pending</td>
+                                        <td class="text-center"><p class="label label-danger">Pending</p></td>
                                         <td class="text-center">Aksi</td>
                                     </tr>
                                 </tbody>

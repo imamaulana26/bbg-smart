@@ -25,7 +25,7 @@ class User extends CI_Controller {
             $data['inputerror'][] = 'nip';
             $data['error'][] = 'NIP user tidak valid, harus numberic';
             $data['status'] = false;
-        } else if(strlen(preg_match('/^[0-9]+$/', input('nip'))) < 8) {
+        } else if(strlen(input('nip')) < 8) {
             $data['inputerror'][] = 'nip';
             $data['error'][] = 'NIP user tidak boleh kurang dari 8 digit';
             $data['status'] = false;

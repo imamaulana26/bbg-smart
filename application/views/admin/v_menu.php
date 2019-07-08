@@ -79,6 +79,7 @@
                             </div>
                             <div class="col-sm-8 col-sm-offset-3">
                                 <?php $icon_list = array(
+                                    'fa fa-fw fa-sitemap',
                                     'fa fa-fw fa-folder',
                                     'fa fa-fw fa-folder-open',
                                     'fa fa-fw fa-file-text',
@@ -119,9 +120,14 @@
             return false;
         });
 
-        $('input').change(function(){
+        $('input').change(function() {
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
+        });
+
+        $('#modal_menu').on('show.bs.modal', function() {
+            $('input').parent().parent().removeClass('has-error');
+            $('span.help-block').empty();
         });
     });
 
@@ -160,20 +166,18 @@
             data: $('#form_menu').serialize(),
             success: function(data) {
                 if (data.msg) {
-                    // $('#form_menu')[0].reset();
-                    // $('#modal_menu').modal('hide');
                     swal(data.msg);
                 }
 
-                if(data.status){
+                if (data.status) {
                     swal('Sukses!', 'Data menu telah berhasil disimpan', 'success');
                     $('#modal_menu').modal('hide');
 
                     get_data();
                 } else {
-                    for(var i=0; i<data.inputerror.length; i++){
-                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error');
-                        $('[name="'+data.inputerror[i]+'"]').next().text(data.error[i]);
+                    for (var i = 0; i < data.inputerror.length; i++) {
+                        $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');
+                        $('[name="' + data.inputerror[i] + '"]').next().text(data.error[i]);
                     }
                 }
             },
@@ -185,7 +189,7 @@
 
     function get_data() {
         $.ajax({
-            url: '<?= site_url(ucfirst('admin/menu/list_menu')) ?>',
+            url: "<?= site_url(ucfirst('admin/menu/list_menu')) ?>",
             type: 'POST',
             dataType: 'JSON',
             success: function(data) {
@@ -213,7 +217,7 @@
         $('.modal-title').text('Modal Ubah Menu');
 
         $.ajax({
-            url: '<?= site_url(ucfirst('admin/menu/edit_menu/')) ?>' + id,
+            url: "<?= site_url(ucfirst('admin/menu/edit_menu/')) ?>" + id,
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
@@ -243,7 +247,7 @@
             function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '<?= site_url(ucfirst('admin/menu/delete_menu/')) ?>' + id,
+                        url: "<?= site_url(ucfirst('admin/menu/delete_menu/')) ?>" + id,
                         type: 'post',
                         success: function(data) {
                             swal("Sukses!", "Data menu telah berhasil dihapus", "success");
