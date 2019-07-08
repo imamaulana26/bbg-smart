@@ -24,10 +24,9 @@
                             <thead>
                                 <tr>
                                     <td>#</td>
-                                    <td>Role User</td>
                                     <td>NIP User</td>
                                     <td>Nama Lengkap</td>
-                                    <td>Email</td>
+                                    <td>Role User</td>
                                     <td>Cabang</td>
                                     <td>Date Create</td>
                                     <td>Log On</td>
@@ -103,7 +102,7 @@
                     <div class="form-group" id="toggle-jaringan" style="display: none">
                         <label class="control-label col-sm-3">Jaringan</label>
                         <div class="col-sm-6">
-                            <select class="form-control selectpicker" name="jaringan[]" id="jaringan" data-live-search="true" multiple>
+                            <select class="form-control" name="jaringan[]" id="jaringan" data-live-search="true" multiple>
                                 <option disabled>-- Please Select --</option>
                             </select>
                             <span class="help-block"></span>
@@ -142,7 +141,7 @@
                 'type': 'post'
             },
             'columnDefs': [{
-                'targets': [0, 1, 2, 3, 4, 5, 9],
+                'targets': [0, 1, 2, 3, 4, 5, 8],
                 'orderable': false
             }, ],
         });

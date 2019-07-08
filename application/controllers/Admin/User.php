@@ -93,10 +93,10 @@ class User extends CI_Controller {
         foreach($list as $li){
             $row = array();
             $row[] = $no++;
-            $row[] = $li['role'];
+            // $row[] = $li['role'];
             $row[] = $li['nip_user'];
-            $row[] = $li['nama'];
-            $row[] = $li['email'];
+            $row[] = "<p>".$li['nama']." <span class='text-muted'><br>".$li['email']."</span></p>";
+            $row[] = $li['role'];
             $row[] = $li['nm_cabang'];
             $row[] = $li['date_created'];
             $row[] = $li['log_on'];

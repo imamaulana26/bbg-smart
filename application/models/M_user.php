@@ -3,11 +3,12 @@ Class M_user extends CI_Model {
     var $table = 'tbl_user'; // table yang ingin ditampilkan
     var $order = array('role_id' => 'asc');
     var $id = 'nip_user';
-    var $column_order = array(null, 'nip_user', 'nama', null, null, null, 'date_created', 'log_on', 'last_login', null);
+    var $column_order = array(null, 'nip_user', 'nama', null, null, 'date_created', 'log_on', 'last_login', null);
     var $column_search = array('role_id','nip_user','nama','kd_cabang');
 
     function _get_datatable_query(){
-        $this->db->select('b.role, a.nip_user, a.nama, a.email, c.nm_cabang, a.date_created, a.log_on, a.last_login');
+        // $this->db->select('b.role, a.nip_user, a.nama, a.email, c.nm_cabang, a.date_created, a.log_on, a.last_login');
+        $this->db->select('b.role, a.*, c.nm_cabang');
         $this->db->from($this->table.' a');
         $this->db->join('tbl_user_role b', 'a.role_id = b.id', 'inner');
         $this->db->join('tbl_cabang c', 'a.cabang = c.kd_cabang', 'inner');

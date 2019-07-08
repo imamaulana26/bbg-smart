@@ -12,7 +12,7 @@
 <script src="<?= base_url('assets'); ?>/vendor/DataTables/datatables.min.js"></script>
 <!-- Bootstrap Select -->
 <script src="<?= base_url('assets'); ?>/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
-<!-- <script src="<?= base_url('assets'); ?>/vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script> -->
+<script src="<?= base_url('assets'); ?>/vendor/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>
 <!-- Bootstrap-datepicker JavaScript -->
 <script src="<?= base_url('assets'); ?>/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 

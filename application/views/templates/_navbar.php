@@ -41,7 +41,7 @@
                 <li><a href="<?= site_url(ucfirst($dashboard['url'])) ?>"><i class="fa fa-fw fa-desktop"></i> Dashboard</a></li>
                 <li>
                     <a href="#">
-                        <i class="fa fa-fw fa-sitemap"></i> Main Menu<span class="fa arrow"></span>
+                        <i class="fa fa-fw fa-bars"></i> Main Menu<span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
                         <?php foreach($menu as $m){ ?>

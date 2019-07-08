@@ -58,7 +58,7 @@
     <link href="<?= base_url('assets'); ?>/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <!-- Bootstrap Select -->
     <link href="<?= base_url('assets'); ?>/vendor/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">
-    <!-- <link href="<?= base_url('assets'); ?>/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet"> -->
+    <link href="<?= base_url('assets'); ?>/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
