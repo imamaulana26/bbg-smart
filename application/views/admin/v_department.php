@@ -19,18 +19,20 @@
                     <i class="fa fa-fw fa-plus"></i> Tambah Department
                 </button>
                 <div class="panel panel-default">
-                    <table class="table table-striped table-bordered table-hover" id="tbl_dept">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Department Code</th>
-                                <th>Department Name</th>
-                                <th>Divisi</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="data_dept"></tbody>
-                    </table>
+                    <div class="panel panel-body">
+                        <table class="table table-striped table-bordered table-hover" id="tbl_dept">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Department Code</th>
+                                    <th>Department Name</th>
+                                    <th>Divisi</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data_dept"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- /. Table Department -->
@@ -40,18 +42,20 @@
                     <i class="fa fa-fw fa-plus"></i> Tambah Divisi
                 </button>
                 <div class="panel panel-default">
-                    <table class="table table-striped table-bordered table-hover" id="tbl_div">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Divisi Code</th>
-                                <th>Divisi Name</th>
-                                <th>Segment</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="data_role"></tbody>
-                    </table>
+                    <div class="panel panel-body">
+                        <table class="table table-striped table-bordered table-hover" id="tbl_div">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Divisi Code</th>
+                                    <th>Divisi Name</th>
+                                    <th>Segment</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data_role"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- /.Table Divisi -->
@@ -90,9 +94,10 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Divisi</label>
                             <div class="col-sm-6">
-                                <select name="divisi" id="divisi" class="form-control selectpicker">
+                                <!-- <select name="divisi" id="divisi" class="form-control selectpicker">
                                     <option selected disabled>-- Please Select --</option>
-                                </select>
+                                </select> -->
+                                <?= tag_input('text', 'divisi') ?>
                             </div>
                         </div>
                     </div>
@@ -164,7 +169,8 @@
 
 <script>
     $(document).ready(function() {
-
+        $('#tbl_div').DataTable();
+        $('#tbl_dept').DataTable();
     });
 
     function add_dept() {
@@ -173,11 +179,34 @@
         $('#modal_dept').modal('show');
         $('#title_dept').text('Modal Tambah Department');
     }
-    
+
     function add_div() {
         save_method = 'add';
         $('#form_div')[0].reset();
         $('#modal_div').modal('show');
         $('#title_div').text('Modal Tambah Divisi');
+    }
+
+    function save_dept() {
+        var url = '';
+        if (save_method == 'add') url = "<?= site_url(ucfirst('admin/department/save_dept')) ?>";
+        else url = "<?= site_url(ucfirst('admin/department/edit_dept')) ?>";
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'JSON',
+            data: $('#form_dept').serialize(),
+            success: function(data) {
+                if (data.status) {
+                    swal('Sukses!', 'Data department telah berhasil disimpan', 'success');
+                    $('#modal_dept').modal('hide');
+                }
+            }
+        });
+    }
+
+    function save_div() {
+
     }
 </script>

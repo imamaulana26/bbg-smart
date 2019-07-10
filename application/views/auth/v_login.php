@@ -34,5 +34,4 @@
             </div>
         </div>
     </div>
-    <!-- <p><marquee>Info lebih lanjut harap hubungi : ex.3641 - Imam BBG atau <a href="mailto:ggunawan@bsm.co.id">ggunawan@bsm.co.id</a></marquee></p> -->
 </div>

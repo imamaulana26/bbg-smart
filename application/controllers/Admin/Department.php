@@ -21,4 +21,40 @@ class Department extends CI_Controller {
         $this->load->view('templates/_navbar', $data);
         $this->load->view($page, $data);
     }
+
+    function save_dept(){
+        $exp = explode(' ', input('dept_name'));
+        $nick = '';
+        foreach($exp as $kata){
+            $nick .= ucfirst(substr($kata, 0, 1));
+        }
+
+        $data = array(
+            'dept_code' => input('dept_code'),
+            'dept_name' => input('dept_name'),
+            'dept_sort' => $nick,
+            'div_code' => input('divisi')
+        );
+
+        $this->db->insert('tbl_department', $data);
+        echo json_encode(['status' => true]); exit;
+    }
+
+    function save_div(){
+        $exp = explode(' ', input('dept_name'));
+        $nick = '';
+        foreach($exp as $kata){
+            $nick .= ucfirst(substr($kata, 0, 1));
+        }
+
+        $data = array(
+            'dept_code' => input('dept_code'),
+            'dept_name' => input('dept_name'),
+            'dept_sort' => $nick,
+            'div_code' => input('divisi')
+        );
+
+        $this->db->insert('tbl_department', $data);
+        echo json_encode(['status' => true]); exit;
+    }
 }
