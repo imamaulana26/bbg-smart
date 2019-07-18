@@ -102,7 +102,7 @@
                     <div class="form-group" id="toggle-jaringan" style="display: none">
                         <label class="control-label col-sm-3">Jaringan</label>
                         <div class="col-sm-6">
-                            <select class="form-control" name="jaringan[]" id="jaringan" data-live-search="true" multiple>
+                            <select class="form-control selectpicker" name="jaringan[]" id="jaringan" data-live-search="true" multiple>
                                 <option disabled>-- Please Select --</option>
                             </select>
                             <span class="help-block"></span>
@@ -268,7 +268,7 @@
             data: $('#form_user').serialize(),
             success: function(data) {
                 if (data.error) {
-                    swal(data.error);
+                    swal('Kesalahan!', data.error, 'warning');
                 }
 
                 if (data.status) {
