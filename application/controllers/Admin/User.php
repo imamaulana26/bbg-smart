@@ -73,7 +73,8 @@ class User extends CI_Controller {
             'title' => 'User Management',
             'user' => $this->db->get('tbl_user')->result_array(),
             'cabang' => $this->db->get('tbl_cabang')->result_array(),
-            'role' => $this->db->get_where('tbl_user_role', ['id !=' => 1])->result_array()
+            'role' => $this->db->get_where('tbl_user_role', ['id !=' => 1])->result_array(),
+            'group' => $this->db->get_where('tbl_group')->result_array()
         );
 
         ob_start('ob_gzhandler');
@@ -146,10 +147,12 @@ class User extends CI_Controller {
             'nip_user' => $nip,
             'nama' => input('nama'),
             'email' => input('email'),
-            'role_id' => input('role_id'),
             'cabang' => input('cabang'),
+            'jabatan' => input('jabatan'),
+            'group_id' => input('group_id'),
             'image' => 'default.jpg',
             'password' => md5('bsm'),
+            'role_id' => input('role_id'),
             'is_active' => false,
             'date_created' => date('Y-m-d H:i:s')
         );
@@ -161,7 +164,7 @@ class User extends CI_Controller {
 
         $check = $this->db->get_where('tbl_user', ['nip_user' => $nip]);
         if($check->num_rows() > 0){
-            echo json_encode(['error' => 'NIP User telah tersedia']); exit;
+            echo json_encode(['db_error' => 'Data user telah tersedia']); exit;
         } else {
             $this->db->insert('tbl_user', $data);
             if($data['role_id'] > 3){
@@ -186,7 +189,9 @@ class User extends CI_Controller {
             'nama' => input('nama'),
             'email' => input('email'),
             'role_id' => $role,
-            'cabang' => input('cabang')
+            'cabang' => input('cabang'),
+            'jabatan' => input('jabatan'),
+            'group_id' => input('group_id')
         );
 
         $dt = array(

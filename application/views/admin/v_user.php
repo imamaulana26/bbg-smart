@@ -93,8 +93,33 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label col-sm-3">Jabatan</label>
+                        <div class="col-sm-4">
+                            <select class="form-control selectpicker" name="jabatan" id="jabatan">
+                                <option selected disabled>-- Please Select --</option>
+                                <?php $jabatan = array('Group Head','Dept. Head','Team Leader','Officer','Staff','TAD');
+                                foreach ($jabatan as $jbtn) {
+                                    echo "<option value='" . $jbtn . "'>" . $jbtn . "</option>";
+                                } ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Group</label>
+                        <div class="col-sm-7">
+                            <select class="form-control selectpicker" name="group_id" id="group_id">
+                                <option selected disabled>-- Please Select --</option>
+                                <?php foreach ($group as $g) {
+                                    echo "<option value='" . $g['group_id'] . "'>" . $g['group_name'] . " (".$g['group_title'].")</option>";
+                                } ?>
+                            </select>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-sm-3">Cabang</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-9">
                             <select class="form-control selectpicker" name="cabang" id="cabang" data-live-search="true" data-size="10">
                                 <option selected disabled>-- Please Select --</option>
                             </select>
@@ -103,7 +128,7 @@
                     </div>
                     <div class="form-group" id="toggle-jaringan" style="display: none">
                         <label class="control-label col-sm-3">Jaringan</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-9">
                             <select class="form-control selectpicker" name="jaringan[]" id="jaringan" data-live-search="true" multiple>
                                 <option disabled>-- Please Select --</option>
                             </select>
@@ -143,7 +168,7 @@
                 'type': 'post'
             },
             'columnDefs': [{
-                'targets': [0, 1, 2, 3, 4, 5, 8],
+                'targets': [0, 1, 2, 3, 4, 5, 6, 10],
                 'orderable': false
             }, ],
         });
@@ -210,8 +235,9 @@
                 $('#modal_user').modal('show');
                 $('[name="nip"]').val(data.nip_user).attr('readonly', true);
                 $('[name="nama"]').val(data.nama);
+                $('[name="group_id"]').val(data.group_id);
                 $('[name="email"]').val(data.email);
-                $('[name="email"]').val(data.email);
+                $('[name="jabatan"]').val(data.jabatan);
                 $('select[name="role_id"]').val(data.role_id);
                 $('select[name="cabang"]').val(data.cabang);
                 $('.selectpicker').selectpicker('refresh');
@@ -269,8 +295,8 @@
             dataType: 'json',
             data: $('#form_user').serialize(),
             success: function(data) {
-                if (data.error) {
-                    swal('Kesalahan!', data.error, 'warning');
+                if (data.db_error) {
+                    swal('Kesalahan!', data.db_error, 'warning');
                 }
 
                 if (data.status) {

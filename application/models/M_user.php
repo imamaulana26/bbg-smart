@@ -4,7 +4,7 @@ Class M_user extends CI_Model {
     var $order = array('role_id' => 'asc');
     var $id = 'nip_user';
     var $column_order = array(null, 'nip_user', 'nama', null, 'group_name', null, null, 'date_created', 'log_on', 'last_login', null);
-    var $column_search = array('role_id','nip_user','nama','kd_cabang');
+    var $column_search = array('role_id','nip_user','nama','kd_cabang','group_name','group_title');
 
     function _get_datatable_query(){
         $this->db->select('*');
