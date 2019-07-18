@@ -27,6 +27,8 @@
                                     <td>NIP User</td>
                                     <td>Nama Lengkap</td>
                                     <td>Role User</td>
+                                    <td>Group</td>
+                                    <td>Jabatan</td>
                                     <td>Cabang</td>
                                     <td>Date Create</td>
                                     <td>Log On</td>
@@ -137,7 +139,7 @@
             'serverSide': true,
             'order': [],
             'ajax': {
-                'url': '<?= site_url(ucfirst('admin/user/list_user')) ?>',
+                'url': "<?= site_url(ucfirst('admin/user/list_user')) ?>",
                 'type': 'post'
             },
             'columnDefs': [{
