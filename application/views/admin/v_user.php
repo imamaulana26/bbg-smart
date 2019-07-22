@@ -97,7 +97,7 @@
                         <div class="col-sm-4">
                             <select class="form-control selectpicker" name="jabatan" id="jabatan">
                                 <option selected disabled>-- Please Select --</option>
-                                <?php $jabatan = array('Group Head','Dept. Head','Team Leader','Officer','Staff','TAD');
+                                <?php $jabatan = array('Group Head', 'Dept. Head', 'Team Leader', 'Officer', 'Staff', 'TAD');
                                 foreach ($jabatan as $jbtn) {
                                     echo "<option value='" . $jbtn . "'>" . $jbtn . "</option>";
                                 } ?>
@@ -111,7 +111,7 @@
                             <select class="form-control selectpicker" name="group_id" id="group_id">
                                 <option selected disabled>-- Please Select --</option>
                                 <?php foreach ($group as $g) {
-                                    echo "<option value='" . $g['group_id'] . "'>" . $g['group_name'] . " (".$g['group_title'].")</option>";
+                                    echo "<option value='" . $g['group_id'] . "'>" . $g['group_name'] . " (" . $g['group_title'] . ")</option>";
                                 } ?>
                             </select>
                             <span class="help-block"></span>

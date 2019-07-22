@@ -7,7 +7,7 @@ class Auth extends CI_Controller
     {
         $email = $this->session->userdata('email');
         if (empty($email)) {
-            $data['title'] = 'SMART - BBG';
+            $data['title'] = 'System SMART - BBG';
             // hitung interval waktu
             $this->db->where(array('is_active' => 1, 'timestampdiff(minute, log_on, now()) >' => 30));
             $this->db->update('tbl_user', ['is_active' => 0]);

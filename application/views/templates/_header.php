@@ -5,13 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="BSM SMART-BBG">
+    <meta name="description" content="">
     <meta name="author" content="Imam Maulana Ibrahim">
-
-    <title>Bank Syariah Mandiri Apps</title>
+    <link rel="icon" type="image/png" href="<?= base_url('assets'); ?>/images/logo-bsm.png">
+    <title>System SMART - BBG</title>
 
     <style>
-        html, body {
+        html,
+        body {
             height: 100% !important;
         }
 
