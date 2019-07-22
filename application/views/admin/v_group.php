@@ -30,7 +30,21 @@
                                     <th class="text-center" style="width: 10%">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="data_group"></tbody>
+                            <tbody id="data_group">
+                                <?php $no = 1;
+                                foreach ($list as $li) { ?>
+                                    <tr>
+                                        <td><?= $no++ ?></td>
+                                        <td><?= $li['group_id'] ?></td>
+                                        <td><?= $li['group_name'] ?></td>
+                                        <td><?= $li['group_title'] ?></td>
+                                        <td>
+                                            <a href="javascript:void(0)" onclick="edit_group('<?= $li['group_id'] ?>')"><i class="fa fa-fw fa-edit"></i></a>
+                                            <a href="javascript:void(0)" onclick="delete_group('<?= $li['group_id'] ?>')"><i class="fa fa-fw fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -97,7 +111,10 @@
     $(document).ready(function() {
         $('#tbl_group').DataTable();
 
-        get_data();
+        // get_data();
+        setTimeout(function() {
+            location.reload();
+        }, 10000);
 
         $('input').change(function() {
             $(this).parent().parent().removeClass('has-error');
@@ -112,39 +129,39 @@
         $('#title_group').text('Modal Tambah Data Group');
     }
 
-    function get_data() {
-        $.ajax({
-            url: "<?= site_url(ucfirst('admin/group/list_group')) ?>",
-            type: "GET",
-            dataType: "JSON",
-            success: function(data) {
-                var row = "";
-                for (var i = 0; i < data.length; i++) {
-                    row += '<tr>' +
-                        '<td>' + (i + 1) + '</td>' +
-                        '<td>' + data[i].group_id + '</td>' +
-                        '<td>' + data[i].group_name + '</td>' +
-                        '<td>' + data[i].group_title + '</td>' +
-                        '<td class="text-center">' +
-                        '<a href="javascript:void(0)" onclick="edit_group(' + data[i].group_id + ')"><i class="fa fa-fw fa-edit"></i></a> ' +
-                        '<a href="javascript:void(0)" onclick="delete_group(' + data[i].group_id + ')"><i class="fa fa-fw fa-trash"></i></a>' +
-                        '</td></tr>';
-                }
-                $('#data_group').html(row);
-            }
-        });
-    }
+    // function get_data() {
+    //     $.ajax({
+    //         url: "<?= site_url(ucfirst('admin/group/list_group')) ?>",
+    //         type: "GET",
+    //         dataType: "JSON",
+    //         success: function(data) {
+    //             var row = "";
+    //             for (var i = 0; i < data.length; i++) {
+    //                 row += '<tr>' +
+    //                     '<td>' + (i + 1) + '</td>' +
+    //                     '<td>' + data[i].group_id + '</td>' +
+    //                     '<td>' + data[i].group_name + '</td>' +
+    //                     '<td>' + data[i].group_title + '</td>' +
+    //                     '<td class="text-center">' +
+    //                     '<a href="javascript:void(0)" onclick="edit_group(' + data[i].group_id + ')"><i class="fa fa-fw fa-edit"></i></a> ' +
+    //                     '<a href="javascript:void(0)" onclick="delete_group(' + data[i].group_id + ')"><i class="fa fa-fw fa-trash"></i></a>' +
+    //                     '</td></tr>';
+    //             }
+    //             $('#data_group').html(row);
+    //         }
+    //     });
+    // }
 
-    function edit_group(id){
+    function edit_group(id) {
         save_method = 'update';
         $('#form_group')[0].reset();
         $('.modal-title').text('Modal Ubah Data Group');
 
         $.ajax({
-            url: "<?= site_url(ucfirst('admin/group/edit_group/')) ?>"+id,
+            url: "<?= site_url(ucfirst('admin/group/edit_group/')) ?>" + id,
             type: "GET",
             dataType: "JSON",
-            success: function(data){
+            success: function(data) {
                 $('#modal_group').modal('show');
                 $('[name="group_code"]').val(data.group_id);
                 $('[name="group_name"]').val(data.group_name);
@@ -190,7 +207,7 @@
             dataType: 'JSON',
             data: $('#form_group').serialize(),
             success: function(data) {
-                if(data.db_error){
+                if (data.db_error) {
                     swal('Kesalahan!', data.db_error, 'warning');
                 }
 
@@ -198,7 +215,7 @@
                     swal('Sukses!', 'Data group telah berhasil disimpan', 'success');
                     $('#modal_group').modal('hide');
 
-                    get_data();
+                    // get_data();
                 } else {
                     for (var i = 0; i < data.inputerror.length; i++) {
                         $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');

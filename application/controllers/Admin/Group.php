@@ -14,7 +14,8 @@ class Group extends CI_Controller {
         $page = 'admin/v_group';
         
         $data = array(
-            'title' => 'Group Management'
+            'title' => 'Group Management',
+            'list' => $this->db->get('tbl_group')->result_array()
         );
 
         ob_start('ob_gzhandler');
@@ -42,7 +43,7 @@ class Group extends CI_Controller {
             $data['inputerror'][] = 'group_name';
             $data['error'][] = 'Group name harus diisi';
             $data['status'] = false;
-        } else if(!preg_match('/^[a-z A-Z]+$/', input('group_name'))){
+        } else if(!preg_match('/^[a-zA-Z0-9, ]+$/', input('group_name'))){
             $data['inputerror'][] = 'group_name';
             $data['error'][] = 'Group name tidak valid, harus alphabet';
             $data['status'] = false;
@@ -52,7 +53,7 @@ class Group extends CI_Controller {
             $data['inputerror'][] = 'title';
             $data['error'][] = 'Title harus diisi';
             $data['status'] = false;
-        } else if(!preg_match('/^[a-z A-Z]+$/', input('title'))){
+        } else if(!preg_match('/^[a-zA-Z0-9 ]+$/', input('title'))){
             $data['inputerror'][] = 'title';
             $data['error'][] = 'Title tidak valid, harus alphabet';
             $data['status'] = false;
@@ -63,11 +64,30 @@ class Group extends CI_Controller {
         }
     }
 
-    public function list_group(){
-        $list = $this->db->get('tbl_group')->result_array();
-       
-        echo json_encode($list); exit();
-    }
+    // public function list_group(){
+    //     $list = $this->db->get('tbl_group')->result_array();
+    //     $data = array();
+    //     $no = 1;
+    //     foreach($list as $li){
+    //         $row = array();
+    //         $row[] = $no++;
+    //         $row[] = $li['group_id'];
+    //         $row[] = $li['group_name'];
+    //         $row[] = $li['group_title'];
+    //         $aksi = '<a href="javascript:void(0)" onclick="edit_group('.$li['group_id'].')"><i class="fa fa-fw fa-edit"></i></a> ';
+    //         $aksi .= '<a href="javascript:void(0)" onclick="delete_group('.$li['group_id'].')"><i class="fa fa-fw fa-trash"></i></a>';
+    //         $row[] = $aksi;
+    //     }
+
+    //     $data[] = $row;
+    //     echo json_encode(['data' => $data]); exit();
+    // }
+
+    // public function list_group(){
+    //     $list = $this->db->get('tbl_group')->result_array();
+        
+    //     echo json_encode($list); exit();
+    // }
 
     public function edit_group($id){
         $data = $this->db->get_where('tbl_group', ['group_id' => $id])->row_array();

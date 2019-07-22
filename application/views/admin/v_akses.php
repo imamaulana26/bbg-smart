@@ -22,41 +22,43 @@
                     <i class="fa fa-fw fa-plus"></i> Tambah Akses Menu
                 </button>
                 <div class="panel panel-default">
-                    <table class="table table-striped table-bordered table-hover" id="tbl_akses">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Akses</th>
-                                <th>Nama Menu</th>
-                                <th>URL</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="data_akses"></tbody>
-                    </table>
+                    <div class="panel panel-body">
+                        <table class="table table-striped table-bordered table-hover" id="tbl_akses">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Akses</th>
+                                    <th>Nama Menu</th>
+                                    <th>URL</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data_akses"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <!-- /. Table Akses Menu -->
             <!-- Table Role User -->
-            <?php if($this->session->userdata('role_id') == 1){ ?>
-            <div class="col-md-3">
-                <button class="btn btn-primary btn-add" style="margin-bottom: 10px" onclick="add_role()">
-                    <i class="fa fa-fw fa-plus"></i> Tambah Role User
-                </button>
-                <div class="panel panel-default">
-                    <table class="table table-striped table-bordered table-hover" id="mydata-akses">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Role User</th>
-                                <th class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="data_role"></tbody>
-                    </table>
+            <?php if ($this->session->userdata('role_id') == 1) { ?>
+                <div class="col-md-3">
+                    <button class="btn btn-primary btn-add" style="margin-bottom: 10px" onclick="add_role()">
+                        <i class="fa fa-fw fa-plus"></i> Tambah Role User
+                    </button>
+                    <div class="panel panel-default">
+                        <table class="table table-striped table-bordered table-hover" id="mydata-akses">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Role User</th>
+                                    <th class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data_role"></tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
             <?php } ?>
             <!-- /.Table Role User -->
         </div>
@@ -95,7 +97,7 @@
                                 <select class="selectpicker" name="menu" id="menu">
                                     <option selected value="0">-- Please Select --</option>
                                     <?php foreach ($menu as $m) {
-                                        echo "<option value='" . $m['id'] . "' data-icon='".$m['icon']."'>" . $m['menu'] . "</option>";
+                                        echo "<option value='" . $m['id'] . "' data-icon='" . $m['icon'] . "'>" . $m['menu'] . "</option>";
                                     } ?>
                                 </select>
                             </div>
@@ -162,16 +164,18 @@
 <script>
     var save_method;
     $(document).ready(function() {
+        $('#tbl_akses').DataTable();
+
         get_data_akses();
         get_data_role();
 
-        $('input').change(function(){
+        $('input').change(function() {
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
     });
 
-    function validasi_akses(){
+    function validasi_akses() {
         // var regCode = /^\d+[a-z]?$/;
         // var regName = /^[a-z A-Z]+$/;
         var role = $('#user').val();
@@ -183,13 +187,13 @@
         for (var i = 0; i < icon.length; i++) {
             if (icon[i].checked == true) iconVal = true;
         }
-        
-        if(role == '0'){
+
+        if (role == '0') {
             swal('Akses user belum terpilih!');
             return false;
-        } else if(menu == '0') {
+        } else if (menu == '0') {
             swal('Menu belum terpilih!');
-        } else if(!iconVal){
+        } else if (!iconVal) {
             swal('Status belum terpilih!');
         } else {
             save_akses();
@@ -349,15 +353,15 @@
                     swal(data.msg);
                 }
 
-                if(data.status){
+                if (data.status) {
                     swal('Sukses!', 'Data role user telah berhasil disimpan', 'success');
                     $('#modal_role').modal('hide');
 
                     get_data_role();
                 } else {
-                    for(var i=0; i<data.inputerror.length; i++){
-                        $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error');
-                        $('[name="'+data.inputerror[i]+'"]').next().text(data.error[i]);
+                    for (var i = 0; i < data.inputerror.length; i++) {
+                        $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');
+                        $('[name="' + data.inputerror[i] + '"]').next().text(data.error[i]);
                     }
                 }
             },
