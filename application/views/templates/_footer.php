@@ -16,10 +16,6 @@
 <!-- Bootstrap-datepicker JavaScript -->
 <script src="<?= base_url('assets'); ?>/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
-<footer>
-    <strong><p class="text-left" style="padding: 5px">Copyright &copy; 2019 BBG - PT Bank Syariah Mandiri.</p></strong>
-</footer>
-
 </body>
 
 </html>

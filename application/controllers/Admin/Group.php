@@ -4,6 +4,7 @@ defined('BASEPATH')OR exit('No direct script access allowed');
 class Group extends CI_Controller {
     public function __construct(){
         parent::__construct();
+        $this->load->model('m_group');
         is_logged_in();
         date_default_timezone_set('Asia/Jakarta');
         
@@ -64,33 +65,34 @@ class Group extends CI_Controller {
         }
     }
 
-    // public function list_group(){
-    //     $list = $this->db->get('tbl_group')->result_array();
-    //     $data = array();
-    //     $no = 1;
-    //     foreach($list as $li){
-    //         $row = array();
-    //         $row[] = $no++;
-    //         $row[] = $li['group_id'];
-    //         $row[] = $li['group_name'];
-    //         $row[] = $li['group_title'];
-    //         $aksi = '<a href="javascript:void(0)" onclick="edit_group('.$li['group_id'].')"><i class="fa fa-fw fa-edit"></i></a> ';
-    //         $aksi .= '<a href="javascript:void(0)" onclick="delete_group('.$li['group_id'].')"><i class="fa fa-fw fa-trash"></i></a>';
-    //         $row[] = $aksi;
-    //     }
+    public function list_group(){
+        $list = $this->m_group->get_datatables();
+        $data = array();
+        $no = 1;
+        foreach($list as $li){
+            $row = array();
+            $row[] = $no++;
+            $row[] = $li['group_id'];
+            $row[] = $li['group_name'];
+            $row[] = $li['group_title'];
+            $aksi = '<center><a href="javascript:void(0)" onclick="edit_group('."'".$li['id']."'".')"><i class="fa fa-fw fa-edit"></i></a> ';
+            $aksi .= '<a href="javascript:void(0)" onclick="delete_group('."'".$li['id']."'".')"><i class="fa fa-fw fa-trash"></i></a></center>';
+            $row[] = $aksi;
 
-    //     $data[] = $row;
-    //     echo json_encode(['data' => $data]); exit();
-    // }
+            $data[] = $row;
+        }
 
-    // public function list_group(){
-    //     $list = $this->db->get('tbl_group')->result_array();
-        
-    //     echo json_encode($list); exit();
-    // }
+        $output = array(
+            'draw' => intval($_POST['draw']),
+            'recordsTotal' => $this->m_group->get_all_data(),
+            'recordsFiltered' => $this->m_group->count_filtered(),
+            'data' => $data
+        );
+        echo json_encode($output); exit;
+    }
 
     public function edit_group($id){
-        $data = $this->db->get_where('tbl_group', ['group_id' => $id])->row_array();
+        $data = $this->db->get_where('tbl_group', ['id' => $id])->row_array();
 
         echo json_encode($data); exit;
     }
@@ -116,18 +118,19 @@ class Group extends CI_Controller {
     public function update_group(){
         $this->_validate();
 
-        $id = input('group_code');
+        $id = input('id');
         $data = array(
+            'group_id' => input('group_code'),
             'group_name' => input('group_name'),
             'group_title' => input('title')
         );
 
-        $this->db->update('tbl_group', $data, ['group_id' => $id]);
+        $this->db->update('tbl_group', $data, ['id' => $id]);
         echo json_encode(['status' => true]); exit();
     }
 
     public function delete_group($id){
-        $this->db->delete('tbl_group', ['group_id' => $id]);
+        $this->db->delete('tbl_group', ['id' => $id]);
         echo json_encode(['status' => true]); exit();
     }
 }

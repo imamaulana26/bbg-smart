@@ -66,7 +66,8 @@
                 <h4 class="modal-title" id="title_group"></h4>
             </div>
             <div class="modal-body form">
-                <form class="form-horizontal" action="#" id="form_group">
+                <form action="#" class="form-horizontal" id="form_group" autocomplete="off">
+                    <?= tag_input('hidden', 'id') ?>
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-sm-3">Group Code</label>
@@ -109,12 +110,19 @@
 
 <script>
     $(document).ready(function() {
-        $('#tbl_group').DataTable();
-
-        // get_data();
-        setTimeout(function() {
-            location.reload();
-        }, 10000);
+        table = $('#tbl_group').DataTable({
+            'processing': true,
+            'serverSide': true,
+            'order': [],
+            'ajax': {
+                'url': "<?= site_url(ucfirst('admin/group/list_group')) ?>",
+                'type': 'post'
+            },
+            'columnDefs': [{
+                'targets': [0, 4],
+                'orderable': false
+            }, ],
+        });
 
         $('input').change(function() {
             $(this).parent().parent().removeClass('has-error');
@@ -122,35 +130,16 @@
         });
     });
 
+    function reload_table() {
+        table.ajax.reload(null, false);
+    }
+
     function add_group() {
         save_method = 'add';
         $('#form_group')[0].reset();
         $('#modal_group').modal('show');
         $('#title_group').text('Modal Tambah Data Group');
     }
-
-    // function get_data() {
-    //     $.ajax({
-    //         url: "<?= site_url(ucfirst('admin/group/list_group')) ?>",
-    //         type: "GET",
-    //         dataType: "JSON",
-    //         success: function(data) {
-    //             var row = "";
-    //             for (var i = 0; i < data.length; i++) {
-    //                 row += '<tr>' +
-    //                     '<td>' + (i + 1) + '</td>' +
-    //                     '<td>' + data[i].group_id + '</td>' +
-    //                     '<td>' + data[i].group_name + '</td>' +
-    //                     '<td>' + data[i].group_title + '</td>' +
-    //                     '<td class="text-center">' +
-    //                     '<a href="javascript:void(0)" onclick="edit_group(' + data[i].group_id + ')"><i class="fa fa-fw fa-edit"></i></a> ' +
-    //                     '<a href="javascript:void(0)" onclick="delete_group(' + data[i].group_id + ')"><i class="fa fa-fw fa-trash"></i></a>' +
-    //                     '</td></tr>';
-    //             }
-    //             $('#data_group').html(row);
-    //         }
-    //     });
-    // }
 
     function edit_group(id) {
         save_method = 'update';
@@ -163,6 +152,7 @@
             dataType: "JSON",
             success: function(data) {
                 $('#modal_group').modal('show');
+                $('[name="id"]').val(data.id);
                 $('[name="group_code"]').val(data.group_id);
                 $('[name="group_name"]').val(data.group_name);
                 $('[name="title"]').val(data.group_title);
@@ -189,7 +179,7 @@
                         type: 'post',
                         success: function(data) {
                             swal("Sukses!", "Data group telah berhasil dihapus", "success");
-                            get_data();
+                            reload_table();
                         }
                     });
                 }
@@ -215,7 +205,7 @@
                     swal('Sukses!', 'Data group telah berhasil disimpan', 'success');
                     $('#modal_group').modal('hide');
 
-                    // get_data();
+                    reload_table();
                 } else {
                     for (var i = 0; i < data.inputerror.length; i++) {
                         $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');

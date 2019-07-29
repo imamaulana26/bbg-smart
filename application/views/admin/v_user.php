@@ -241,7 +241,8 @@
                 $('[name="nip"]').val(data.nip_user);
                 $('[name="nama"]').val(data.nama);
                 $('[name="group_id"]').val(data.group_id);
-                $('[name="email"]').val(data.email);
+                var username = data.email.split("@");
+                $('[name="email"]').val(username[0]);
                 $('[name="jabatan"]').val(data.jabatan);
                 $('select[name="role_id"]').val(data.role_id);
                 $('select[name="cabang"]').val(data.cabang);

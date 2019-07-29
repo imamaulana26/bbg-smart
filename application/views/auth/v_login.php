@@ -14,7 +14,7 @@
                     $msg = $this->session->flashdata('msg');
                     if (isset($msg)) echo $msg; ?>
 
-                    <form action="<?= site_url('Auth/login') ?>" method="post">
+                    <form action="<?= site_url('Auth/login') ?>" method="post" autocomplete="off">
                         <fieldset>
                             <div class="form-group input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
