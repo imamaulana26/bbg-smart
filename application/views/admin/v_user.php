@@ -58,7 +58,8 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body form">
-                <form class="form-horizontal" id="form_user">
+                <form class="form-horizontal" id="form_user" autocomplete="off">
+                    <?= tag_input('hidden', 'id'); ?>
                     <div class="form-group">
                         <label class="control-label col-sm-3">NIP User</label>
                         <div class="col-sm-4">
@@ -74,7 +75,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Email</label>
+                        <label class="control-label col-sm-3">Username</label>
                         <div class="col-sm-5">
                             <?= tag_input('text', 'email'); ?>
                             <span class="help-block"></span>
@@ -94,7 +95,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-3">Jabatan</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <select class="form-control selectpicker" name="jabatan" id="jabatan">
                                 <option selected disabled>-- Please Select --</option>
                                 <?php $jabatan = array('Group Head', 'Dept. Head', 'Team Leader', 'Officer', 'Staff', 'TAD');
@@ -108,7 +109,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-3">Group</label>
                         <div class="col-sm-7">
-                            <select class="form-control selectpicker" name="group_id" id="group_id">
+                            <select class="form-control selectpicker" name="group_id" id="group_id" data-live-search="true">
                                 <option selected disabled>-- Please Select --</option>
                                 <?php foreach ($group as $g) {
                                     echo "<option value='" . $g['group_id'] . "'>" . $g['group_name'] . " (" . $g['group_title'] . ")</option>";
@@ -186,6 +187,9 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
+        $('select').change(function() {
+            $(this).parent().parent().removeClass('has-error');
+        });
     });
 
     function reload_table() {
@@ -194,7 +198,7 @@
 
     function get_cabang() {
         $.ajax({
-            url: '<?= site_url(ucfirst('api_cabang/get_cabang')) ?>',
+            url: "<?= site_url(ucfirst('api_cabang/get_cabang')) ?>",
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
@@ -228,12 +232,13 @@
 
         $.ajax({
             url: '<?= site_url(ucfirst('admin/user/edit_user/')) ?>' + id,
-            type: 'get',
+            type: 'POST',
             dataType: 'JSON',
             success: function(data) {
                 console.log(data);
                 $('#modal_user').modal('show');
-                $('[name="nip"]').val(data.nip_user).attr('readonly', true);
+                $('[name="id"]').val(data.id_user);
+                $('[name="nip"]').val(data.nip_user);
                 $('[name="nama"]').val(data.nama);
                 $('[name="group_id"]').val(data.group_id);
                 $('[name="email"]').val(data.email);
@@ -273,7 +278,7 @@
             function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '<?= site_url(ucfirst('admin/user/delete_user/')) ?>' + id,
+                        url: "<?= site_url(ucfirst('admin/user/delete_user/')) ?>" + id,
                         type: 'post',
                         success: function(data) {
                             swal("Sukses!", "Data user telah berhasil dihapus", "success");
@@ -286,13 +291,13 @@
 
     function save() {
         var url = '';
-        if (save_method == 'add') url = '<?= site_url(ucfirst('admin/user/save_user')) ?>';
-        else url = '<?= site_url(ucfirst('admin/user/update_user')) ?>';
+        if (save_method == 'add') url = "<?= site_url(ucfirst('admin/user/save_user')) ?>";
+        else url = "<?= site_url(ucfirst('admin/user/update_user')) ?>";
 
         $.ajax({
             url: url,
-            type: 'post',
-            dataType: 'json',
+            type: 'POST',
+            dataType: 'JSON',
             data: $('#form_user').serialize(),
             success: function(data) {
                 if (data.db_error) {

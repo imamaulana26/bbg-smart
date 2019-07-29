@@ -15,7 +15,6 @@ class User extends CI_Controller {
         $data = array();
         $data['inputerror'] = array();
         $data['error'] = array();
-        $data['status'] = true;
 
         if(input('nip') == ''){
             $data['inputerror'][] = 'nip';
@@ -39,7 +38,7 @@ class User extends CI_Controller {
             $data['status'] = false;
         } else if(!preg_match('/^[a-z A-Z]+$/', input('nama'))){
             $data['inputerror'][] = 'nama';
-            $data['error'][] = 'Nama lengkap tidak valid';
+            $data['error'][] = 'Nama lengkap tidak valid, harus alphabet';
             $data['status'] = false;
         } else {
             $data['status'] = true;
@@ -47,17 +46,31 @@ class User extends CI_Controller {
 
         if(input('email') == ''){
             $data['inputerror'][] = 'email';
-            $data['error'][] = 'Email harus diisi';
+            $data['error'][] = 'Username harus diisi';
             $data['status'] = false;
-        } else if(!filter_var(input('email'), FILTER_VALIDATE_EMAIL)){
+        // } else if(!filter_var(input('email'), FILTER_VALIDATE_EMAIL)){
+        } else if(!preg_match('/^[a-z0-9]+$/', input('email'))){
             $data['inputerror'][] = 'email';
-            $data['error'][] = 'Email tidak valid';
+            $data['error'][] = 'Username tidak valid';
             $data['status'] = false;
         } else {
             $data['status'] = true;
         }
 
-        if(input('role_id') == '' || input('cabang') == ''){
+        if(input('role_id') == ''){
+            $data['inputerror'][] = 'role_id';
+            $data['status'] = false;
+        }
+        if(input('cabang') == ''){
+            $data['inputerror'][] = 'cabang';
+            $data['status'] = false;
+        }
+        if(input('jabatan') == ''){
+            $data['inputerror'][] = 'jabatan';
+            $data['status'] = false;
+        }
+        if(input('group_id') == ''){
+            $data['inputerror'][] = 'group_id';
             $data['status'] = false;
         }
 
@@ -146,7 +159,7 @@ class User extends CI_Controller {
         $data = array(
             'nip_user' => $nip,
             'nama' => input('nama'),
-            'email' => input('email'),
+            'email' => input('email').'@syariahmandiri.co.id',
             'cabang' => input('cabang'),
             'jabatan' => input('jabatan'),
             'group_id' => input('group_id'),
@@ -178,7 +191,7 @@ class User extends CI_Controller {
     public function update_user(){
         $this->_validate();
 
-        $nip = input('nip');
+        $id = input('id');
         $role = input('role_id');
         $jaringan = $this->input->post('jaringan', true);
         if(is_array($this->input->post('jaringan', true))){
@@ -186,8 +199,9 @@ class User extends CI_Controller {
         }
 
         $data = array(
+            'nip_user' => input('nip'),
             'nama' => input('nama'),
-            'email' => input('email'),
+            'email' => input('email').'@syariahmandiri.co.id',
             'role_id' => $role,
             'cabang' => input('cabang'),
             'jabatan' => input('jabatan'),
@@ -198,21 +212,21 @@ class User extends CI_Controller {
             'id_cabang' => $jaringan
         );
 
-        $check = $this->db->get_where('tbl_jaringan', ['id_user' => $nip]);
+        $check = $this->db->get_where('tbl_jaringan', ['id_user' => input('nip')]);
 
         if($role > 3){
-            $data = $this->db->update('tbl_user', $data, ['nip_user' => $nip]);
+            $this->db->update('tbl_user', $data, ['id_user' => $id]);
             if($check->num_rows() > 0){
-                $data = $this->db->update('tbl_jaringan', $dt, ['id_user' => $nip]);
+                $this->db->update('tbl_jaringan', $dt, ['id_user' => input('nip')]);
             } else {
-                $data = $this->db->insert('tbl_jaringan', ['id_user' => $nip, 'id_cabang' => $jaringan]);
+                $this->db->insert('tbl_jaringan', ['id_user' => input('nip'), 'id_cabang' => $jaringan]);
             }
+            echo json_encode(['status' => true]); exit;
         } else {
-            $data = $this->db->update('tbl_user', $data, ['nip_user' => $nip]);
-            $this->db->delete('tbl_jaringan', ['id_user' => $nip]);
+            $this->db->update('tbl_user', $data, ['id_user' => $id]);
+            $this->db->delete('tbl_jaringan', ['id_user' => input('nip')]);
+            echo json_encode(['status' => true]); exit;
         }
-
-        echo json_encode(['status' => $data]); exit;
     }
 
     public function delete_user($id){
