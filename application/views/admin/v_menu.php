@@ -21,7 +21,7 @@
                     <i class="fa fa-fw fa-plus"></i> Tambah Menu
                 </button>
                 <div class="panel panel-default">
-                    <table class="table table-striped table-bordered table-hover" id="tbl_menu">
+                    <table class="table table-bordered table-hover" id="tbl_menu">
                         <thead>
                             <tr>
                                 <th>#</th>

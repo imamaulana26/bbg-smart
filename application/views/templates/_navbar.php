@@ -15,7 +15,33 @@
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i><?= $name ?> (<?= $akses ?>) <i class="fa fa-caret-down"></i>
+                <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-messages">
+                <?php for ($i = 1; $i <= 3; $i++) { ?>
+                    <li style="padding: 5px 0 5px 0; border-bottom: 1px solid #ccc">
+                        <a href="#">
+                            <div>
+                                <strong>John Smith</strong>
+                                <span class="pull-right text-muted"><em>Yesterday</em></span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                        </a>
+                    </li>
+                <?php } ?>
+                <li style="padding: 5px 0 5px 0">
+                    <a class="text-center" href="#">
+                        <strong>Read All Messages</strong>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.dropdown-messages -->
+        </li>
+        <!-- /.dropdown -->
+
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <?= $name ?> (<?= $akses ?>) <i class="fa fa-user fa-fw"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
                 <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
@@ -45,7 +71,7 @@
                         <i class="fa fa-fw fa-bars"></i> Main Menu<span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <?php foreach($menu as $m){ ?>
+                        <?php foreach ($menu as $m) { ?>
                             <li>
                                 <a href="<?= site_url(ucfirst($m['url'])) ?>"><i class="<?= $m['icon'] ?>"></i> <?= $m['menu'] ?></a>
                             </li>

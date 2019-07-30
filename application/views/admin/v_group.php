@@ -20,7 +20,7 @@
                 </button>
                 <div class="panel panel-default">
                     <div class="panel panel-body">
-                        <table class="table table-striped table-bordered table-hover" id="tbl_group">
+                        <table class="table table-bordered table-hover" id="tbl_group">
                             <thead>
                                 <tr>
                                     <th style="width: 5%">#</th>

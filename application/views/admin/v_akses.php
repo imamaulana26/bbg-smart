@@ -23,7 +23,7 @@
                 </button>
                 <div class="panel panel-default">
                     <div class="panel panel-body">
-                        <table class="table table-striped table-bordered table-hover" id="tbl_akses">
+                        <table class="table table-bordered table-hover" id="tbl_akses">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -47,7 +47,7 @@
                         <i class="fa fa-fw fa-plus"></i> Tambah Role User
                     </button>
                     <div class="panel panel-default">
-                        <table class="table table-striped table-bordered table-hover" id="mydata-akses">
+                        <table class="table table-bordered table-hover" id="mydata-akses">
                             <thead>
                                 <tr>
                                     <th>#</th>

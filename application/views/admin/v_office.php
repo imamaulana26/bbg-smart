@@ -17,19 +17,19 @@
 
         <!-- Table Office -->
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <button class="btn btn-primary" style="margin-bottom: 10px" onclick="add_office()">
                     <i class="fa fa-fw fa-plus"></i> Tambah List Office
                 </button>
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <table class="table table-striped table-bordered table-hover" id="tbl_office">
+                        <table class="table table-bordered table-hover" id="tbl_office">
                             <thead>
                                 <tr>
-                                    <th style="width: 20px">#</th>
-                                    <th style="width: 120px">Kode Cabang</th>
+                                    <th style="width: 5px">#</th>
+                                    <th style="width: 100px">Kode Cabang</th>
                                     <th>Nama Cabang</th>
-                                    <th class="text-center">Aksi</th>
+                                    <th class="text-center" style="width: 60px">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="show_data"></tbody>
