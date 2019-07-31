@@ -15,6 +15,7 @@ class User extends CI_Controller {
         $data = array();
         $data['inputerror'] = array();
         $data['error'] = array();
+        $data['status'] = true;
 
         if(input('nip') == ''){
             $data['inputerror'][] = 'nip';
@@ -28,8 +29,6 @@ class User extends CI_Controller {
             $data['inputerror'][] = 'nip';
             $data['error'][] = 'NIP user tidak boleh kurang dari 8 digit';
             $data['status'] = false;
-        } else {
-            $data['status'] = true;
         }
 
         if(input('nama') == ''){
@@ -40,21 +39,16 @@ class User extends CI_Controller {
             $data['inputerror'][] = 'nama';
             $data['error'][] = 'Nama lengkap tidak valid, harus alphabet';
             $data['status'] = false;
-        } else {
-            $data['status'] = true;
         }
 
         if(input('email') == ''){
             $data['inputerror'][] = 'email';
             $data['error'][] = 'Username harus diisi';
             $data['status'] = false;
-        // } else if(!filter_var(input('email'), FILTER_VALIDATE_EMAIL)){
         } else if(!preg_match('/^[a-z0-9]+$/', input('email'))){
             $data['inputerror'][] = 'email';
             $data['error'][] = 'Username tidak valid';
             $data['status'] = false;
-        } else {
-            $data['status'] = true;
         }
 
         if(input('role_id') == ''){
@@ -183,8 +177,8 @@ class User extends CI_Controller {
             if($data['role_id'] > 3){
                 $this->db->insert('tbl_jaringan', $dt);
             }
-            echo json_encode(['status' => true]); exit;
         }
+        echo json_encode(['status' => true]); exit;
         
     }
 
@@ -221,12 +215,11 @@ class User extends CI_Controller {
             } else {
                 $this->db->insert('tbl_jaringan', ['id_user' => input('nip'), 'id_cabang' => $jaringan]);
             }
-            echo json_encode(['status' => true]); exit;
         } else {
             $this->db->update('tbl_user', $data, ['id_user' => $id]);
             $this->db->delete('tbl_jaringan', ['id_user' => input('nip')]);
-            echo json_encode(['status' => true]); exit;
         }
+        echo json_encode(['status' => true]); exit;
     }
 
     public function delete_user($id){
