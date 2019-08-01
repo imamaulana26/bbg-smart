@@ -15,7 +15,33 @@
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+                <i class="fa fa-bell fa-fw"></i> <span class="badge" style="background-color: red">2</span>
+            </a>
+            <ul class="dropdown-menu dropdown-messages">
+                <?php for ($i = 1; $i <= 3; $i++) { ?>
+                    <li style="padding: 5px 0 5px 0; border-bottom: 1px solid #ccc">
+                        <a href="#">
+                            <div>
+                                <strong>John Smith</strong>
+                                <span class="pull-right text-muted"><em>Yesterday</em></span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                        </a>
+                    </li>
+                <?php } ?>
+                <li style="padding: 5px 0 5px 0">
+                    <a class="text-center" href="#">
+                        <strong>Read All Messages</strong>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.dropdown-bell -->
+        </li>
+        <!-- /.dropdown -->
+
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-envelope fa-fw"></i> <span class="badge" style="background-color: red">7</span>
             </a>
             <ul class="dropdown-menu dropdown-messages">
                 <?php for ($i = 1; $i <= 3; $i++) { ?>

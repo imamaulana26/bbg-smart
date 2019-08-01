@@ -8,6 +8,7 @@ class Access extends CI_Controller {
         parent::__construct();
         is_logged_in();
         date_default_timezone_set('Asia/Jakarta');
+        $this->load->model('m_akses');
         
         user_helper();
         $this->role = $this->session->userdata('role_id');
@@ -55,17 +56,31 @@ class Access extends CI_Controller {
 
     // Menu Akses
     public function list_akses(){
-        $this->db->select('a.id, b.role, c.menu, a.url, a.active')->from('tbl_user_menu a');
-        $this->db->join('tbl_user_role b', 'a.role_id = b.id', 'inner');
-        $this->db->join('tbl_menu c', 'a.menu_id = c.id', 'inner');
-        if($this->role < 2){
-            $this->db->where('b.id !=', 1)->order_by('b.id', 'asc');
-        } else {
-            $this->db->where('b.id >', 2)->order_by('b.id', 'asc');
-        }
-        $list = $this->db->get()->result_array();
+        $list = $this->m_akses->get_datatables();
+        $data = array();
+        $no = 1;
+        foreach($list as $li){
+            $row = array();
+            $row[] = $no++;
+            $row[] = $li['role'];
+            $row[] = $li['menu'];
+            $row[] = $li['url'];
+            $li['active'] == 1 ? $aktif = '<span class="label label-success">Enable</span>' : $aktif = '<span class="label label-danger">Disbale</span>';
+            $row[] = '<center>'.$aktif.'</center>';
+            $aksi = '<center><a href="javascript:void(0)" onclick="edit_akses('."'".$li['id']."'".')"><i class="fa fa-fw fa-edit"></i></a> ';
+            $aksi .= '<a href="javascript:void(0)" onclick="delete_akses('."'".$li['id']."'".')"><i class="fa fa-fw fa-trash"></i></a></center>';
+            $row[] = $aksi;
 
-        echo json_encode($list); exit;
+            $data[] = $row;
+        }
+
+        $output = array(
+            'draw' => intval($_POST['draw']),
+            'recordsTotal' => $this->m_akses->get_all_data(),
+            'recordsFiltered' => $this->m_akses->count_filtered(),
+            'data' => $data
+        );
+        echo json_encode($output); exit;
     }
 
     public function edit_akses($id){

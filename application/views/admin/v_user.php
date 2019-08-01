@@ -190,6 +190,11 @@
         $('select').change(function() {
             $(this).parent().parent().removeClass('has-error');
         });
+
+        $('#modal_user').on('show.bs.modal', function() {
+            $('div').removeClass('has-error');
+            $('span.help-block').empty();
+        });
     });
 
     function reload_table() {

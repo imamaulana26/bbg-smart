@@ -164,14 +164,30 @@
 <script>
     var save_method;
     $(document).ready(function() {
-        $('#tbl_akses').DataTable();
+        table = $('#tbl_akses').DataTable({
+            'processing': true,
+            'serverSide': true,
+            'order': [],
+            'ajax': {
+                'url': "<?= site_url(ucfirst('admin/access/list_akses')) ?>",
+                'type': 'post'
+            },
+            'columnDefs': [{
+                'targets': [0, 2, 3, 5],
+                'orderable': false
+            }, ],
+        });
 
-        get_data_akses();
         get_data_role();
 
         $('input').change(function() {
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
+        });
+
+        $('#modal_role').on('show.bs.modal', function() {
+            $('div').removeClass('has-error');
+            $('span.help-block').empty();
         });
     });
 
@@ -200,6 +216,10 @@
         }
     }
 
+    function reload_table() {
+        table.ajax.reload(null, false);
+    }
+
     function add_akses() {
         save_method = 'add';
         $('#form_akses')[0].reset();
@@ -207,47 +227,6 @@
         $('#title_akses').text('Modal Tambah Data Akses Menu');
         // reset value selectpicker
         $('.selectpicker').selectpicker('refresh');
-    }
-
-    function get_data_akses() {
-        $.ajax({
-            type: 'post',
-            url: '<?= site_url(ucfirst('admin/access/list_akses')) ?>',
-            dataType: 'JSON',
-            success: function(data) {
-                var row = '';
-
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].active == 1) {
-                        row += '<tr>' +
-                            '<td>' + (i + 1) + '</td>' +
-                            '<td>' + data[i].role + '</td>' +
-                            '<td>' + data[i].menu + '</td>' +
-                            '<td>' + data[i].url + '</td>' +
-                            '<td class="text-center"><p class="label label-success">Enabled</p></td>' +
-                            '<td class="text-center">' +
-                            '<a href="javascript:void(0)" onclick="edit_akses(' + data[i].id + ')"><i class="fa fa-fw fa-edit"></i></a> ' +
-                            '<a href="javascript:void(0)" onclick="delete_akses(' + data[i].id + ')"><i class="fa fa-fw fa-trash"></i></a>' +
-                            '</td></tr>';
-                    } else {
-                        row += '<tr>' +
-                            '<td>' + (i + 1) + '</td>' +
-                            '<td>' + data[i].role + '</td>' +
-                            '<td>' + data[i].menu + '</td>' +
-                            '<td>' + data[i].url + '</td>' +
-                            '<td class="text-center"><p class="label label-danger">Disabled</p></td>' +
-                            '<td class="text-center">' +
-                            '<a href="javascript:void(0)" onclick="edit_akses(' + data[i].id + ')"><i class="fa fa-fw fa-edit"></i></a> ' +
-                            '<a href="javascript:void(0)" onclick="delete_akses(' + data[i].id + ')"><i class="fa fa-fw fa-trash"></i></a>' +
-                            '</td></tr>';
-                    }
-                }
-                $('#data_akses').html(row);
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr + ', ' + status + ', ' + error);
-            }
-        });
     }
 
     function edit_akses(id) {
@@ -294,7 +273,7 @@
                     swal('Sukses!', 'Data akses menu telah berhasil disimpan', 'success');
                     $('#modal_akses').modal('hide');
 
-                    get_data_akses();
+                    reload_table();
                 }
             },
             error: function(xhr, status, error) {
@@ -322,14 +301,12 @@
                         type: 'post',
                         success: function(data) {
                             swal("Sukses!", "Data akses menu telah berhasil dihapus", "success");
-                            get_data_akses();
+                            reload_table();
                         }
                     });
                 }
             });
     }
-
-
 
     function add_role() {
         save_method = 'add';

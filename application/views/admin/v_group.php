@@ -30,21 +30,7 @@
                                     <th class="text-center" style="width: 10%">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="data_group">
-                                <?php $no = 1;
-                                foreach ($list as $li) { ?>
-                                    <tr>
-                                        <td><?= $no++ ?></td>
-                                        <td><?= $li['group_id'] ?></td>
-                                        <td><?= $li['group_name'] ?></td>
-                                        <td><?= $li['group_title'] ?></td>
-                                        <td>
-                                            <a href="javascript:void(0)" onclick="edit_group('<?= $li['group_id'] ?>')"><i class="fa fa-fw fa-edit"></i></a>
-                                            <a href="javascript:void(0)" onclick="delete_group('<?= $li['group_id'] ?>')"><i class="fa fa-fw fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                            </tbody>
+                            <tbody id="data_group"></tbody>
                         </table>
                     </div>
                 </div>
@@ -127,6 +113,11 @@
         $('input').change(function() {
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
+        });
+
+        $('#modal_group').on('show.bs.modal', function() {
+            $('div').removeClass('has-error');
+            $('span.help-block').empty();
         });
     });
 

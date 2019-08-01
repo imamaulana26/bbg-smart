@@ -110,6 +110,11 @@
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
+
+        $('#modal_office').on('show.bs.modal', function() {
+            $('div').removeClass('has-error');
+            $('span.help-block').empty();
+        });
     });
 
     function reload_table() {
