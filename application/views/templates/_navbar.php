@@ -15,7 +15,7 @@
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-bell fa-fw"></i> <span class="badge" style="background-color: red">2</span>
+                <i class="fa fa-bell fa-fw"></i> <span class="badge" style="background-color: red">3</span>
             </a>
             <ul class="dropdown-menu dropdown-messages">
                 <?php for ($i = 1; $i <= 3; $i++) { ?>
@@ -25,13 +25,15 @@
                                 <strong>John Smith</strong>
                                 <span class="pull-right text-muted"><em>Yesterday</em></span>
                             </div>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            <div id="message">
+                                <p>ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</p>
+                            </div>
                         </a>
                     </li>
                 <?php } ?>
                 <li style="padding: 5px 0 5px 0">
-                    <a class="text-center" href="#">
-                        <strong>Read All Messages</strong>
+                    <a class="text-center" href="<?= site_url(ucfirst('admin/approver')) ?>">
+                        <strong>See All Alerts</strong>
                     </a>
                 </li>
             </ul>
@@ -51,7 +53,9 @@
                                 <strong>John Smith</strong>
                                 <span class="pull-right text-muted"><em>Yesterday</em></span>
                             </div>
-                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            <div id="alert">
+                                <p>ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</p>
+                            </div>
                         </a>
                     </li>
                 <?php } ?>
@@ -104,9 +108,6 @@
                         <?php } ?>
                     </ul>
                     <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="<?= site_url(ucfirst('admin/approver')) ?>"><i class="fa fa-fw fa-calendar-check-o"></i> Menu Approver</a>
                 </li>
                 <li>
                     <a href="<?= site_url(ucfirst('auth/logout')) ?>"><i class="fa fa-fw fa-sign-out"></i> Logout</a>

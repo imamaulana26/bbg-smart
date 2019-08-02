@@ -64,7 +64,7 @@
                             <div class="col-sm-8">
                                 <?php $icon_list = array(
                                     'fa fa-fw fa-dashboard',
-                                    'fa fa-fw fa-align-justify',
+                                    'fa fa-fw fa-list',
                                     'fa fa-fw fa-user',
                                     'fa fa-fw fa-user-secret',
                                     'fa fa-fw fa-key',

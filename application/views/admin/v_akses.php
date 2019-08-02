@@ -40,6 +40,7 @@
                 </div>
             </div>
             <!-- /. Table Akses Menu -->
+
             <!-- Table Role User -->
             <?php if ($this->session->userdata('role_id') == 1) { ?>
                 <div class="col-md-3">
@@ -307,6 +308,7 @@
                 }
             });
     }
+    
 
     function add_role() {
         save_method = 'add';

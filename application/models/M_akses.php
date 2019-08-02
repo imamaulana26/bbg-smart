@@ -4,10 +4,10 @@ Class M_akses extends CI_Model {
     var $order = array('role_id' => 'asc');
     var $id = 'id';
     var $column_order = array(null, 'role', null, null, 'active', null);
-    var $column_search = array('role','menu');
+    var $column_search = array('role','menu','url');
 
     function _get_datatable_query(){
-        $this->db->select('*');
+        $this->db->select('a.*, b.role, c.menu');
         $this->db->from($this->table.' a');
         $this->db->join('tbl_user_role b', 'a.role_id = b.id', 'inner');
         $this->db->join('tbl_menu c', 'a.menu_id = c.id', 'inner');

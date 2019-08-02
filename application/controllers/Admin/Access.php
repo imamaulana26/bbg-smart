@@ -84,7 +84,7 @@ class Access extends CI_Controller {
     }
 
     public function edit_akses($id){
-        $this->db->select('a.*')->from('tbl_user_menu a');
+        $this->db->select('a.*, b.role, c.menu')->from('tbl_user_menu a');
         $this->db->join('tbl_user_role b', 'a.role_id = b.id', 'inner');
         $this->db->join('tbl_menu c', 'a.menu_id = c.id', 'inner');
         $this->db->where('a.id', $id);
