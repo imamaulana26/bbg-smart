@@ -12,8 +12,8 @@
         </div>
         <!-- /.container-fluid -->
 
-        <?php $msg = $this->session->flashdata('msg');
-        if (isset($msg)) echo $msg; ?>
+        <?php /*$msg = $this->session->flashdata('msg');
+        if (isset($msg)) echo $msg;*/ ?>
 
         <div class="row">
             <div class="col-sm-6">
@@ -120,7 +120,7 @@
             return false;
         });
 
-        $('input').change(function() {
+        $('input').keypress(function() {
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });

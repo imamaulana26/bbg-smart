@@ -27,9 +27,11 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5px">#</th>
-                                    <th style="width: 100px">Kode Cabang</th>
+                                    <th>Kode Cabang</th>
                                     <th>Nama Cabang</th>
-                                    <th class="text-center" style="width: 60px">Aksi</th>
+                                    <th>Nama Area</th>
+                                    <th style="width: 5px">Region</th>
+                                    <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="show_data"></tbody>
@@ -61,6 +63,30 @@
                             <label class="control-label col-sm-3">Kode Cabang</label>
                             <div class="col-sm-4">
                                 <?= tag_input('text', 'kd_cabang') ?>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Region</label>
+                            <div class="col-sm-4">
+                                <select class="form-control selectpicker" name="region" id="region">
+                                    <option selected disabled>-- Please Select --</option>
+                                    <option value="I">I / Medan</option>
+                                    <option value="II">II / Palembang</option>
+                                    <option value="III">III / Jakarta</option>
+                                    <option value="IV">IV / Bandung</option>
+                                    <option value="V">V / Semarang</option>
+                                    <option value="VI">VI / Surabaya</option>
+                                    <option value="VII">VII / Banjarmasin</option>
+                                    <option value="VIII">VIII / Makassar</option>
+                                </select>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Nama Area</label>
+                            <div class="col-sm-8">
+                                <?= tag_input('text', 'area') ?>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -101,14 +127,17 @@
                 'type': 'post'
             },
             'columnDefs': [{
-                'targets': [0, 3],
+                'targets': [0, 5],
                 'orderable': false
             }, ],
         });
 
-        $('input').change(function() {
+        $('input').keypress(function() {
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
+        });
+        $('select').change(function() {
+            $(this).parent().parent().removeClass('has-error');
         });
 
         $('#modal_office').on('show.bs.modal', function() {
@@ -130,7 +159,6 @@
 
     function save() {
         var url = '';
-
         if (save_method == 'add') url = "<?= site_url(ucfirst('admin/office/save_office')) ?>";
         else url = "<?= site_url(ucfirst('admin/office/update_office')) ?>";
 
@@ -162,7 +190,7 @@
         $('.modal-title').text('Modal Ubah Daftar Cabang');
 
         $.ajax({
-            url: "<?= site_url(ucfirst('admin/office/edit_office/')) ?>"+id,
+            url: "<?= site_url(ucfirst('admin/office/edit_office/')) ?>" + id,
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
@@ -170,6 +198,9 @@
                 $('[name="id"]').val(data.id);
                 $('[name="kd_cabang"]').val(data.kd_cabang.replace('ID', ''));
                 $('[name="nm_cabang"]').val(data.nm_cabang);
+                $('[name="area"]').val(data.area);
+                $('[name="region"]').val(data.region);
+                $('.selectpicker').selectpicker('refresh');
             },
             error: function(xhr, status, error) {
                 console.log(xhr + ', ' + status + ', ' + error);

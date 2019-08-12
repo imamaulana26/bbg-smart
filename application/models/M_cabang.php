@@ -1,10 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 Class M_cabang extends CI_Model {
     var $table = 'tbl_cabang'; // table yang ingin ditampilkan
-    var $order = array('kd_cabang' => 'asc', 'nm_cabang' => 'asc');
+    var $order = array('region' => 'asc');
     var $id = 'id';
-    var $column_order = array(null,'kd_cabang','nm_cabang',null);
-    var $column_search = array('kd_cabang','nm_cabang');
+    var $column_order = array(null,'kd_cabang','nm_cabang','area','region',null);
+    var $column_search = array('kd_cabang','nm_cabang','area','region');
 
     function _get_datatable_query(){
         $this->db->from($this->table);

@@ -183,7 +183,7 @@
             }
         });
 
-        $('input').change(function() {
+        $('input').keypress(function() {
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
