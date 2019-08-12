@@ -33,12 +33,29 @@ class Office extends CI_Controller {
             $data['inputerror'][] = 'nm_cabang';
             $data['error'][] = 'Nama cabang harus diisi';
             $data['status'] = false;
-        } else if(!preg_match('/^[a-z A-Z]+$/', input('nm_cabang'))){
+        } else if(!preg_match('/^[A-Z ]+$/', input('nm_cabang'))){
             $data['inputerror'][] = 'nm_cabang';
-            $data['error'][] = 'Nama cabang tidak valid, harus alphabet';
+            $data['error'][] = 'Nama cabang tidak valid, harus huruf kapital';
             $data['status'] = false;
         } else {
             $data['status'] = true;
+        }
+
+        if(input('area') == ''){
+            $data['inputerror'][] = 'area';
+            $data['error'][] = 'Nama area harus diisi';
+            $data['status'] = false;
+        } else if(!preg_match('/^[A-Z ]+$/', input('area'))){
+            $data['inputerror'][] = 'area';
+            $data['error'][] = 'Nama area tidak valid, harus huruf kapital';
+            $data['status'] = false;
+        } else {
+            $data['status'] = true;
+        }
+
+        if(input('region') == ''){
+            $data['inputerror'][] = 'region';
+            $data['status'] = false;
         }
 
         if($data['status'] === false){
@@ -67,6 +84,8 @@ class Office extends CI_Controller {
             $row[] = $no++;
             $row[] = $li['kd_cabang'];
             $row[] = $li['nm_cabang'];
+            $row[] = $li['area'];
+            $row[] = '<center>'.$li['region'].'</center>';
             $aksi = '<center><a href="javascript:void(0)" onclick="edit_office('."'".$li['id']."'".')"><i class="fa fa-fw fa-edit"></i></a> ';
             $aksi .= '<a href="javascript:void(0)" onclick="delete_office('."'".$li['id']."'".')"><i class="fa fa-fw fa-trash"></i></a></center>';
             $row[] = $aksi;
@@ -93,7 +112,9 @@ class Office extends CI_Controller {
 
         $data = array(
             'kd_cabang' => 'ID'.input('kd_cabang'),
-            'nm_cabang' => input('nm_cabang')
+            'nm_cabang' => input('nm_cabang'),
+            'area' => input('area'),
+            'region' => input('region')
         );
         
         $this->db->insert('tbl_cabang', $data);
@@ -107,7 +128,9 @@ class Office extends CI_Controller {
         $id = $this->input->post('id');
         $data = array(
             'kd_cabang' => 'ID'.input('kd_cabang'),
-            'nm_cabang' => input('nm_cabang')
+            'nm_cabang' => input('nm_cabang'),
+            'area' => input('area'),
+            'region' => input('region')
         );
 
         $data = $this->db->update('tbl_cabang', $data, ['id' => $id]);
