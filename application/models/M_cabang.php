@@ -8,6 +8,7 @@ Class M_cabang extends CI_Model {
 
     function _get_datatable_query(){
         $this->db->from($this->table);
+        $this->db->where('IsDelete', 0);
         $i = 0;
         foreach($this->column_search as $item){
             if($_POST['search']['value']){

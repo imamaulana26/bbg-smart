@@ -12,8 +12,8 @@
         </div>
         <!-- /.container-fluid -->
 
-        <?php $msg = $this->session->flashdata('msg');
-        if (isset($msg)) echo $msg; ?>
+        <?php /*$msg = $this->session->flashdata('msg');
+        if (isset($msg)) echo $msg;*/ ?>
 
         <!-- Table Office -->
         <div class="row">
@@ -124,7 +124,7 @@
             'order': [],
             'ajax': {
                 'url': "<?= site_url(ucfirst('admin/office/list_office')) ?>",
-                'type': 'post'
+                'type': 'POST'
             },
             'columnDefs': [{
                 'targets': [0, 5],
@@ -224,7 +224,7 @@
                 if (isConfirm) {
                     $.ajax({
                         url: "<?= site_url(ucfirst('admin/office/delete_office/')) ?>" + id,
-                        type: 'post',
+                        type: 'GET',
                         success: function(data) {
                             swal("Sukses!", "Data cabang telah berhasil dihapus", "success");
                             reload_table();

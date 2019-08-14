@@ -248,7 +248,7 @@
                 if (isConfirm) {
                     $.ajax({
                         url: "<?= site_url(ucfirst('admin/menu/delete_menu/')) ?>" + id,
-                        type: 'post',
+                        type: 'GET',
                         success: function(data) {
                             swal("Sukses!", "Data menu telah berhasil dihapus", "success");
                             get_data();

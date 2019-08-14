@@ -35,17 +35,37 @@ class Access extends CI_Controller {
         }
     }
 
+    private function _validate_akses(){
+        $data = array();
+        $data['inputerror'] = array();
+        $data['error'] = array();
+        $data['status'] = true;
+
+        if(input('user') == ''){
+            $data['inputerror'][] = 'user';
+            $data['status'] = false;
+        }
+        if(input('menu') == ''){
+            $data['inputerror'][] = 'menu';
+            $data['status'] = false;
+        }
+
+        if($data['status'] === false){
+            echo json_encode($data); exit();
+        }
+    }
+
     public function index(){
         $page = 'admin/v_akses';
         if($this->role == 1){
-            $role_list = $this->db->get_where('tbl_user_role', ['id !=' => 1])->result_array();
+            $role_list = $this->db->get_where('tbl_user_role', ['id !=' => 1, 'IsDelete' => 0])->result_array();
         } else {
-            $role_list = $this->db->get_where('tbl_user_role', ['id >' => 2])->result_array();
+            $role_list = $this->db->get_where('tbl_user_role', ['id >' => 2, 'IsDelete' => 0])->result_array();
         }
         
         $data = array(
             'title' => 'Akses Menu Management',
-            'menu' => $this->db->get('tbl_menu')->result_array(),
+            'menu' => $this->db->get_where('tbl_menu', ['IsDelete' => 0])->result_array(),
             'role' => $role_list
         );
 
@@ -94,6 +114,8 @@ class Access extends CI_Controller {
     }
 
     public function save_akses(){
+        $this->_validate_akses();
+
         $id_role = input('user');
         $id_menu = input('menu');
         $nama_nemu = '';
@@ -157,15 +179,25 @@ class Access extends CI_Controller {
             'role_id' => input('user'),
             'menu_id' => input('menu'),
             'url' => ucfirst($role).'/'.$nama_nemu,
-            'active' => input('aktif')
+            'active' => input('aktif'),
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
         );
 
         $this->db->update('tbl_user_menu', $data, ['id' => $id]);
         echo json_encode(['status' => true]); exit;
     }
-
+    
     public function delete_akses($id){
-        $this->db->delete('tbl_user_menu', ['id' => $id]);
+        // $this->db->delete('tbl_user_menu', ['id' => $id]);
+        
+        $data = array(
+            'IsDelete' => 1,
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
+        );
+        
+        $this->db->update('tbl_user_menu', $data, ['id' => $id]);
         echo json_encode(['status' => true]); exit;
     }
     // Menu Akses
@@ -173,7 +205,7 @@ class Access extends CI_Controller {
 
     // Role User
     public function list_role(){
-        $list = $this->db->get_where('tbl_user_role', ['id !=' => 1])->result_array();
+        $list = $this->db->get_where('tbl_user_role', ['id !=' => 1, 'IsDelete' => 0])->result_array();
 
         echo json_encode($list); exit;
     }
@@ -202,14 +234,28 @@ class Access extends CI_Controller {
     public function update_role(){
         $this->_validate_role();
         $id = input('id');
+
+        $data = array(
+            'role' => input('role'),
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
+        );
         
-        $this->db->update('tbl_user_role', ['role' => input('role')], ['id' => $id]);
+        $this->db->update('tbl_user_role', $data, ['id' => $id]);
         
         echo json_encode(['status' => true]); exit;
     }
 
     public function delete_role($id){
-        $this->db->delete('tbl_user_role', ['id' => $id]);
+        // $this->db->delete('tbl_user_role', ['id' => $id]);
+
+        $data = array(
+            'IsDelete' => 1,
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
+        );
+        
+        $this->db->update('tbl_user_role', $data, ['id' => $id]);
         echo json_encode(['status' => true]); exit;
     }
     // Role User

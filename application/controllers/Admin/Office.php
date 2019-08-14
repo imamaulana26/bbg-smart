@@ -130,7 +130,9 @@ class Office extends CI_Controller {
             'kd_cabang' => 'ID'.input('kd_cabang'),
             'nm_cabang' => input('nm_cabang'),
             'area' => input('area'),
-            'region' => input('region')
+            'region' => input('region'),
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
         );
 
         $data = $this->db->update('tbl_cabang', $data, ['id' => $id]);
@@ -138,7 +140,15 @@ class Office extends CI_Controller {
     }
 
     public function delete_office($id){
-        $this->db->delete('tbl_cabang', ['id' => $id]);
+        // $this->db->delete('tbl_cabang', ['id' => $id]);
+
+        $data = array(
+            'IsDelete' => 1,
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
+        );
+
+        $data = $this->db->update('tbl_cabang', $data, ['id' => $id]);
         echo json_encode(['status' => true]); exit();
     }
 }

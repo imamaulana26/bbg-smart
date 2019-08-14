@@ -25,12 +25,13 @@ class Auth extends CI_Controller
         $email = (input('username')) . "@syariahmandiri.co.id";
         $pass = md5(input('password'));
 
-        $user = $this->db->get_where('tbl_user', ['email' => $email])->row_array();
+        $user = $this->db->get_where('tbl_user', ['email' => $email, 'IsDelete' => 0])->row_array();
         if ($user) {
             if ($user['is_active'] == 0) {
                 if ($pass == $user['password']) {
                     $data = [
                         'role_id' => $user['role_id'],
+                        'nip' => $user['nip_user'],
                         'email' => $user['email'],
                         'name' => $user['nama']
                     ];
@@ -96,11 +97,12 @@ class Auth extends CI_Controller
             ldap_get_entries($ldap_cons, $result);
             ldap_unbind($ldap_cons);
 
-            $user = $this->db->get_where('tbl_user', ['email' => $ldap_user])->row_array();
+            $user = $this->db->get_where('tbl_user', ['email' => $ldap_user, 'IsDelete' => 0])->row_array();
             if ($user) {
                 if ($user['is_active'] == 0) {
                     $data = [
                         'role_id' => $user['role_id'],
+                        'nip' => $user['nip_user'],
                         'email' => $user['email'],
                         'name' => $user['nama']
                     ];

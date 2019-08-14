@@ -11,7 +11,7 @@ Class M_akses extends CI_Model {
         $this->db->from($this->table.' a');
         $this->db->join('tbl_user_role b', 'a.role_id = b.id', 'inner');
         $this->db->join('tbl_menu c', 'a.menu_id = c.id', 'inner');
-        $this->db->where('b.id !=', 1);
+        $this->db->where(['b.id !=' => 1, 'a.IsDelete' => 0]);
 
         $i = 0;
         foreach($this->column_search as $item){

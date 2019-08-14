@@ -12,8 +12,8 @@
         </div>
         <!-- /.container-fluid -->
 
-        <?php $msg = $this->session->flashdata('msg');
-        if (isset($msg)) echo $msg; ?>
+        <?php /*$msg = $this->session->flashdata('msg');
+        if (isset($msg)) echo $msg;*/ ?>
 
         <div class="row">
             <!-- Table Akses Menu -->
@@ -85,22 +85,24 @@
                             <label class="control-label col-sm-3">Akses User</label>
                             <div class="col-sm-4">
                                 <select class="selectpicker" name="user" id="user">
-                                    <option selected value="0">-- Please Select --</option>
+                                    <option selected disabled>-- Please Select --</option>
                                     <?php foreach ($role as $r) {
                                         echo "<option value='" . $r['id'] . "' >" . $r['role'] . "</option>";
                                     } ?>
                                 </select>
+                                <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Menu</label>
                             <div class="col-sm-5">
                                 <select class="selectpicker" name="menu" id="menu">
-                                    <option selected value="0">-- Please Select --</option>
+                                    <option selected disabled>-- Please Select --</option>
                                     <?php foreach ($menu as $m) {
                                         echo "<option value='" . $m['id'] . "' data-icon='" . $m['icon'] . "'>" . $m['menu'] . "</option>";
                                     } ?>
                                 </select>
+                                <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -171,7 +173,7 @@
             'order': [],
             'ajax': {
                 'url': "<?= site_url(ucfirst('admin/access/list_akses')) ?>",
-                'type': 'post'
+                'type': 'POST'
             },
             'columnDefs': [{
                 'targets': [0, 2, 3, 5],
@@ -181,23 +183,25 @@
 
         get_data_role();
 
-        $('input').change(function() {
+        $('input').keypress(function() {
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
+        });
+        $('select').change(function() {
+            $(this).parent().parent().removeClass('has-error');
         });
 
         $('#modal_role').on('show.bs.modal', function() {
             $('div').removeClass('has-error');
             $('span.help-block').empty();
         });
+        $('#modal_akses').on('show.bs.modal', function() {
+            $('div').removeClass('has-error');
+            $('span.help-block').empty();
+        });
     });
 
     function validasi_akses() {
-        // var regCode = /^\d+[a-z]?$/;
-        // var regName = /^[a-z A-Z]+$/;
-        var role = $('#user').val();
-        var menu = $('#menu').val();
-
         var icon = document.getElementsByName('aktif');
         var iconVal = false;
 
@@ -205,12 +209,7 @@
             if (icon[i].checked == true) iconVal = true;
         }
 
-        if (role == '0') {
-            swal('Akses user belum terpilih!');
-            return false;
-        } else if (menu == '0') {
-            swal('Menu belum terpilih!');
-        } else if (!iconVal) {
+        if (!iconVal) {
             swal('Status belum terpilih!');
         } else {
             save_akses();
@@ -236,7 +235,7 @@
         $('#title_akses').text('Modal Ubah Data Akses Menu');
 
         $.ajax({
-            url: '<?= site_url(ucfirst('admin/access/edit_akses/')) ?>' + id,
+            url: "<?= site_url(ucfirst('admin/access/edit_akses/')) ?>" + id,
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
@@ -257,12 +256,12 @@
 
     function save_akses() {
         var url = '';
-        if (save_method == 'add') url = '<?= site_url(ucfirst('admin/access/save_akses')) ?>';
-        else url = '<?= site_url(ucfirst('admin/access/update_akses')) ?>';
+        if (save_method == 'add') url = "<?= site_url(ucfirst('admin/access/save_akses')) ?>";
+        else url = "<?= site_url(ucfirst('admin/access/update_akses')) ?>";
 
         $.ajax({
             url: url,
-            type: 'post',
+            type: 'POST',
             dataType: 'JSON',
             data: $('#form_akses').serialize(),
             success: function(data) {
@@ -270,11 +269,18 @@
                     $('#form_akses')[0].reset();
                     $('#modal_akses').modal('hide');
                     swal(data.msg);
-                } else {
+                }
+
+                if(data.status){
                     swal('Sukses!', 'Data akses menu telah berhasil disimpan', 'success');
                     $('#modal_akses').modal('hide');
 
                     reload_table();
+                } else {
+                    for (var i = 0; i < data.inputerror.length; i++) {
+                        $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');
+                        $('[name="' + data.inputerror[i] + '"]').next().text(data.error[i]);
+                    }
                 }
             },
             error: function(xhr, status, error) {
@@ -299,7 +305,7 @@
                 if (isConfirm) {
                     $.ajax({
                         url: '<?= site_url(ucfirst('admin/access/delete_akses/')) ?>' + id,
-                        type: 'post',
+                        type: 'GET',
                         success: function(data) {
                             swal("Sukses!", "Data akses menu telah berhasil dihapus", "success");
                             reload_table();
@@ -308,7 +314,7 @@
                 }
             });
     }
-    
+
 
     function add_role() {
         save_method = 'add';

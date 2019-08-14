@@ -110,8 +110,8 @@ class User extends CI_Controller {
             $row[] = $li['date_created'];
             $row[] = $li['log_on'];
             $row[] = $li['last_login'];
-            $aksi = '<center><a href="javascript:void(0)" onclick="edit_user('."'".$li['nip_user']."'".')"><i class="fa fa-fw fa-edit"></i></a> ';
-            $aksi .= '<a href="javascript:void(0)" onclick="delete_user('."'".$li['nip_user']."'".')"><i class="fa fa-fw fa-trash"></i></a></center>';
+            $aksi = '<center><a href="javascript:void(0)" onclick="edit_user('."'".$li['id_user']."'".')"><i class="fa fa-fw fa-edit"></i></a> ';
+            $aksi .= '<a href="javascript:void(0)" onclick="delete_user('."'".$li['id_user']."'".')"><i class="fa fa-fw fa-trash"></i></a></center>';
             $row[] = $aksi;
             
             $data[] = $row;
@@ -127,15 +127,15 @@ class User extends CI_Controller {
     }
 
     public function edit_user($id){
-        $check = $this->db->get_where('tbl_user', ['nip_user' => $id])->row_array();
+        $check = $this->db->get_where('tbl_user', ['id_user' => $id])->row_array();
 
         if($check['role_id'] > 3){
-            $this->db->select('*')->from('tbl_user a');
+            $this->db->select('a.*, b.id_cabang')->from('tbl_user a');
             $this->db->join('tbl_jaringan b', 'a.nip_user = b.id_user', 'inner');
-            $this->db->where('a.nip_user', $id);
+            $this->db->where('a.id_user', $id);
             $data = $this->db->get()->row_array();
         } else {
-            $data = $this->db->get_where('tbl_user', ['nip_user' => $id])->row_array();
+            $data = $this->db->get_where('tbl_user', ['id_user' => $id])->row_array();
         }
 
         echo json_encode($data); exit;
@@ -199,7 +199,9 @@ class User extends CI_Controller {
             'role_id' => $role,
             'cabang' => input('cabang'),
             'jabatan' => input('jabatan'),
-            'group_id' => input('group_id')
+            'group_id' => input('group_id'),
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
         );
 
         $dt = array(
@@ -223,8 +225,17 @@ class User extends CI_Controller {
     }
 
     public function delete_user($id){
-        $this->db->delete('tbl_user', ['nip_user' => $id]);
-        $this->db->delete('tbl_jaringan', ['id_user' => $id]);
+        // $this->db->delete('tbl_user', ['nip_user' => $id]);
+        // $this->db->delete('tbl_jaringan', ['id_user' => $id]);
+
+        $data = array(
+            'IsDelete' => 1,
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
+        );
+
+        $this->db->update('tbl_user', $data, ['id_user' => $id]);
+
         echo json_encode(['status' => true]); exit;
     }
 }

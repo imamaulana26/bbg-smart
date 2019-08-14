@@ -44,7 +44,7 @@ class Menu extends CI_Controller {
     }
 
     public function list_menu(){
-        $list = $this->db->get('tbl_menu')->result_array();
+        $list = $this->db->get_where('tbl_menu', ['IsDelete' => 0])->result_array();
        
         echo json_encode($list); exit();
     }
@@ -78,7 +78,9 @@ class Menu extends CI_Controller {
         $id = input('id');
         $data = array(
             'menu' => ucfirst(input('menu')),
-            'icon' => input('icon')
+            'icon' => input('icon'),
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
         );
 
         $this->db->update('tbl_menu', $data, ['id' => $id]);
@@ -86,7 +88,15 @@ class Menu extends CI_Controller {
     }
 
     public function delete_menu($id){
-        $this->db->delete('tbl_menu', ['id' => $id]);
+        // $this->db->delete('tbl_menu', ['id' => $id]);
+
+        $data = array(
+            'IsDelete' => 1,
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
+        );
+
+        $this->db->update('tbl_menu', $data, ['id' => $id]);
         echo json_encode(['status' => true]); exit();
     }
 }

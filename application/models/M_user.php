@@ -13,7 +13,7 @@ Class M_user extends CI_Model {
         $this->db->join('tbl_user_role b', 'a.role_id = b.id', 'inner');
         $this->db->join('tbl_cabang c', 'a.cabang = c.kd_cabang', 'inner');
         $this->db->join('tbl_group d', 'a.group_id = d.group_id', 'inner');
-        $this->db->where('b.id !=', 1);
+        $this->db->where(['b.id !=' => 1, 'a.IsDelete' => 0]);
 
         $i = 0;
         foreach($this->column_search as $item){

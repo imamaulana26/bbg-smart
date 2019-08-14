@@ -87,11 +87,13 @@
     <div class="navbar-default sidebar" role="navigation">
         <!-- Query Submenu -->
         <?php $role_id = $this->session->userdata('role_id');
-        $this->db->select('*')->from('tbl_user_menu a')->join('tbl_user_role b', 'a.role_id = b.id', 'inner');
-        $this->db->join('tbl_menu c', 'c.id = a.menu_id', 'inner')->where(['a.role_id' => $role_id, 'a.menu_id !=' => 1, 'a.active' => 1]);
+        $this->db->select('*')->from('tbl_user_menu a');
+        $this->db->join('tbl_user_role b', 'a.role_id = b.id', 'inner');
+        $this->db->join('tbl_menu c', 'c.id = a.menu_id', 'inner');
+        $this->db->where(['a.role_id' => $role_id, 'a.menu_id !=' => 1, 'a.active' => 1, 'a.IsDelete' => 0]);
         $this->db->order_by('a.menu_id', 'asc');
         $menu = $this->db->get()->result_array();
-        $dashboard = $this->db->get_where('tbl_user_menu', ['role_id' => $role_id, 'menu_id' => 1])->row_array(); ?>
+        $dashboard = $this->db->get_where('tbl_user_menu', ['role_id' => $role_id, 'menu_id' => 1, 'IsDelete' => 0])->row_array(); ?>
         <div class="sidebar-nav navbar-collapse">
             <!-- Looping Submenu -->
             <ul class="nav" id="side-menu">

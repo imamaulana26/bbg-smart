@@ -166,7 +166,7 @@
             'order': [],
             'ajax': {
                 'url': "<?= site_url(ucfirst('admin/user/list_user')) ?>",
-                'type': 'post'
+                'type': "POST"
             },
             'columnDefs': [{
                 'targets': [0, 1, 2, 3, 4, 5, 6, 10],
@@ -236,8 +236,8 @@
         $('.modal-title').text('Modal Ubah Data User');
 
         $.ajax({
-            url: '<?= site_url(ucfirst('admin/user/edit_user/')) ?>' + id,
-            type: 'POST',
+            url: "<?= site_url(ucfirst('admin/user/edit_user/')) ?>" + id,
+            type: "GET",
             dataType: 'JSON',
             success: function(data) {
                 console.log(data);
@@ -285,7 +285,7 @@
                 if (isConfirm) {
                     $.ajax({
                         url: "<?= site_url(ucfirst('admin/user/delete_user/')) ?>" + id,
-                        type: 'post',
+                        type: "GET",
                         success: function(data) {
                             swal("Sukses!", "Data user telah berhasil dihapus", "success");
                             reload_table();
@@ -302,7 +302,7 @@
 
         $.ajax({
             url: url,
-            type: 'POST',
+            type: "POST",
             dataType: 'JSON',
             data: $('#form_user').serialize(),
             success: function(data) {

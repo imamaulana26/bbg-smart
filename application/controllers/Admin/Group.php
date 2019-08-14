@@ -15,8 +15,7 @@ class Group extends CI_Controller {
         $page = 'admin/v_group';
         
         $data = array(
-            'title' => 'Group Management',
-            'list' => $this->db->get('tbl_group')->result_array()
+            'title' => 'Group Management'
         );
 
         ob_start('ob_gzhandler');
@@ -122,7 +121,9 @@ class Group extends CI_Controller {
         $data = array(
             'group_id' => input('group_code'),
             'group_name' => input('group_name'),
-            'group_title' => input('title')
+            'group_title' => input('title'),
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
         );
 
         $this->db->update('tbl_group', $data, ['id' => $id]);
@@ -130,7 +131,15 @@ class Group extends CI_Controller {
     }
 
     public function delete_group($id){
-        $this->db->delete('tbl_group', ['id' => $id]);
+        // $this->db->delete('tbl_group', ['id' => $id]);
+
+        $data = array(
+            'IsDelete' => 1,
+            'UpdateBy' => $this->session->userdata('nip'),
+            'UpdateDate' => date('Y-m-d H:i:s')
+        );
+
+        $this->db->update('tbl_group', $data, ['id' => $id]);
         echo json_encode(['status' => true]); exit();
     }
 }

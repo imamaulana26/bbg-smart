@@ -110,7 +110,7 @@
             }, ],
         });
 
-        $('input').change(function() {
+        $('input').keypress(function() {
             $(this).parent().parent().removeClass('has-error');
             $(this).next().empty();
         });
@@ -167,7 +167,7 @@
                 if (isConfirm) {
                     $.ajax({
                         url: '<?= site_url(ucfirst('admin/group/delete_group/')) ?>' + id,
-                        type: 'post',
+                        type: 'GET',
                         success: function(data) {
                             swal("Sukses!", "Data group telah berhasil dihapus", "success");
                             reload_table();
