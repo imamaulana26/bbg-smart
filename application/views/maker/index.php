@@ -46,7 +46,7 @@
 
     function get_data_reksus() {
         $.ajax({
-            url: '<?= site_url('Maker/Nota/get_all_reksus') ?>',
+            url: '<?= site_url(ucfirst('maker/nota/get_all_reksus')) ?>',
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
@@ -73,7 +73,7 @@
     }
 
     function edit_reksus(id) {
-        window.location = '<?= site_url('Maker/Nota/reksus/') ?>' + id;
+        window.location = '<?= site_url(ucfirst('maker/nota/reksus/')) ?>' + id;
     }
 
     function delete_reksus(id) {
@@ -90,8 +90,8 @@
             },
             function() {
                 $.ajax({
-                    type: "POST",
-                    url: "<?= site_url('Maker/Nota/delete_reksus/') ?>" + id,
+                    type: "GET",
+                    url: "<?= site_url(ucfirst('maker/Nota/delete_reksus/')) ?>" + id,
                     success: function(data) {
                         swal('Sukses!', 'Data menu telah berhasil dihapus', 'success');
                         get_data_reksus();

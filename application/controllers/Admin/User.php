@@ -102,7 +102,7 @@ class User extends CI_Controller {
             $row = array();
             $row[] = $no++;
             $row[] = $li['nip_user'];
-            $row[] = "<p>".$li['nama']." <span class='text-muted'><br>".str_replace("syariahmandiri", "bsm", $li['email'])."</span></p>";
+            $row[] = "<p>".$li['nama']." <span style='color: #337ab7'><br>".str_replace("syariahmandiri", "bsm", $li['email'])."</span></p>";
             $row[] = $li['role'];
             $row[] = $li['group_name']." (".$li['group_title'].")";
             $row[] = $li['jabatan'];

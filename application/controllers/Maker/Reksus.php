@@ -12,52 +12,29 @@ class Reksus extends CI_Controller
         user_helper();
     }
 
-    public function val_date($date)
-    {
-        if (preg_match('/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/', $date)) {
-            return true;
-        } else if ($date == '') {
-            $this->form_validation->set_message('val_date', '{field} can\'t be empty!');
-            return false;
-        } else {
-            $this->form_validation->set_message('val_date', 'The input is invalid!');
-            return false;
-        }
-    }
+    public function _validate(){
+        $data = array();
+        $data['inputerror'] = array();
+        $data['error'] = array();
+        $data['status'] = true;
 
-    public function val_check($check)
-    {
-        if ($check == "0") {
-            $this->form_validation->set_message('val_check', 'Please choose the options.');
-            return false;
-        } else {
-            return true;
+        if(input('referensi') == ''){
+            $data['inputerror'][] = 'referensi';
+            $data['status'] = false;
         }
-    }
 
-    public function val_alpha($alpha)
-    {
-        if (preg_match('/^[a-z A-Z]/', $alpha)) {
-            return true;
-        } else if ($alpha == '') {
-            $this->form_validation->set_message('val_alpha', '{field} can\'t be empty!');
-            return false;
-        } else {
-            $this->form_validation->set_message('val_alpha', 'The input must be alphabetical characters');
-            return false;
+        if(input('tgl_nap') == ''){
+            $data['inputerror'][] = 'tgl_nap';
+            $data['error'][] = 'Tanggal nap harus diisi';
+            $data['status'] = false;
+        } elseif(!preg_match('/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/', input('tgl_nap'))){
+            $data['inputerror'][] = 'tgl_nap';
+            $data['error'][] = 'Tanggal nap tidak valid';
+            $data['status'] = false;
         }
-    }
 
-    public function val_text($text)
-    {
-        if (preg_match('/^[a-zA-Z0-9-.,\/ ]+$/', $text)) {
-            return true;
-        } else if ($text == '') {
-            $this->form_validation->set_message('val_text', '{field} can\'t be empty!');
-            return false;
-        } else {
-            $this->form_validation->set_message('val_text', 'The input is invalid characters');
-            return false;
+        if($data['status'] === false){
+            echo json_encode($data); exit();
         }
     }
 
@@ -75,169 +52,9 @@ class Reksus extends CI_Controller
         $this->load->view($page, $data);
     }
 
-    public function validasi_reksus()
-    {
-        $this->form_validation->set_rules('nm_nasabah', 'This field', 'trim|callback_val_alpha');
-        $this->form_validation->set_rules('visitor', 'This field', 'trim|callback_val_alpha');
-        $this->form_validation->set_rules('tgl_nap', 'This field', 'trim|callback_val_date');
-        $this->form_validation->set_rules('tgl_visit', 'This field', 'trim|callback_val_date');
-        $this->form_validation->set_rules('tgl_funding', 'This field', 'trim|callback_val_date');
-        $this->form_validation->set_rules('tgl_lending', 'This field', 'trim|callback_val_date');
-        $this->form_validation->set_rules('nm_cabang', '', 'callback_val_check');
-        $this->form_validation->set_rules('tmpt_visit', '', 'callback_val_check');
-        $this->form_validation->set_rules('no_cif', 'This field', 'trim|required|numeric');
-        $this->form_validation->set_rules('nip_bbrm', 'This field', 'trim|required|numeric');
-        $this->form_validation->set_rules('nip_bm', 'This field', 'trim|required|numeric');
+    public function save_reksus(){
+        $this->_validate();
 
-        if ($this->input->post('sts_nikah') == 'Menikah') {
-            $this->form_validation->set_rules('no_ktp_spouse', 'This field', 'trim|required|numeric');
-            $this->form_validation->set_rules('pend_spouse', '', 'callback_val_check');
-        }
-
-        if ($this->input->post('jns_usaha') == 'Perorangan') {
-            $this->form_validation->set_rules('no_ktp', 'This field', 'trim|required|numeric');
-            $this->form_validation->set_rules('no_npwp_nsbh', 'This field', 'trim|required|numeric');
-            $this->form_validation->set_rules('no_telp', 'This field', 'trim|required|numeric');
-            $this->form_validation->set_rules('no_hp', 'This field', 'trim|required|numeric');
-            $this->form_validation->set_rules('kd_pos_dom', 'This field', 'trim|required|numeric');
-            $this->form_validation->set_rules('almt_dom', 'This field', 'trim|callback_val_text');
-            $this->form_validation->set_rules('pendidikan', '', 'callback_val_check');
-            $this->form_validation->set_rules('sts_nikah', '', 'callback_val_check');
-            $this->form_validation->set_rules('tgl_kk', 'This field', 'trim|callback_val_date');
-            $this->form_validation->set_rules('nsbh_bank', '', 'required', ['required' => 'Please choose the options']);
-        } else {
-            $this->form_validation->set_rules('nm_pemohon', 'This field', 'trim|callback_val_alpha');
-            $this->form_validation->set_rules('no_akta_pendirian', 'This field', 'trim|required|alpha_dash');
-            $this->form_validation->set_rules('no_akta_terakhir', 'This field', 'trim|required|alpha_dash');
-            $this->form_validation->set_rules('tgl_akta_pendirian', 'This field', 'trim|callback_val_date');
-            $this->form_validation->set_rules('tgl_akta_terakhir', 'This field', 'trim|callback_val_date');
-            $this->form_validation->set_rules('no_npwp', 'This field', 'trim|required|numeric');
-            $this->form_validation->set_rules('c_person', 'This field', 'trim|callback_val_alpha');
-            $this->form_validation->set_rules('jabatan', '', 'callback_val_check');
-            $this->form_validation->set_rules('almt_akta', 'This field', 'trim|callback_val_text');
-            $this->form_validation->set_rules('almt_kantor1', 'This field', 'trim|callback_val_text');
-        }
-
-        $this->form_validation->set_rules('entitas', '', 'callback_val_check');
-        $this->form_validation->set_rules('nm_usaha_nsbh', 'This field', 'trim|callback_val_alpha');
-        $this->form_validation->set_rules('jns_usaha_nsbh', 'This field', 'trim|callback_val_alpha');
-        $this->form_validation->set_rules('bpjs', '', 'required', ['required' => 'Please choose the options']);
-        $this->form_validation->set_rules('no_skdp', 'This field', 'trim|callback_val_text');
-        $this->form_validation->set_rules('tgl_skdp', 'This field', 'trim|callback_val_date');
-        $this->form_validation->set_rules('no_siup', 'This field', 'trim|callback_val_text');
-        $this->form_validation->set_rules('tgl_siup', 'This field', 'trim|callback_val_date');
-        $this->form_validation->set_rules('no_tdp', 'This field', 'trim|callback_val_text');
-        $this->form_validation->set_rules('tgl_tdp', 'This field', 'trim|callback_val_date');
-        $this->form_validation->set_rules('almt_usaha', 'This field', 'trim|callback_val_text');
-        $this->form_validation->set_rules('almt_kantor2', 'This field', 'trim|callback_val_text');
-        $this->form_validation->set_rules('lama_usaha', 'This field', 'trim|required|numeric');
-        $this->form_validation->set_rules('lama_jns_usaha', 'This field', 'trim|required|numeric');
-        $this->form_validation->set_rules('sektor_lsmk', '', 'callback_val_check');
-        $this->form_validation->set_rules('no_akta_pendirian_usaha', 'This field', 'trim|callback_val_text');
-        $this->form_validation->set_rules('tgl_akta_pendirian_usaha', 'This field', 'trim|callback_val_date');
-        $this->form_validation->set_rules('no_akta_terakhir_usaha', 'This field', 'trim|callback_val_text');
-        $this->form_validation->set_rules('tgl_akta_terakhir_usaha', 'This field', 'trim|callback_val_date');
-        $this->form_validation->set_rules('no_pengesahan', 'This field', 'trim|callback_val_text');
-        $this->form_validation->set_rules('no_penerimaan', 'This field', 'trim|callback_val_text');
-        $this->form_validation->set_rules('nm_notaris', 'This field', 'trim|callback_val_alpha');
-
-        // $this->form_validation->set_rules('nm_pengurus[]', 'This field', 'trim|callback_val_alpha');
-        // $this->form_validation->set_rules('gender[]', '', 'callback_val_check');
-        // $this->form_validation->set_rules('tgl_lahir_pengurus[]', 'This field', 'trim|callback_val_date');
-        // $this->form_validation->set_rules('jbtn_pengurus[]', '', 'callback_val_check');
-        // $this->form_validation->set_rules('sts_pengurus[]', '', 'callback_val_check');
-        // $this->form_validation->set_rules('pend_pengurus[]', '', 'callback_val_check');
-        // $this->form_validation->set_rules('npwp_pengurus[]', 'This field', 'trim|required|numeric');
-        // $this->form_validation->set_rules('nom_saham[]', 'This field', 'trim|required|numeric');
-        // $this->form_validation->set_rules('saham[]', 'This field', 'trim|required|numeric');
-
-        $this->form_validation->set_message('required', '{field} can\'t be empty!');
-        if ($this->form_validation->run() == false) {
-            $data = array(
-                'nm_nasabah' => form_error('nm_nasabah', '<small class="text-danger">', '</small>'),
-                'tgl_nap' => form_error('tgl_nap', '<small class="text-danger">', '</small>'),
-                'tgl_visit' => form_error('tgl_visit', '<small class="text-danger">', '</small>'),
-                'nm_cabang' => form_error('nm_cabang', '<small class="text-danger">', '</small>'),
-                'tgl_funding' => form_error('tgl_funding', '<small class="text-danger">', '</small>'),
-                'tgl_lending' => form_error('tgl_lending', '<small class="text-danger">', '</small>'),
-                'no_cif' => form_error('no_cif', '<small class="text-danger">', '</small>'),
-                'tmpt_visit' => form_error('tmpt_visit', '<small class="text-danger">', '</small>'),
-                'visitor' => form_error('visitor', '<small class="text-danger">', '</small>'),
-                'nip_bbrm' => form_error('nip_bbrm', '<small class="text-danger">', '</small>'),
-                'nip_bm' => form_error('nip_bm', '<small class="text-danger">', '</small>'),
-
-                'nm_pemohon' => form_error('nm_pemohon', '<small class="text-danger">', '</small>'),
-                'no_akta_pendirian' => form_error('no_akta_pendirian', '<small class="text-danger">', '</small>'),
-                'no_akta_terakhir' => form_error('no_akta_terakhir', '<small class="text-danger">', '</small>'),
-                'tgl_akta_pendirian' => form_error('tgl_akta_pendirian', '<small class="text-danger">', '</small>'),
-                'tgl_akta_terakhir' => form_error('tgl_akta_terakhir', '<small class="text-danger">', '</small>'),
-                'no_npwp' => form_error('no_npwp', '<small class="text-danger">', '</small>'),
-                'c_person' => form_error('c_person', '<small class="text-danger">', '</small>'),
-                'jabatan' => form_error('jabatan', '<small class="text-danger">', '</small>'),
-                'almt_akta' => form_error('almt_akta', '<small class="text-danger">', '</small>'),
-                'almt_kantor1' => form_error('almt_kantor1', '<small class="text-danger">', '</small>'),
-
-                'no_ktp' => form_error('no_ktp', '<small class="text-danger">', '</small>'),
-                'no_ktp' => form_error('no_ktp', '<small class="text-danger">', '</small>'),
-                'no_npwp_nsbh' => form_error('no_npwp_nsbh', '<small class="text-danger">', '</small>'),
-                'no_telp' => form_error('no_telp', '<small class="text-danger">', '</small>'),
-                'no_hp' => form_error('no_hp', '<small class="text-danger">', '</small>'),
-                'kd_pos_dom' => form_error('kd_pos_dom', '<small class="text-danger">', '</small>'),
-                'almt_dom' => form_error('almt_dom', '<small class="text-danger">', '</small>'),
-                'pendidikan' => form_error('pendidikan', '<small class="text-danger">', '</small>'),
-                'sts_nikah' => form_error('sts_nikah', '<small class="text-danger">', '</small>'),
-                'tgl_kk' => form_error('tgl_kk', '<small class="text-danger">', '</small>'),
-                'nsbh_bank' => form_error('nsbh_bank', '<small class="text-danger">', '</small>'),
-
-                'no_ktp_spouse' => form_error('no_ktp_spouse', '<small class="text-danger">', '</small>'),
-                'pend_spouse' => form_error('pend_spouse', '<small class="text-danger">', '</small>'),
-
-                'entitas' => form_error('entitas', '<small class="text-danger">', '</small>'),
-                'nm_usaha_nsbh' => form_error('nm_usaha_nsbh', '<small class="text-danger">', '</small>'),
-                'jns_usaha_nsbh' => form_error('jns_usaha_nsbh', '<small class="text-danger">', '</small>'),
-                'bpjs' => form_error('bpjs', '<small class="text-danger">', '</small>'),
-                'no_skdp' => form_error('no_skdp', '<small class="text-danger">', '</small>'),
-                'tgl_skdp' => form_error('tgl_skdp', '<small class="text-danger">', '</small>'),
-                'no_siup' => form_error('no_siup', '<small class="text-danger">', '</small>'),
-                'tgl_siup' => form_error('tgl_siup', '<small class="text-danger">', '</small>'),
-                'no_tdp' => form_error('no_tdp', '<small class="text-danger">', '</small>'),
-                'tgl_tdp' => form_error('tgl_tdp', '<small class="text-danger">', '</small>'),
-                'almt_usaha' => form_error('almt_usaha', '<small class="text-danger">', '</small>'),
-                'almt_kantor2' => form_error('almt_kantor2', '<small class="text-danger">', '</small>'),
-                'lama_usaha' => form_error('lama_usaha', '<small class="text-danger">', '</small>'),
-                'lama_jns_usaha' => form_error('lama_jns_usaha', '<small class="text-danger">', '</small>'),
-                'sektor_lsmk' => form_error('sektor_lsmk', '<small class="text-danger">', '</small>'),
-                'no_akta_pendirian_usaha' => form_error('no_akta_pendirian_usaha', '<small class="text-danger">', '</small>'),
-                'tgl_akta_pendirian_usaha' => form_error('tgl_akta_pendirian_usaha', '<small class="text-danger">', '</small>'),
-                'no_akta_terakhir_usaha' => form_error('no_akta_terakhir_usaha', '<small class="text-danger">', '</small>'),
-                'tgl_akta_terakhir_usaha' => form_error('tgl_akta_terakhir_usaha', '<small class="text-danger">', '</small>'),
-                'no_pengesahan' => form_error('no_pengesahan', '<small class="text-danger">', '</small>'),
-                'no_penerimaan' => form_error('no_penerimaan', '<small class="text-danger">', '</small>'),
-                'nm_notaris' => form_error('nm_notaris', '<small class="text-danger">', '</small>'),
-
-                // 'nm_pengurus' => form_error('nm_pengurus[]', '<small class="text-danger">', '</small>'),
-                // 'gender' => form_error('gender[]', '<small class="text-danger">', '</small>'),
-                // 'tgl_lahir_pengurus' => form_error('tgl_lahir_pengurus[]', '<small class="text-danger">', '</small>'),
-                // 'jbtn_pengurus' => form_error('jbtn_pengurus[]', '<small class="text-danger">', '</small>'),
-                // 'sts_pengurus' => form_error('sts_pengurus[]', '<small class="text-danger">', '</small>'),
-                // 'pend_pengurus' => form_error('pend_pengurus[]', '<small class="text-danger">', '</small>'),
-                // 'npwp_pengurus' => form_error('npwp_pengurus[]', '<small class="text-danger">', '</small>'),
-                // 'nom_saham' => form_error('nom_saham[]', '<small class="text-danger">', '</small>'),
-                // 'saham' => form_error('saham[]', '<small class="text-danger">', '</small>')
-            );
-            echo json_encode(['error' => $data]);
-            exit;
-        } else {
-            if ($_POST['method'] == 'save') {
-                $this->save_reksus();
-            } else {
-                $this->update_reksus();
-            }
-        }
-    }
-
-    public function save_reksus()
-    {
         $no_app = $this->input->post('no_app', true);
         $this->session->set_userdata(['no_app' => $no_app]);
 

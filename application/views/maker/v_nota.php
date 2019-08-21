@@ -14,9 +14,10 @@
 
         <div class="row">
             <?php $nota = array(
-                'NAP Reksus' => 'Maker/Reksus',
-                'NAP B2C < 1.5' => 'Maker/B2C_d15',
-                'NAP B2C > 1.5' => 'Maker/B2C_u15'
+                'Reksus' => 'maker/reksus',
+                'SMART 1.5' => 'maker/smart',
+                'SMART 5.0' => 'maker/smart',
+                'Regular V.19' => 'maker/regular'
             );
             foreach($nota as $key => $val){ ?>
             <div class="col-md-3">
@@ -32,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="<?= site_url($val) ?>">
+                    <a href="<?= site_url(ucfirst($val)) ?>">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

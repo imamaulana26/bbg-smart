@@ -32,6 +32,10 @@
             padding-bottom: 7px;
         }
 
+        span.note{
+            color: red
+        }
+
         /* div.dropdown-menu.open {
             max-height: 314px !important;
             overflow: hidden;
