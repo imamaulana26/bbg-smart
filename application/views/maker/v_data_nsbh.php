@@ -887,7 +887,7 @@
         <?php if ($this->uri->segment(2) == 'reksus') { ?>
         url = '<?= site_url(ucfirst('maker/reksus/validasi_reksus')) ?>';
         <?php } else { ?>
-        url = '';
+        url = '<?= site_url(ucfirst('maker/reksus/save_reksus')) ?>';
         <?php } ?>
 
         $.ajax({

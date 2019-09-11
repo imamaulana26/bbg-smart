@@ -52,3 +52,9 @@ function tag_input($type='', $name='', $value='', $string=null){
     $input = "<input type='".$type."' class='form-control' name='".$name."' id='".$name."' value='".$value."' $string>";
     return $input;
 }
+
+function valid($var = '', $field = '', $rule = null){
+    $ci = get_instance();
+    $valid = $ci->form_validation->set_rules($var, $field, $rule);
+    return $valid;
+}

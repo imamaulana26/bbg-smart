@@ -10,6 +10,17 @@
     <link rel="icon" type="image/png" href="<?= base_url('assets'); ?>/images/logo-bsm.png">
     <title><?= $title ?></title>
 
+    <style>
+        body {
+            background: url('./assets/images/bg.jpg') no-repeat fixed center;
+            background-size: cover;
+        }
+
+        div.login-panel {
+            margin-top: 200px;
+        }
+    </style>
+
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>" rel="stylesheet">
     <!-- MetisMenu CSS -->
