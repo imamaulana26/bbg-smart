@@ -27,65 +27,51 @@ class Nota extends CI_Controller
 
     public function _validate()
     {
-        // $data = array();
-        // $data['inputerror'] = array();
-        // $data['error'] = array();
-        // $data['status'] = true;
-        // $op_html = '<p class="col-sm-8 col-sm-offset-4 text-danger">';
-        // $cl_html = '</p>';
+        $data = array();
+        $data['inputerror'] = array();
+        $data['error'] = array();
+        $data['status'] = true;
 
-        // if (input('no_cif') == '') {
-        //     $data['inputerror'][] = 'no_cif';
-        //     $data['error'][] = $op_html . 'field harus diisi' . $cl_html;
-        //     $data['status'] = false;
-        // } else if (!preg_match('/^[0-9]+$/', input('no_cif'))) {
-        //     $data['inputerror'][] = 'no_cif';
-        //     $data['error'][] = $op_html . 'pengisian tidak valid, harus numberic' . $cl_html;
-        //     $data['status'] = false;
-        // } else if (strlen(input('no_cif')) < 10) {
-        //     $data['inputerror'][] = 'no_cif';
-        //     $data['error'][] = $op_html . 'pengisian tidak boleh kurang dari 10 digit' . $cl_html;
-        //     $data['status'] = false;
-        // } else {
-        //     $data['status'] = true;
-        // }
+        if (input('no_cif') == '') {
+            $data['inputerror'][] = 'no_cif';
+            $data['error'][] = 'field harus diisi';
+            $data['status'] = false;
+        } else if (!preg_match('/^[0-9]+$/', input('no_cif'))) {
+            $data['inputerror'][] = 'no_cif';
+            $data['error'][] = 'pengisian tidak valid, harus numberic';
+            $data['status'] = false;
+        } else if (strlen(input('no_cif')) < 10) {
+            $data['inputerror'][] = 'no_cif';
+            $data['error'][] = 'pengisian tidak boleh kurang dari 10 digit';
+            $data['status'] = false;
+        }
 
-        // if (input('tgl_funding') == '') {
-        //     $data['inputerror'][] = 'tgl_funding';
-        //     $data['error'][] = $op_html . 'field ini harus diisi' . $cl_html;
-        //     $data['status'] = false;
-        // } else {
-        //     $data['status'] = true;
-        // }
+        if (input('nm_nasabah') == '') {
+            $data['inputerror'][] = 'nm_nasabah';
+            $data['error'][] = 'field ini harus diisi';
+            $data['status'] = false;
+        } elseif(!preg_match('/^[a-z A-Z]+$/', input('nm_nasabah'))) {
+            $data['inputerror'][] = 'nm_nasabah';
+            $data['error'][] = 'data tidak valid, harus alphabet';
+            $data['status'] = false;
+        }
 
-        // if (input('nm_cabang') == '') {
-        //     $data['inputerror'][] = 'nm_cabang';
-        //     $data['error'][] = $op_html . 'field ini harus diisi' . $cl_html;
-        //     $data['status'] = false;
-        // } else {
-        //     $data['status'] = true;
-        // }
+        if (input('nm_cabang') == '') {
+            $data['inputerror'][] = 'nm_cabang';
+            $data['error'][] = 'field ini harus diisi';
+            $data['status'] = false;
+        }
+
+        if (input('jns_nota') == '') {
+            $data['inputerror'][] = 'jns_nota';
+            $data['error'][] = 'field ini harus diisi';
+            $data['status'] = false;
+        }
 
 
-        // if ($data['status'] === false) {
-        //     echo json_encode($data);
-        //     exit;
-        // }
-
-        valid('no_cif', 'nomor cif', 'required|trim|numeric|max_length[10]');
-        valid('nm_cabang', 'nama cabang', 'required|trim');
-
-        if(!$this->form_validation->run()){
-            // $data['inputerror'][] = 'nama';
-            // $data['error'][] = form_error('nama', '<p class="col-sm-8 col-sm-offset-4 text-danger">', '</p>');
-            $data = array(
-                'no_cif' => form_error('no_cif', '<p class="col-sm-8 col-sm-offset-4 text-danger">', '</p>'),
-                'nm_cabang' => form_error('nm_cabang', '<p class="col-sm-8 col-sm-offset-4 text-danger">', '</p>')
-            );
-
-            echo json_encode($data); exit;
-        } else {
-            echo json_encode(['status' => true]); exit;
+        if ($data['status'] === false) {
+            echo json_encode($data);
+            exit;
         }
     }
 
