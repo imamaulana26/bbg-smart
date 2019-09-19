@@ -2,6 +2,8 @@
 <script src="<?= base_url('assets'); ?>/vendor/sweetalert/js/sweetalert.min.js"></script>
 <!-- jQuery -->
 <script src="<?= base_url('assets'); ?>/vendor/jquery/jquery-3.3.1.min.js"></script>
+<!-- jQuery Validate -->
+<script src="<?= base_url('assets'); ?>/vendor/jquery/jquery.validate.min.js"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="<?= base_url('assets'); ?>/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!-- Metis Menu Plugin JavaScript -->

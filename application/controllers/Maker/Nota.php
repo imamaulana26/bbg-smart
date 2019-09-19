@@ -25,62 +25,10 @@ class Nota extends CI_Controller
         $this->load->view($page, $data);
     }
 
-    public function _validate()
-    {
-        $data = array();
-        $data['inputerror'] = array();
-        $data['error'] = array();
-        $data['status'] = true;
-
-        if (input('no_cif') == '') {
-            $data['inputerror'][] = 'no_cif';
-            $data['error'][] = 'field harus diisi';
-            $data['status'] = false;
-        } else if (!preg_match('/^[0-9]+$/', input('no_cif'))) {
-            $data['inputerror'][] = 'no_cif';
-            $data['error'][] = 'pengisian tidak valid, harus numberic';
-            $data['status'] = false;
-        } else if (strlen(input('no_cif')) < 10) {
-            $data['inputerror'][] = 'no_cif';
-            $data['error'][] = 'pengisian tidak boleh kurang dari 10 digit';
-            $data['status'] = false;
-        }
-
-        if (input('nm_nasabah') == '') {
-            $data['inputerror'][] = 'nm_nasabah';
-            $data['error'][] = 'field ini harus diisi';
-            $data['status'] = false;
-        } elseif(!preg_match('/^[a-z A-Z]+$/', input('nm_nasabah'))) {
-            $data['inputerror'][] = 'nm_nasabah';
-            $data['error'][] = 'data tidak valid, harus alphabet';
-            $data['status'] = false;
-        }
-
-        if (input('nm_cabang') == '') {
-            $data['inputerror'][] = 'nm_cabang';
-            $data['error'][] = 'field ini harus diisi';
-            $data['status'] = false;
-        }
-
-        if (input('jns_nota') == '') {
-            $data['inputerror'][] = 'jns_nota';
-            $data['error'][] = 'field ini harus diisi';
-            $data['status'] = false;
-        }
-
-
-        if ($data['status'] === false) {
-            echo json_encode($data);
-            exit;
-        }
-    }
-
     // Reksus
 
     public function save_nota()
     {
-        $this->_validate();
-
         // $no_app = $this->input->post('no_app', true);
         // $this->session->set_userdata(['no_app' => $no_app]);
 

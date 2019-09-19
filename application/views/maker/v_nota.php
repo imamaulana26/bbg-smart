@@ -14,681 +14,266 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal" id="form_nsbh" autocomplete="off">
+                <form id="form_nsbh" method="post" class="form-horizontal" action="" autocomplete="off">
                     <div class="panel-group" id="accordion">
+                        <!-- DATA NASABAH -->
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <span data-toggle="collapse" data-parent="#accordion" href="#collapse1" style="cursor: pointer">
-                                    <h4 class="panel-title"><i class="fa fa-fw fa-info-circle"></i> INFORMASI UMUM</h4>
-                                </span>
-                            </div>
-                            <div id="collapse1" class="panel-collapse collapse in">
-                                <div class="panel-body">
+                            <div class="panel-body">
+                                <h4><strong>A. INFORMASI UMUM</strong></h4>
+                                <hr>
+                                <!-- info umum -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Nomor Aplikasi</label>
+                                            <div class="col-sm-4">
+                                                <?= tag_input('text', 'no_app', date('ymd') . mt_rand(), 'readonly'); ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Referensi <span class="note">*</span></label>
+                                            <div class="col-sm-4">
+                                                <select name="referensi" id="referensi" class="form-control selectpicker">
+                                                    <option disabled selected>-- Please Select --</option>
+                                                    <option value="Referal BSM">Referal BSM</option>
+                                                    <option value="Referal Non BSM">Referal Non BSM</option>
+                                                    <option value="Canvasing">Canvasing</option>
+                                                    <option value="Walk In">Walk In</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Nama Cabang <span class="note">*</span></label>
+                                            <div class="col-sm-8">
+                                                <select name="nm_cabang" id="nm_cabang" class="form-control selectpicker" data-live-search="true" data-size="10">
+                                                    <option selected disabled>-- Please Select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Nomor CIF <span class="note">*</span></label>
+                                            <div class="col-sm-4">
+                                                <?= tag_input('text', 'no_cif') ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Nasabah Funding
+                                                <a data-toggle="tooltip" data-placement="top" title="diisi jika ada">
+                                                    <i class="fa fa-fw fa-question-circle"></i>
+                                                </a>
+                                            </label>
+                                            <div class="col-sm-4">
+                                                <?= tag_input('text', 'tgl_funding', '', 'placeholder="yyyy-mm-dd" data-provide="datepicker" data-date-format="yyyy-mm-dd"') ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Nasabah Lending
+                                                <a data-toggle="tooltip" data-placement="top" title="diisi jika ada">
+                                                    <i class="fa fa-fw fa-question-circle"></i>
+                                                </a>
+                                            </label>
+                                            <div class="col-sm-4">
+                                                <?= tag_input('text', 'tgl_lending', '', 'placeholder="yyyy-mm-dd" data-provide="datepicker" data-date-format="yyyy-mm-dd"') ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Nama <span class="note">*</span></label>
+                                            <div class="col-sm-6">
+                                                <textarea class="form-control" name="nama" id="nama" rows=3></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Branch Manager <span class="note">*</span></label>
+                                            <div class="col-sm-6">
+                                                <?= tag_input('text', 'bm') ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">BBRM <span class="note">*</span></label>
+                                            <div class="col-sm-6">
+                                                <?= tag_input('text', 'bbrm') ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Jenis Usaha <span class="note">*</span></label>
+                                            <div class="col-sm-4">
+                                                <select name="jns_usaha" id="jns_usaha" class="form-control selectpicker">
+                                                    <option disabled selected>-- Please Select --</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Jenis Nota <span class="note">*</span></label>
+                                            <div class="col-sm-4">
+                                                <select name="jns_nota" id="jns_nota" class="form-control selectpicker">
+                                                    <option selected disabled>-- Please Select --</option>
+                                                    <option value="Perdagangan">Perdagangan</option>
+                                                    <option value="Jasa Pendidikan">Jasa Pendidikan</option>
+                                                    <option value="Jasa Kesehatan">Jasa Kesehatan</option>
+                                                    <option value="Alat Kesehatan">Alat Kesehatan</option>
+                                                    <option value="Reksus">Reksus</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Jenis Aplikasi <span class="note">*</span></label>
+                                            <div class="col-sm-4">
+                                                <select name="jns_app" id="jsn_app" class="form-control selectpicker">
+                                                    <option selected disabled>-- Please Select --</option>
+                                                    <option value="Baru">Baru</option>
+                                                    <option value="Top Up">Top Up</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Nama Nasabah <span class="note">*</span></label>
+                                            <div class="col-sm-6">
+                                                <?= tag_input('text', 'nm_nasabah') ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Tempat Kunjungan <span class="note">*</span></label>
+                                            <div class="col-sm-4">
+                                                <select name="tmpt_visit" id="tmpt_visit" class="form-control selectpicker">
+                                                    <option disabled selected>-- Please Select --</option>
+                                                    <option value="Kantor">Kantor</option>
+                                                    <option value="Rumah">Rumah</option>
+                                                    <option value="Toko">Toko</option>
+                                                    <option value="Pabrik">Pabrik</option>
+                                                    <option value="Gudang">Gudang</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Tanggal Kunjungan <span class="note">*</span></label>
+                                            <div class="col-sm-4">
+                                                <div class="datepicker-center">
+                                                    <div class="input-group date">
+                                                        <div class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-calendar"></i>
+                                                        </div>
+                                                        <?= tag_input('text', 'tgl_visit', '', 'placeholder="yyyy-mm-dd"') ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Tanggal NAP <span class="note">*</span></label>
+                                            <div class="col-sm-4">
+                                                <div class="datepicker-center">
+                                                    <div class="input-group date">
+                                                        <div class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-calendar"></i>
+                                                        </div>
+                                                        <?= tag_input('text', 'tgl_nap', '', 'placeholder="yyyy-mm-dd"') ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">Jabatan <span class="note">*</span></label>
+                                            <div class="col-sm-6">
+                                                <textarea class="form-control" name="jabatan" id="jabatan" rows=3></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">NIP BM <span class="note">*</span></label>
+                                            <div class="col-sm-3">
+                                                <?= tag_input('text', 'nip_bm') ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">NIP BBRM <span class="note">*</span></label>
+                                            <div class="col-sm-3">
+                                                <?= tag_input('text', 'nip_bbrm') ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- / info umum -->
+
+                                <hr>
+                                <h4><strong>B. BADAN HUKUM / NON BADAN HUKUM</strong></h4>
+                                <hr>
+                                <!-- badan usaha -->
+                                <div id="bdn_usaha" style="display: none">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4">Nomor Aplikasi</label>
-                                                <div class="col-sm-4">
-                                                    <?= tag_input('text', 'no_app', date('ymd') . mt_rand(), 'readonly'); ?>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Referensi <span class="note">*</span></label>
-                                                <div class="col-sm-4">
-                                                    <select name="referensi" id="referensi" class="form-control selectpicker">
-                                                        <option value="Referal BSM">Referal BSM</option>
-                                                        <option value="Referal Non BSM">Referal Non BSM</option>
-                                                        <option value="Canvasing">Canvasing</option>
-                                                        <option value="Walk In">Walk In</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Nama Cabang <span class="note">*</span></label>
-                                                <div class="col-sm-8">
-                                                    <select name="nm_cabang" id="nm_cabang" class="form-control selectpicker" data-live-search="true" data-size="10">
-                                                        <option selected disabled>-- Please Select --</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <span class="help-block" id="nm_cabang"></span>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Nomor CIF <span class="note">*</span></label>
-                                                <div class="col-sm-4">
-                                                    <?= tag_input('text', 'no_cif') ?>
-                                                </div>
-                                            </div>
-                                            <span class="help-block" id="no_cif"></span>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Nasabah Funding
-                                                    <a data-toggle="tooltip" data-placement="top" title="diisi jika ada">
-                                                        <i class="fa fa-fw fa-question-circle"></i>
-                                                    </a>
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <div class="datepicker-center">
-                                                        <div class="input-group date">
-                                                            <?= tag_input('text', 'tgl_funding', '', 'placeholder="yyyy-mm-dd"') ?>
-                                                            <div class="input-group-addon">
-                                                                <i class="glyphicon glyphicon-calendar"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Nasabah Lending
-                                                    <a data-toggle="tooltip" data-placement="top" title="diisi jika ada">
-                                                        <i class="fa fa-fw fa-question-circle"></i>
-                                                    </a>
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <div class="datepicker-center">
-                                                        <div class="input-group date">
-                                                            <?= tag_input('text', 'tgl_lending', '', 'placeholder="yyyy-mm-dd"') ?>
-                                                            <div class="input-group-addon">
-                                                                <i class="glyphicon glyphicon-calendar"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Nama <span class="note">*</span></label>
+                                                <label class="control-label col-sm-4">Nama Pemohon <span class="note">*</span></label>
                                                 <div class="col-sm-6">
-                                                    <textarea class="form-control" name="nama" id="nama" rows=3></textarea>
-
+                                                    <?= tag_input('text', 'nm_pemohon'); ?>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4">Branch Manager <span class="note">*</span></label>
-                                                <div class="col-sm-6">
-                                                    <?= tag_input('text', 'bm') ?>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">BBRM <span class="note">*</span></label>
-                                                <div class="col-sm-6">
-                                                    <?= tag_input('text', 'bbrm') ?>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Jenis Usaha <span class="note">*</span></label>
-                                                <div class="col-sm-4">
-                                                    <select name="jns_usaha" id="jns_usaha" class="form-control selectpicker">
-                                                        <option disabled selected>-- Please Select --</option>
-                                                    </select>
+                                                <label class="control-label col-sm-4">No. Akta Pendirian <span class="note">*</span></label>
+                                                <div class="col-sm-5">
+                                                    <?= tag_input('text', 'no_akta_pendirian'); ?>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4">Jenis Nota <span class="note">*</span></label>
-                                                <div class="col-sm-4">
-                                                    <select name="jns_nota" id="jns_nota" class="form-control selectpicker">
-                                                        <option selected disabled>-- Please Select --</option>
-                                                        <option value="Perdagangan">Perdagangan</option>
-                                                        <option value="Jasa Pendidikan">Jasa Pendidikan</option>
-                                                        <option value="Jasa Kesehatan">Jasa Kesehatan</option>
-                                                        <option value="Alat Kesehatan">Alat Kesehatan</option>
-                                                        <option value="Reksus">Reksus</option>
-                                                    </select>
+                                                <label class="control-label col-sm-4">No. NPWP Nasabah <span class="note">*</span></label>
+                                                <div class="col-sm-5">
+                                                    <?= tag_input('text', 'no_npwp_nsbh'); ?>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-4">Jenis Aplikasi <span class="note">*</span></label>
-                                                <div class="col-sm-4">
-                                                    <select name="jns_app" id="jsn_app" class="form-control selectpicker">
-                                                        <option value="Baru">Baru</option>
-                                                        <option value="Top Up">Top Up</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Nama Nasabah <span class="note">*</span></label>
-                                                <div class="col-sm-6">
-                                                    <?= tag_input('text', 'nm_nasabah') ?>
-                                                </div>
-                                            </div>
-                                            <span class="help-block" id="nm_nasabah"></span>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Tempat Kunjungan <span class="note">*</span></label>
-                                                <div class="col-sm-4">
-                                                    <select name="tmpt_visit" id="tmpt_visit" class="form-control selectpicker">
-                                                        <option disabled selected>-- Please Select --</option>
-                                                        <option value="Kantor">Kantor</option>
-                                                        <option value="Rumah">Rumah</option>
-                                                        <option value="Toko">Toko</option>
-                                                        <option value="Pabrik">Pabrik</option>
-                                                        <option value="Gudang">Gudang</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Tanggal Kunjungan <span class="note">*</span></label>
-                                                <div class="col-sm-4">
-                                                    <div class="datepicker-center">
-                                                        <div class="input-group date">
-                                                            <?= tag_input('text', 'tgl_visit', '', 'placeholder="yyyy-mm-dd"') ?>
-                                                            <div class="input-group-addon">
-                                                                <i class="glyphicon glyphicon-calendar"></i>
-                                                            </div>
+                                            <label class="control-label col-sm-4">Tgl. Akta Pendirian <span class="note">*</span></label>
+                                            <div class="col-sm-4">
+                                                <div class="datepicker-center">
+                                                    <div class="input-group date">
+                                                        <div class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-calendar"></i>
                                                         </div>
+                                                        <?= tag_input('text', 'tgl_akta_pendirian', '', 'placeholder="yyyy-mm-dd"') ?>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- / badan usaha -->
 
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Tanggal NAP <span class="note">*</span></label>
-                                                <div class="col-sm-4">
-                                                    <div class="datepicker-center">
-                                                        <div class="input-group date">
-                                                            <?= tag_input('text', 'tgl_nap', '', 'placeholder="yyyy-mm-dd"') ?>
-                                                            <div class="input-group-addon">
-                                                                <i class="glyphicon glyphicon-calendar"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Jabatan <span class="note">*</span></label>
-                                                <div class="col-sm-6">
-                                                    <textarea class="form-control" name="jabatan" id="jabatan" rows=3></textarea>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">NIP BM <span class="note">*</span></label>
-                                                <div class="col-sm-3">
-                                                    <?= tag_input('text', 'nip_bm') ?>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">NIP BBRM <span class="note">*</span></label>
-                                                <div class="col-sm-3">
-                                                    <?= tag_input('text', 'nip_bbrm') ?>
-
-                                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-sm-4 col-sm-offset-4">
+                                                <button type="submit" id="submit" class="btn btn-primary">
+                                                    <i class="fa fa-fw fa-save"></i> Simpan
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <span data-toggle="collapse" data-parent="#accordion" href="#collapse2" style="cursor: pointer">
-                                    <h4 class="panel-title"><i class="fa fa-fw fa-users"></i> INFORMASI PEMOHON</h4>
-                                </span>
-                            </div>
-                            <div id="collapse2" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <!-- badan usaha -->
-                                    <div id="bdn_usaha" style="display: none">
-                                        <p class="text-center">BADAN HUKUM / NON BADAN HUKUM</p>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Nama Pemohon <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <?= tag_input('text', 'nm_pemohon') ?>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">No. NPWP Nasabah <span class="note">*</span></label>
-                                                    <div class="col-sm-5">
-                                                        <?= tag_input('text', 'npwp_nsbh') ?>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">No. Akta Pendirian <span class="note">*</span></label>
-                                                    <div class="col-sm-5">
-                                                        <?= tag_input('text', 'no_akta_pendirian1') ?>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Tanggal Akta Pendirian <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <div class="datepicker-center">
-                                                            <div class="input-group date">
-                                                                <?= tag_input('text', 'tgl_akta_pendirian1', '', 'placeholder="yyyy-mm-dd"') ?>
-                                                                <div class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">No. Akta Terakhir <span class="note">*</span></label>
-                                                    <div class="col-sm-5">
-                                                        <?= tag_input('text', 'no_akta_terakhir1') ?>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Tanggal Akta Terakhir <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <div class="datepicker-center">
-                                                            <div class="input-group date">
-                                                                <?= tag_input('text', 'tgl_akta_terakhir1', '', 'placeholder="yyyy-mm-dd"') ?>
-                                                                <div class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Kontak Person <span class="note">*</span></label>
-                                                    <div class="col-sm-5">
-                                                        <?= tag_input('text', 'kontak_person') ?>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Jabatan <span class="note">*</span></label>
-                                                    <div class="col-sm-5">
-                                                        <select name="jabatan" id="jabatan" class="form-control selectpicker">
-                                                            <option selected disabled>-- Please Select --</option>
-                                                            <option value="Direktur Utama">Direktur Utama</option>
-                                                            <option value="Direktur">Direktur</option>
-                                                            <option value="Komisaris Utama">Komisaris Utama</option>
-                                                            <option value="Komisaris">Komisaris</option>
-                                                            <option value="Perseroan Komanditer">Perseroan Komanditer</option>
-                                                        </select>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Alamat Sesuai Kantor <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <textarea class="form-control" name="almt_akta" id="almt_akta" rows="3"></textarea>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Alamat Kantor <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <textarea class="form-control" name="almt_kantor1" id="almt_kantor1" rows="3"></textarea>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /badan usaha -->
-
-                                    <!-- perorangan -->
-                                    <div id="perorangan" style="block">
-                                        <p class="text-center">PERORANGAN</p>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Nomor KTP <span class="note">*</span></label>
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group">
-                                                            <?= tag_input('text', 'no_ktp') ?>
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-search" id="btn_find" onclick="find()" style="cursor: pointer"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Nama Nasabah <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <?= tag_input('text', 'nm_nsbh', '', 'readonly') ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Tempat Lahir <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <?= tag_input('text', 'tmpt_lahir', '', 'readonly') ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Agama <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <select name="agama" id="agama" class="form-control selectpicker">
-                                                            <option selected disabled>-- Please Select --</option>
-                                                            <?php $agama = array('Islam', 'Kristen', 'Khatolik', 'Hindu', 'Budha');
-                                                            foreach ($agama as $key => $val) {
-                                                                echo "<option value='" . ($key + 1) . "'>" . $val . "</option>";
-                                                            } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Nama Ibu Kandung <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <?= tag_input('text', 'nm_ibu', '', 'readonly') ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">No. Telpon Nasabah <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <?= tag_input('text', 'no_telp') ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Pendidikan Terakhir <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <select name="pendidikan" id="pendidikan" class="form-control selectpicker">
-                                                            <option selected disabled>-- Please Select --</option>
-                                                            <?php $arr_pend = array('SD', 'SMP', 'SMA', 'D1', 'D2', 'D3', 'S1', 'S2', 'S3');
-                                                            foreach ($arr_pend as $pend) {
-                                                                echo "<option value='" . $pend . "'>" . $pend . "</option>";
-                                                            } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Kode Pos KTP <span class="note">*</span></label>
-                                                    <div class="col-sm-2">
-                                                        <?= tag_input('text', 'kd_pos_ktp', '', 'readonly') ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Alamat KTP <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <textarea class="form-control" name="almt_ktp" id="almt_ktp" rows="3" readonly></textarea>
-                                                        <label style="cursor: pointer"><input type="checkbox" id="verify" onclick="get_verify()"> Alamat domisili sama dengan KTP</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Expired KTP
-                                                        <i style="color: #08c" class="fa fa-fw fa-question-circle" data-toggle="tooltip" data-placement="top" title="Apabila KTP seumur hidup, maka field Expired KTP dikosongkan"></i>
-                                                    </label>
-                                                    <div class="col-sm-4">
-                                                        <div class="datepicker-center">
-                                                            <div class="input-group date">
-                                                                <?= tag_input('text', 'exp_ktp', '', 'placeholder="yyyy-mm-dd"') ?>
-                                                                <div class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">No. NPWP Nasabah <span class="note">*</span></label>
-                                                    <div class="col-sm-5">
-                                                        <?= tag_input('text', 'no_npwp_nsbh') ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Tanggal Lahir <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <div class="datepicker-center">
-                                                            <div class="input-group date">
-                                                                <?= tag_input('text', 'tgl_lahir', '', 'readonly placeholder="yyyy-mm-dd"') ?>
-                                                                <div class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Usia <span class="note">*</span></label>
-                                                    <div class="col-sm-2">
-                                                        <?= tag_input('text', 'usia', '', 'readonly') ?>
-                                                    </div>
-                                                    <label class="control-label">Tahun</label>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-6">Nasabah Termasuk Pihak Terkait Bank <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <label class="radio-inline"><input type="radio" name="nsbh_bank" value="Y">Ya</label>
-                                                        <label class="radio-inline"><input type="radio" name="nsbh_bank" value="N">Tidak</label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">No. HP Nasabah <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <?= tag_input('text', 'no_hp') ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Status Pernikahan <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <select name="sts_nikah" id="sts_nikah" class="form-control selectpicker">
-                                                            <option disabled selected>-- Please Select --</option>
-                                                            <option value="Menikah">Menikah</option>
-                                                            <option value="Belum Menikah">Belum Menikah</option>
-                                                            <option value="Cerai">Cerai</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Kode Pos Domisili <span class="note">*</span></label>
-                                                    <div class="col-sm-2">
-                                                        <?= tag_input('text', 'kd_pos_dom') ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Alamat Domisili <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <textarea class="form-control" name="almt_dom" id="almt_dom" rows="3"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- spouse -->
-                                        <div class="row" id="spouse" style="display: none">
-                                            <hr><p class="text-center">INFORMASI PASANGAN PEMOHON PERORANGAN</p><hr>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Nomor KTP <span class="note">*</span></label>
-                                                    <div class="col-sm-5">
-                                                        <div class="input-group">
-                                                            <?= tag_input('text', 'no_ktp_spouse') ?>
-                                                            <div class="input-group-addon">
-                                                                <i class="fa fa-search" id="btn_spouse" onclick="find_spouse()" style="cursor: pointer"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Nama Spouse <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <?= tag_input('text', 'nm_spouse', '', 'readonly') ?>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Tempat Lahir <span class="note">*</span></label>
-                                                    <div class="col-sm-6">
-                                                        <?= tag_input('text', 'tmpt_lahir_spouse', '', 'readonly') ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Expired KTP
-                                                        <i style="color: #08c" class="fa fa-fw fa-question-circle" data-toggle="tooltip" data-placement="top" title="Apabila KTP seumur hidup, maka field Expired KTP dikosongkan"></i>
-                                                    </label>
-                                                    <div class="col-sm-4">
-                                                        <div class="datepicker-center">
-                                                            <div class="input-group date">
-                                                                <?= tag_input('text', 'exp_ktp_spouse', '', 'placeholder="yyyy-mm-dd"') ?>
-                                                                <div class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Pendidikan Terakhir <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <select name="pend_spouse" id="pend_spouse" class="form-control selectpicker">
-                                                            <option selected disabled>-- Please Select --</option>
-                                                            <?php $arr_pend = array('SD', 'SMP', 'SMA', 'D1', 'D2', 'D3', 'S1', 'S2', 'S3');
-                                                            foreach ($arr_pend as $pend) {
-                                                                echo "<option value='" . $pend . "'>" . $pend . "</option>";
-                                                            } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Tanggal Lahir <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <div class="datepicker-center">
-                                                            <div class="input-group date">
-                                                                <?= tag_input('text', 'tgl_lahir_spouse', '', 'readonly placeholder="yyyy-mm-dd"') ?>
-                                                                <div class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /spouse -->
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">No. Kartu Keluarga <span class="note">*</span></label>
-                                                    <div class="col-sm-5">
-                                                        <?= tag_input('text', 'no_kk', '', 'readonly') ?>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-4">Tanggal Kartu Keluarga <span class="note">*</span></label>
-                                                    <div class="col-sm-4">
-                                                        <div class="datepicker-center">
-                                                            <div class="input-group date">
-                                                                <?= tag_input('text', 'tgl_kk', '', 'placeholder="yyyy-mm-dd"') ?>
-                                                                <div class="input-group-addon">
-                                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /perorangan -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <span data-toggle="collapse" data-parent="#accordion" href="#collapse3" style="cursor: pointer">
-                                    <h4 class="panel-title"><i class="fa fa-fw fa-building"></i> INFORMASI USAHA</h4>
-                                </span>
-                            </div>
-                            <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo consequat.</div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <span data-toggle="collapse" data-parent="#accordion" href="#collapse4" style="cursor: pointer">
-                                    <h4 class="panel-title"><i class="fa fa-fw fa-exclamation-triangle"></i> DISCLAIMER</h4>
-                                </span>
-                            </div>
-                            <div id="collapse4" class="panel-collapse collapse">
-                                <div class="panel-body">
-                                    <p>Dengan ini saya <?= "<b>" . $name . "</b>" ?> menyatakan bahwa semua data atau informasi yang diberikan dalam formulir ini adalah benar, akurat, dan lengkap serta dapat dipertanggung jawabkan,
-                                        jika terdapat kerucangan dalam pengisian data maka saya bersedia menerima konsekuensi yang berlaku.</p>
-                                    <center>
-                                        <label style="cursor: pointer"><input type="checkbox" id="disclaim" onclick="disclaimer()"> Saya menyatakan bahwa memahami dengan baik semua pernyataan diatas.</label><br><br>
-                                        <span class="btn btn-primary" id="btn_disclaimer" onclick="save()">Setuju dan Simpan</span>
-                                    </center>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- /DATA NASABAH -->
                     </div>
                 </form>
             </div>
@@ -703,6 +288,7 @@
 
 <script>
     $(document).ready(function() {
+        validate();
         get_cabang();
         get_lsmk();
         $('.selectpicker').selectpicker('refresh');
@@ -715,7 +301,7 @@
             if ($(this).val() == 'Reksus') {
                 $('#jns_usaha').html(opt);
             } else {
-                $('#jns_usaha').html(opt+'<option value="Perorangan">Perorangan</option>');
+                $('#jns_usaha').html(opt + '<option value="Perorangan">Perorangan</option>');
             }
             $('.selectpicker').selectpicker('refresh');
         });
@@ -742,16 +328,96 @@
             $('#bid_lsmk').val($(this).val());
             $('.selectpicker').selectpicker('refresh');
         });
-
-        $('.add-more').click(function() {
-            var html = $('.copy').html();
-            $('.after-add-more').after(html);
-        });
-        $('body').on('click', '.remove', function() {
-            $(this).parents('.duplicate').remove();
-        });
-
     });
+
+    jQuery.validator.addMethod("accept", function(value, element, param) {
+        return value.match(new RegExp("^" + param + "$"));
+    }, "Please enter the valid alphabet.");
+
+    function validate() {
+        $("#form_nsbh").validate({
+            // ignore: ':not(select:hidden, input:visible, textarea:visible)',
+            rules: {
+                no_cif: {
+                    required: true,
+                    maxlength: 10,
+                    number: true
+                },
+                nip_bbrm: {
+                    required: true,
+                    maxlength: 10,
+                    number: true
+                },
+                nip_bm: {
+                    required: true,
+                    maxlength: 10,
+                    number: true
+                },
+                nm_nasabah: {
+                    required: true,
+                    accept: "[a-z A-Z]+"
+                },
+                bm: {
+                    required: true,
+                    accept: "[a-z A-Z]+"
+                },
+                bbrm: {
+                    required: true,
+                    accept: "[a-z A-Z]+"
+                },
+                nama: {
+                    required: true,
+                    accept: "[a-zA-Z, ]+"
+                },
+                jabatan: {
+                    required: true,
+                    accept: "[a-zA-Z, ]+"
+                },
+                nm_cabang: "required",
+                jns_nota: "required",
+                referensi: "required",
+                jns_app: "required",
+                tgl_nap: "required",
+                tgl_visit: "required",
+                tmpt_visit: "required",
+                jns_usaha: "required",
+            },
+            errorElement: "p",
+            errorPlacement: function(error, element) {
+                // Add the `help-block` class to the error element
+                error.addClass("help-block");
+
+                // Add `has-feedback` class to the parent div.form-group
+                // in order to add icons to inputs
+                element.parent().addClass("has-feedback");
+
+                if ($(element).is('select') || $(element).parent().hasClass('input-group')) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element); // default placement for everything else
+                }
+
+                // Add the span element, if doesn't exists, and apply the icon classes to it.
+                if (!element.next("span")[0]) {
+                    $("<span class='glyphicon glyphicon-remove form-control-feedback'></span>").insertAfter(element);
+                }
+            },
+            success: function(label, element) {
+                // Add the span element, if doesn't exists, and apply the icon classes to it.
+                if (!$(element).next("span")[0]) {
+                    $("<span class='glyphicon glyphicon-ok form-control-feedback'></span>").insertAfter($(element));
+                }
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).parent().addClass("has-error").removeClass("has-success");
+                $(element).next("span").addClass("glyphicon-remove").removeClass("glyphicon-ok");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).parent().addClass("has-success").removeClass("has-error");
+                $(element).next("span").addClass("glyphicon-ok").removeClass("glyphicon-remove");
+            }
+        });
+    }
 
     function get_verify() {
         if (document.getElementById('verify').checked) {
@@ -761,7 +427,6 @@
             $('#kd_pos_dom').val('');
             $('#almt_dom').val('');
         }
-
     }
 
     function disclaimer() {
@@ -896,47 +561,6 @@
     }
 
     // CRUD AJAX
-    function save() {
-        url = '<?= site_url(ucfirst('maker/nota/save_nota')) ?>';
-
-        $.ajax({
-            url: url,
-            type: 'post',
-            dataType: 'json',
-            data: $('#form_nsbh').serialize(),
-            success: function(data) {
-                if (data) {
-                    swal('Peringatan!', 'Tolong isi form dengan data yang sesuai', 'error');
-                    for (var i = 0; i < data.inputerror.length; i++) {
-                        $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass('has-error');
-                        $('[name="' + data.inputerror[i] + '"]').next().text(data.error[i]);
-                    }
-                    // $.each(data, function(key, val) {
-                    //     if (val != '') {
-                    //         $('#' + key).parents('.form-group').addClass('has-error');
-                    //         $('span#' + key).html(val);
-                    //     } else {
-                    //         $('#' + key).parents('.form-group').removeClass('has-error').addClass('has-success');
-                    //         // $('span#' + key).html(val);
-                    //     }
-                    // });
-                } else {
-                    // console.log(data);
-                    // swal('Sukses!', 'Data nasabah telah berhasil disimpan', 'success');
-                    // $('#form_nsbh')[0].reset();
-                    // $('.selectpicker').selectpicker('refresh');
-                    // $('.clone').remove();
-                    // window.location.href = '<?= site_url('Maker/Pengurus') ?>';
-                    swal('Berhasil!', 'Data berhasil disimpan', 'success');
-
-                    $.each(data, function(key, val) {
-                        $('#' + key).parents('.form-group').removeClass('has-error');
-                        $('span#' + key).html(val);
-                    });
-                }
-            }
-        });
-    }
 
     function edit() {
         var no_app = '<?= $this->uri->segment(4) ?>';
